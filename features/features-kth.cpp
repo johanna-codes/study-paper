@@ -17,7 +17,13 @@ using namespace arma;
 
 
 //Home
-const std::string path = "/media/johanna/HD1T/Datasets/KTH/"; 
+//const std::string path = "/media/johanna/HD1T/codes/datasets_codes/KTH/"; 
+
+//WANDA
+const std::string path = "/home/johanna/codes/datasets_codes/KTH/";
+
+
+
 const std::string peopleList = "people_list.txt";
 const std::string  actionNames = "actionNames.txt";
 
