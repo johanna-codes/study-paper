@@ -109,7 +109,7 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
   vec total_seg; 
   total_seg.zeros(1);
   total_seg( 0 ) = s;
-  save_seg << save_folder.str() << "/num_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
+  save_seg << save_folder.str() << "/num_seg_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
   total_seg.save( save_seg.str() );
 
 }
