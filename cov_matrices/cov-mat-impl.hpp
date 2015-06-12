@@ -69,15 +69,17 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
   for (int l=2; l<last-segment_length; l = l+4 )
   {
     running_stat_vec<rowvec> stat_seg(true);
-    int k =0;
+    //int k =0;
+    
+    cout << " " << l;
 
 
     for (int j=l; j<=segment_length+1; ++j)
     {
-      k++;
+      //k++;
       uvec indices = find(lab_video_i == j);
       mat tmp_feat = mat_features_video_i.cols(indices);
-      cout << "row&col " << tmp_feat.n_rows << " & " << tmp_feat.n_cols << endl;
+      //cout << "row&col " << tmp_feat.n_rows << " & " << tmp_feat.n_cols << endl;
       for (int v=0; v < tmp_feat.n_cols; ++v)
       {
 	vec sample = tmp_feat.col(v);
@@ -88,14 +90,13 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
    
     }
    
-   cout << "k= " << k << endl;
-   getchar();
-   
+  //aca guardar el segmento y crear un txt con los nombres de los segmentos
+  
    
     
   }
 	
-	
+getchar();	
   
 }
 
