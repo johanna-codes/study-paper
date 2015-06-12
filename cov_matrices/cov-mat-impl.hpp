@@ -14,8 +14,9 @@ cov_mat_kth::cov_mat_kth( const std::string in_path,
 
 inline
 void
-cov_mat_kth::calculate( field<string> all_people, int  in_dim  )
+cov_mat_kth::calculate( field<string> in_all_people, int  in_dim  )
 {
+  all_people = in_all_people;
   dim = in_dim;
   int n_actions = actions.n_rows;
   int n_peo =  all_people.n_rows;
@@ -40,7 +41,7 @@ cov_mat_kth::calculate( field<string> all_people, int  in_dim  )
 	load_labels_video_i << load_folder.str() << "/lab_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
 	
 	//For one Video
-	cov_mat_kth::one_video(load_feat_video_i.str(),	 load_labels_video_i.str() );
+	cov_mat_kth::one_video(load_feat_video_i.str(),	 load_labels_video_i.str(), sc, pe, act );
 	getchar();
 	
 	
@@ -57,7 +58,7 @@ cov_mat_kth::calculate( field<string> all_people, int  in_dim  )
 
 inline
 void
-cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_video_i )
+cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_video_i, int sc, int pe, int act )
 {
   mat mat_features_video_i;
   vec lab_video_i;
