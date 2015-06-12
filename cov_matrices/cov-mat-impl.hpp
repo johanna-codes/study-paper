@@ -95,7 +95,10 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
    
 
    std::stringstream save_feat_video_i;
-   save_feat_video_i << save_folder.str() << "/cov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
+   save_cov_seg << save_folder.str() << "/cov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
+   
+   mat cov_seg_i = stat_seg.cov();
+   cov_seg_i.save( save_cov_seg.str() ); 
    s++;
     
    
@@ -106,24 +109,9 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
   vec total_seg; 
   total_seg.zeros(1);
   total_seg( 0 ) = s;
-  cout << "Loading.." << endl;
   save_seg << save_folder.str() << "/num_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
   total_seg.save( save_seg.str() );
 
 }
 
 
-
-
-/*
-running_stat_vec<rowvec> more_stats(true);
-
-for(uword i=0; i<20; ++i)
-  {
-  sample = randu<rowvec>(3);
-  
-  sample(1) -= sample(0);
-  sample(2) += sample(1);
-  
-  more_stats(sample);
-  }*/
