@@ -63,7 +63,7 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
   
   mat_features_video_i.load( load_feat_video_i, raw_ascii );
   lab_video_i.load( load_labels_video_i, raw_ascii );
-  vec n_vec = lab_video_i.n_elem;
+  int n_vec = lab_video_i.n_elem;
   int last = lab_video_i( n_vec - 1 );
   
   for (int l=2; l<last-segment_length; l = l+4 )
