@@ -41,6 +41,7 @@ cov_mat_kth::calculate( field<string> all_people, int  in_dim  )
 	
 	//For one Video
 	cov_mat_kth::one_video(load_feat_video_i.str(),	 load_labels_video_i.str() );
+	getchar();
 	
 	
 	
@@ -100,25 +101,18 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
 
    std::stringstream save_feat_video_i;
    save_feat_video_i << save_folder.str() << "/cov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
-
-    s++;
-  //aca guardar el segmento y crear un txt con los nombres de los segmentos
-  
-   
+   s++;
     
+   
   }
   
   
   std::stringstream save_seg;
   uvec total_seg = s;
-  
-   cout << "Loading.." << endl;
-   save_seg << save_folder.str() << "/num_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
-   total_seg.save( save_seg.str() );
+  cout << "Loading.." << endl;
+  save_seg << save_folder.str() << "/num_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
+  total_seg.save( save_seg.str() );
 
-	
-
-  
 }
 
 
