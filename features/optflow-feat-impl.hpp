@@ -66,6 +66,7 @@ opt_feat::features_all_videos( field<string> all_people )
 	cout << save_feat_video_i.str() << endl;
 	//getchar();
 	mat_features_video_i.save( save_feat_video_i.str(), raw_ascii );
+	lab_video_i.save( save_labels_video_i.str(), raw_ascii );
       }
     }
   }
