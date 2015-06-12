@@ -66,6 +66,13 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
   int n_vec = lab_video_i.n_elem;
   int last = lab_video_i( n_vec - 1 );
   cout << last << endl;
+  
+  int s = 0;
+  
+  std::stringstream save_folder;
+  save_folder << "./kth-cov-mat/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
+     
+     
   for (int l=2; l<last-segment_length; l = l+4 )
   {
     running_stat_vec<rowvec> stat_seg(true);
@@ -90,13 +97,27 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
    
     }
    
+
+   std::stringstream save_feat_video_i;
+   save_feat_video_i << save_folder.str() << "/cov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
+
+    s++;
   //aca guardar el segmento y crear un txt con los nombres de los segmentos
   
    
     
   }
+  
+  
+  std::stringstream save_seg;
+  uvec total_seg = s;
+  
+   cout << "Loading.." << endl;
+   save_seg << save_folder.str() << "/num_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
+   total_seg.save( save_seg.str() );
+
 	
-getchar();	
+
   
 }
 
