@@ -19,7 +19,7 @@ const std::string actionNames;
 const int scale_factor;
 const int shift;
 const int scene;
-const int segment_length
+const int segment_length;
 int dim;
 
 field<std::string> actions;
