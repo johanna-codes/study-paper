@@ -25,6 +25,7 @@ field<std::string> actions;
 
 
   private:
+    one_video( std::string load_feat_video_i,	std::string load_labels_video_i );
 
 
  

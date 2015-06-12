@@ -28,8 +28,8 @@ const std::string peopleList = "people_list.txt";
 const std::string  actionNames = "actionNames.txt";
 
 ///kth
-int ori_col = 160;
-int ori_row = 120;
+// int ori_col = 160;
+// int ori_row = 120;
 
 
 
@@ -49,11 +49,12 @@ main(int argc, char** argv)
   int scale_factor = atoi( argv[1] );
   int shift = atoi( argv[2] );
   int scene = 4;
+  int segment_length = 20;
   
   field<string> all_people;
   all_people.load(peopleList);
   
-  opt_feat opt_feat_kth(path, actionNames, ori_col, ori_row, scale_factor, shift, scene);
+  cov_mat_kth get_cov_seg(path, actionNames, scale_factor, shift, scene, segment_length);
   opt_feat_kth.features_all_videos( all_people );
   
   
