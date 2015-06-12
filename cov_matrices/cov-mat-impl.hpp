@@ -98,7 +98,7 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
    save_cov_seg << save_folder.str() << "/cov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
    
    mat cov_seg_i = stat_seg.cov();
-   cov_seg_i.save( save_cov_seg.str() ); 
+   cov_seg_i.save( save_cov_seg.str(), raw_ascii ); 
    s++;
     
    
@@ -110,7 +110,7 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
   total_seg.zeros(1);
   total_seg( 0 ) = s;
   save_seg << save_folder.str() << "/num_seg_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
-  total_seg.save( save_seg.str() );
+  total_seg.save( save_seg.str(), raw_ascii );
 
 }
 
