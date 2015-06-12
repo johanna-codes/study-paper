@@ -103,7 +103,9 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
   
   
   std::stringstream save_seg;
-  uvec total_seg = conv_to< uvec >::from( s );
+  vec total_seg; 
+  total_seg.zeros(1)
+  total_seg( 0 ) = s;
   cout << "Loading.." << endl;
   save_seg << save_folder.str() << "/num_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
   total_seg.save( save_seg.str() );
