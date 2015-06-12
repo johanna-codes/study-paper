@@ -72,7 +72,7 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
     int k =0;
 
 
-    for (int j=l; j<segment_length; ++j)
+    for (int j=l; j<=segment_length+1; ++j)
     {
       k++;
       uvec indices = find(lab_video_i == j);
