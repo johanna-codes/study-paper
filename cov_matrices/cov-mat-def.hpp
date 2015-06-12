@@ -11,7 +11,7 @@ public:
     
 
 
-    
+    inline void calculate( field<string> all_people  );
 
 const std::string path;
 const std::string actionNames;
