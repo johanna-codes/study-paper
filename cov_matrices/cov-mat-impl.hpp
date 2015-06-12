@@ -94,7 +94,7 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
     }
    
 
-   std::stringstream save_feat_video_i;
+   std::stringstream save_cov_seg;
    save_cov_seg << save_folder.str() << "/cov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
    
    mat cov_seg_i = stat_seg.cov();
