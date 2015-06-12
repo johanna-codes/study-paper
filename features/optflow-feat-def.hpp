@@ -27,6 +27,7 @@ int dim;
 
 
 vector <vec> features_video_i; //All vectors per vide_i are stored here
+vector <int> labels_video_i;
 
 field<std::string> actions;
 

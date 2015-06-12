@@ -30,19 +30,23 @@ opt_feat::features_all_videos( field<string> all_people )
       for (int act=0; act<n_actions; ++act)
       {
 	features_video_i.clear();
+	labels_video_i.clear();
 	std::stringstream ss_video_name;
 	ss_video_name << path << actions (act) << "/" << all_people (pe) << "_" << actions (act) << "_d" << sc << "_uncomp.avi";
 	cout << ss_video_name.str() << endl;
-	
+
 	feature_video( ss_video_name.str() ) ; //all_actions_matrix is calculated inside this method
 	mat mat_features_video_i;
+	vec lab_video_i;
 
 	if (features_video_i.size()>0)
 	{
-	  mat_features_video_i.zeros(dim,features_video_i.size());
+	  mat_features_video_i.zeros( dim,features_video_i.size() );
+	  lab_video_i.zeros( features_video_i.size() );
 	  for (uword i = 0; i < features_video_i.size(); ++i)
 	  {
 	    mat_features_video_i.col(i) = features_video_i.at(i)/norm(features_video_i.at(i),2);
+	    lab_video_i(i) = labels_video_i.at(i);
 	  }
 	}
 	else
@@ -51,11 +55,13 @@ opt_feat::features_all_videos( field<string> all_people )
 	}
 	std::stringstream save_folder;
 	std::stringstream save_feat_video_i;
+	std::stringstream save_labels_video_i;
 	//tmp_ss4 << "./features_training_" << col << "x" << row << "/feature_vectors_dim" << dim << peo_train (pe) << "_" << actions(act)<< ".dat";
 	
 	cout << "Saving.." << endl;
 	save_folder << "./kth-features/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
-	save_feat_video_i << save_folder.str() << "/" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
+	save_feat_video_i   << save_folder.str() << "/" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
+	save_labels_video_i << save_folder.str() << "/lab_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
 	
 	cout << save_feat_video_i.str() << endl;
 	//getchar();
@@ -245,6 +251,7 @@ opt_feat::feature_video( std::string one_video )
 	      frame.at<cv::Vec3b>(y,x)[1] = 0;
 	      frame.at<cv::Vec3b>(y,x)[2] = 255;
 	      features_video_i.push_back(features_one_pixel);
+	      labels_video_i.push_back( fr );
 	    }
 	  }
 	}
