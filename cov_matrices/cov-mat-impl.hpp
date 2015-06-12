@@ -14,8 +14,9 @@ cov_mat_kth::cov_mat_kth( const std::string in_path,
 
 inline
 void
-cov_mat_kth::calculate( field<string> all_people  )
+cov_mat_kth::calculate( field<string> all_people, int  in_dim  )
 {
+  dim = in_dim;
   int n_actions = actions.n_rows;
   int n_peo =  all_people.n_rows;
   //all_people.print("people");

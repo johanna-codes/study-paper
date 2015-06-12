@@ -50,12 +50,13 @@ main(int argc, char** argv)
   int shift = atoi( argv[2] );
   int scene = 4;
   int segment_length = 20;
+  int   dim = 12; //Action Recognition from Video Using feature Covariance Matrices
   
   field<string> all_people;
   all_people.load(peopleList);
   
   cov_mat_kth get_cov_seg(path, actionNames, scale_factor, shift, scene, segment_length);
-  get_cov_seg.calculate( all_people );
+  get_cov_seg.calculate( all_people, dim );
   
   
   
