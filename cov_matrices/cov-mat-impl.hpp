@@ -65,7 +65,7 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
   lab_video_i.load( load_labels_video_i, raw_ascii );
   int n_vec = lab_video_i.n_elem;
   int last = lab_video_i( n_vec - 1 );
-  
+  cout << last << endl;
   for (int l=2; l<last-segment_length; l = l+4 )
   {
     running_stat_vec<rowvec> stat_seg(true);
