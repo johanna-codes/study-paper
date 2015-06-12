@@ -35,7 +35,7 @@ cov_mat_kth::calculate( field<string> all_people, int  in_dim  )
 	
 	
 	cout << "Loading.." << endl;
-	load_folder << "/kth-features/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
+	load_folder << path << "/kth-features/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
 	load_feat_video_i << load_folder.str() << "/" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
 	load_labels_video_i << load_folder.str() << "/lab_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
 	
