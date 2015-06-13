@@ -37,8 +37,8 @@ cov_mat_kth::calculate( field<string> in_all_people, int  in_dim  )
 	
 	cout << "Loading.." << endl;
 	load_folder << path << "/kth-features/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
-	load_feat_video_i << load_folder.str() << "/" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
-	load_labels_video_i << load_folder.str() << "/lab_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
+	load_feat_video_i << load_folder.str() << "/" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
+	load_labels_video_i << load_folder.str() << "/lab_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
 	
 	//For one Video
 	cov_mat_kth::one_video(load_feat_video_i.str(),	 load_labels_video_i.str(), sc, pe, act );
@@ -58,8 +58,8 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
   mat mat_features_video_i;
   vec lab_video_i;
   
-  mat_features_video_i.load( load_feat_video_i, raw_ascii );
-  lab_video_i.load( load_labels_video_i, raw_ascii );
+  mat_features_video_i.load( load_feat_video_i, hdf5_binary );
+  lab_video_i.load( load_labels_video_i, hdf5_binary );
   int n_vec = lab_video_i.n_elem;
   int last = lab_video_i( n_vec - 1 );
   //cout << last << endl;
@@ -96,10 +96,10 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
    
 
    std::stringstream save_cov_seg;
-   save_cov_seg << save_folder.str() << "/cov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
+   save_cov_seg << save_folder.str() << "/cov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
    
    mat cov_seg_i = stat_seg.cov();
-   cov_seg_i.save( save_cov_seg.str(), raw_ascii ); 
+   cov_seg_i.save( save_cov_seg.str(), hdf5_binary ); 
    s++;
     
    
