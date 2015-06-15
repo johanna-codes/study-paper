@@ -63,8 +63,8 @@ main(int argc, char** argv)
   field<string> all_people;
   all_people.load(peopleList);
   
-   kth_cv kth_CV(path, actionNames, all_people, scale_factor, shift, scene, segment_length, dim)
-		
+   kth_cv kth_CV(path, actionNames, all_people, scale_factor, shift, scene, segment_length, dim);
+   kth_CV.logEucl();
 		
 		
   //cov_mat_kth get_cov_seg(path, actionNames, scale_factor, shift, scene, segment_length);
