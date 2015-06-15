@@ -11,6 +11,11 @@
  {
    mat logA;
    mat logB;
+   
+   A.print("test_cov");
+   B.print("train_cov");
+	     
+	     
    double dist;
    
    aux_fun fun;
