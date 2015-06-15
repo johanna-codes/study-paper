@@ -9,6 +9,13 @@
  aux_fun::log_matrix(mat& M)
  {
    eig_sym(D, V, M);
+   
+   cout << "D: " << D << endl;
+   getchar();
+   cout << "V: " << D << endl;
+   getchar();
+   cout << "M: " << D << endl;
+   getchar();
    mat log_M = V*diagmat( log(D) )*V.t();
    return log_M;
  }
