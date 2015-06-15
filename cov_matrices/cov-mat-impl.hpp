@@ -99,6 +99,8 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
    save_cov_seg << save_folder.str() << "/cov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
    
    mat cov_seg_i = stat_seg.cov();
+   cov_seg_i.print();
+   getchar();
    cov_seg_i.save( save_cov_seg.str(), hdf5_binary ); 
    s++;
     
