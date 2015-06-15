@@ -25,12 +25,14 @@ class kth_cv //KTH Cross validation
     const int scene;
     const int segment_length;
     const int dim;
+    int total_sc;
     
     field<std::string> actions;
     
     
     
   private:
+    inline uword one_seg_est_lab( int pe_test, std::string load_sub_path, std::string segm_name );
     
 
     
