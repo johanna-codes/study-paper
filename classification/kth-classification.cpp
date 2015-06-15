@@ -63,15 +63,7 @@ main(int argc, char** argv)
   field<string> all_people;
   all_people.load(peopleList);
   
-//   kth-cv kth_CV(path, actionNames, scale_factor, shift, scene, segment_length
-//     
-//     
-//     const std::string in_path,
-// 		const std::string in_actionNames,  
-// 		const int in_scale_factor, 
-// 		const int in_shift,
-// 		const int in_scene, //only for kth
-// 		const int in_segment_length
+   kth_cv kth_CV(path, actionNames, all_people, scale_factor, shift, scene, segment_length, dim)
 		
 		
 		
