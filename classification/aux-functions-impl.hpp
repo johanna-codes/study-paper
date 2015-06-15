@@ -12,9 +12,9 @@
    
    cout << "D: " << D << endl;
    getchar();
-   cout << "V: " << D << endl;
+   cout << "V: " << V << endl;
    getchar();
-   cout << "M: " << D << endl;
+   cout << "M: " << M << endl;
    getchar();
    mat log_M = V*diagmat( log(D) )*V.t();
    return log_M;
