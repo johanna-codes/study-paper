@@ -12,8 +12,7 @@
    mat logA;
    mat logB;
    
-   A.print("test_cov");
-   B.print("train_cov");
+  
 	     
 	     
    double dist;
@@ -23,6 +22,9 @@
    
    logA = fun.log_matrix(A);
    logB = fun.log_matrix(B);
+   
+    logA.print("logA");
+    logB.print("logB");
     
    dist = norm( logA - logB, "fro");
    
