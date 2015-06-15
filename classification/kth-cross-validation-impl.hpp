@@ -105,8 +105,8 @@
 	     mat train_cov;
 	     train_cov.load( load_cov_seg_tr.str() );
 	     
-	     dist = Ri_met.logEucl(test_cov,train_cov);
-	     cout << "dist" << dist << endl;
+	     dist = Ri_met.logEucl(&test_cov, &train_cov);
+	     cout << "dist " << dist << endl;
 	     
 	     if (dist < tmp_dist)
 	     {
