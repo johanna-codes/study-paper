@@ -49,7 +49,8 @@
 	{
 	
 	  std::stringstream load_cov_seg;
-	  load_cov_seg << load_sub_path.str() << "/cov_seg_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
+	  
+	  load_cov_seg << load_sub_path.str() << "/cov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
 	  mat borrame;
 	  cout << load_cov_seg.str() << endl;	
 	  borrame.load( load_cov_seg.str() );
