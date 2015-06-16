@@ -21,14 +21,14 @@ cov_mat_kth::calculate( field<string> in_all_people, int  in_dim  )
   int n_actions = actions.n_rows;
   int n_peo =  all_people.n_rows;
   //all_people.print("people");
-    
+  
   for (int sc = 1; sc<=1; ++sc) //scene
   {
     for (int pe = 0; pe< n_peo; ++pe)
     {
       for (int act=0; act<n_actions; ++act)
       {
-
+	
 	
 	std::stringstream load_folder;
 	std::stringstream load_feat_video_i;
@@ -43,7 +43,7 @@ cov_mat_kth::calculate( field<string> in_all_people, int  in_dim  )
 	//For one Video
 	cov_mat_kth::one_video(load_feat_video_i.str(),	 load_labels_video_i.str(), sc, pe, act );
 	//getchar();
-
+	
       }
     }
   }
@@ -68,16 +68,16 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
   
   std::stringstream save_folder;
   save_folder << "./kth-cov-mat/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
-     
-     
+  
+  
   for (int l=2; l<last-segment_length; l = l+4 )
   {
     running_stat_vec<rowvec> stat_seg(true);
     //int k =0;
     
     //cout << " " << l;
-
-
+    
+    
     for (int j=l; j<=segment_length+1; ++j)
     {
       //k++;
@@ -91,44 +91,44 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
 	
       }
       
-   
+      
     }
-   
-
-   std::stringstream save_cov_seg;
-   save_cov_seg << save_folder.str() << "/cov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
-   
+    
+    
+    std::stringstream save_cov_seg;
+    save_cov_seg << save_folder.str() << "/cov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
+    
     double THRESH = 0.000001;
     mat cov_seg_i = stat_seg.cov();
-   
-   //Following Mehrtash suggestions as per email dated June26th 2014
-   cov_seg_i = 0.5*(cov_seg_i + cov_seg_i.t());
-   vec D;
-   mat V;
-   eig_sym(D, V, cov_seg_i);
-   uvec q1 = find(D < THRESH);
-   
-   if (q1.n_elem>0)
-   {
-     for (uword pos = 0; pos < q1.n_elem; ++pos)
-     {
-       D( q1(pos) ) = THRESH;
-       
-    }
     
-    cov_seg_i = V*diagmat(D)*V.t();  
-     
-  }  
-  
-  //end suggestion
-   
-   
-   cov_seg_i.save( save_cov_seg.str(), hdf5_binary ); 
-   
-   
-   s++;
+    //Following Mehrtash suggestions as per email dated June26th 2014
+    cov_seg_i = 0.5*(cov_seg_i + cov_seg_i.t());
+    vec D;
+    mat V;
+    eig_sym(D, V, cov_seg_i);
+    uvec q1 = find(D < THRESH);
     
-   
+    if (q1.n_elem>0)
+    {
+      for (uword pos = 0; pos < q1.n_elem; ++pos)
+      {
+	D( q1(pos) ) = THRESH;
+	
+      }
+      
+      cov_seg_i = V*diagmat(D)*V.t();  
+      
+    }  
+    
+    //end suggestion
+    
+    
+    cov_seg_i.save( save_cov_seg.str(), hdf5_binary ); 
+    
+    
+    s++;
+    
+    
   }
   
   
@@ -138,7 +138,7 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
   total_seg( 0 ) = s;
   save_seg << save_folder.str() << "/num_seg_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
   total_seg.save( save_seg.str(), raw_ascii );
-
+  
 }
 
 
