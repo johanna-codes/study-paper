@@ -62,7 +62,7 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
   lab_video_i.load( load_labels_video_i, hdf5_binary );
   int n_vec = lab_video_i.n_elem;
   int last = lab_video_i( n_vec - 1 );
-  cout << last << endl;
+  //cout << last << endl;
   
   int s = 0;
   
