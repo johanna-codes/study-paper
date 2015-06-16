@@ -98,7 +98,7 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
     //cout << endl;
     //cout << " " << stat_seg.count();
     
-    if (stat_seg.count()>1000)
+    if (stat_seg.count()>100) // Cuando en el segmento hay mas de 100 vectores 
     {
     std::stringstream save_cov_seg;
     save_cov_seg << save_folder.str() << "/cov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
