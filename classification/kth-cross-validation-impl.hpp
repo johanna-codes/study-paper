@@ -22,8 +22,10 @@
    int n_actions = actions.n_rows;
    int n_peo =  all_people.n_rows;
  
-   vec acc;
-   acc.zeros(n_peo*total_sc);
+   int acc;
+   acc = 0;
+   
+   int n_test = n_peo*n_actions*total_sc;
    
    for (int sc = 1; sc<=total_sc; ++sc) //scene
    {
@@ -61,14 +63,23 @@
 	 
 	 uword  index_video;
 	 double max_val = count.max(index_video);
-	 est_lab_segm.print("est_lab_segm");
+	 //est_lab_segm.t().print("est_lab_segm");
 	 cout << "This video is " << actions(act) << " and was classified as class: " << actions(index_video ) << endl;
+	 
+	 if (index_video == act)  {
+	    acc++;
+	    
+	  }
+      
 	 getchar();
        }
        
        
      }
    }
+   
+   cout << "Performance: " << acc*100/n_test << " %" << endl;
+   
  }
  
  
