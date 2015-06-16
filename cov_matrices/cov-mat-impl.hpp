@@ -78,7 +78,7 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
     //cout << " " << l;
     
     
-    for (int j=l; j<=segment_length+1; ++j)
+    for (int j=l; j< l + segment_length; ++j)
     {
       //k++;
       cout << " " << j;
