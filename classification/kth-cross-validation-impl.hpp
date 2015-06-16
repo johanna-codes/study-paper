@@ -49,9 +49,9 @@
 	 for (int s=0; s<num_s; ++s)
 	 {
 	   std::stringstream load_cov_seg;
-	   load_cov_seg << load_sub_path.str() << "/cov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
+	   load_cov_seg << load_sub_path.str() << "/LogMcov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
 	   
-	   cout << "cov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5" << endl;
+	   cout << "LogMcov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5" << endl;
 	   //debe devolver el est_labe de ese segmento
 	   est_lab_segm(s) = one_seg_est_lab( pe, load_sub_path.str(),  load_cov_seg.str());
 	   //getchar();
@@ -67,9 +67,8 @@
  kth_cv::one_seg_est_lab(int pe_test, std::string load_sub_path, std::string segm_name)
  {
    wall_clock timer;
-   ri_metrics Ri_met;
-   mat test_cov;
-   test_cov.load(segm_name);
+   mat logMtest_cov;
+   logMtest_cov.load(segm_name);
 
    int n_actions = actions.n_rows;
    int n_peo =  all_people.n_rows;
@@ -84,7 +83,10 @@
    for (int pe_tr = 0; pe_tr< n_peo; ++pe_tr)
    {
      while (pe_tr!= pe_test)
-     {
+     {	     
+       
+       cout << "Comparing with person " << all_people (pe_tr) << endl;
+
        for (int sc = 1; sc<=total_sc; ++sc) //scene
        {
 	 for (int act=0; act<n_actions; ++act)
@@ -99,17 +101,17 @@
 	   for (int s_tr=0; s_tr<num_s; ++s_tr)
 	   {
 	     std::stringstream load_cov_seg_tr;
-	     load_cov_seg_tr << load_sub_path << "/cov_seg" << s_tr << "_" << all_people (pe_tr) << "_" << actions(act) << "_dim" << dim  << ".h5";
+	     load_cov_seg_tr << load_sub_path << "/LogMcov_seg" << s_tr << "_" << all_people (pe_tr) << "_" << actions(act) << "_dim" << dim  << ".h5";
 	     
 	     //cout << "Comparing with cov_seg" << s_tr << "_"<< all_people (pe_tr) << "_" << actions(act) << "_dim" << dim  << ".h5" << endl;
-	     mat train_cov;
-	     train_cov.load( load_cov_seg_tr.str() );
+	     mat logMtrain_cov;
+	     logMtrain_cov.load( load_cov_seg_tr.str() );
 	     
-	     //test_cov.print("test_cov");
+	     //logMtest_cov.print("logMtest_cov");
 	     //train_cov.print("train_cov");
 	     
-	     
-	     dist = Ri_met.logEucl(test_cov, train_cov);
+	     dist = norm( logMtest_cov - logMtrain_cov, "fro");
+
 	     //cout << "dist " << dist << endl;
 	     
 	     if (dist < tmp_dist)
@@ -120,15 +122,8 @@
 	     }
 	     //cout << "Press a key" << endl;
 	     //getchar();
-	       
-	
-	     
-	     
-
 	   }
-	   
 	 }
-
        }
      }
    }

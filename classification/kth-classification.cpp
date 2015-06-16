@@ -12,11 +12,11 @@
  using namespace std;
  using namespace arma;
  
-#include "aux-functions-def.hpp"
-#include "aux-functions-impl.hpp"
+// #include "aux-functions-def.hpp"
+// #include "aux-functions-impl.hpp"
 
-#include "riemannian-metrics-def.hpp"
-#include "riemannian-metrics-impl.hpp"
+// #include "riemannian-metrics-def.hpp"
+// #include "riemannian-metrics-impl.hpp"
  
 #include "kth-cross-validation-def.hpp"
 #include "kth-cross-validation-impl.hpp"

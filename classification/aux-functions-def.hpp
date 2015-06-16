@@ -11,8 +11,8 @@ class aux_fun
     
   private:
     
-    mat V; // cov matrix for data1
-    vec D; // cov matrix for data2
+    mat V; 
+    vec D; 
     
     
 };
