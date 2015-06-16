@@ -134,6 +134,7 @@
    }
    
    cout << "est_lab "<< est_lab << endl;
+   getchar();
    return est_lab;
    
  }
