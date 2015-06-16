@@ -110,7 +110,7 @@
 	     
 	     
 	     dist = Ri_met.logEucl(test_cov, train_cov);
-	     cout << "dist " << dist << endl;
+	     //cout << "dist " << dist << endl;
 	     
 	     if (dist < tmp_dist)
 	     {
@@ -118,8 +118,8 @@
 	       tmp_dist = dist;
 	       est_lab = act;
 	     }
-	     cout << "Press a key" << endl;
-	     getchar();
+	     //cout << "Press a key" << endl;
+	     //getchar();
 	       
 	
 	     
@@ -133,6 +133,7 @@
      }
    }
    
+   cout << "est_lab "<< est_lab << endl;
    return est_lab;
    
  }
