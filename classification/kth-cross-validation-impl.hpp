@@ -101,7 +101,7 @@
 	     std::stringstream load_cov_seg_tr;
 	     load_cov_seg_tr << load_sub_path << "/cov_seg" << s_tr << "_" << all_people (pe_tr) << "_" << actions(act) << "_dim" << dim  << ".h5";
 	     
-	     cout << "Comparing with cov_seg" << s_tr << "_"<< all_people (pe_tr) << "_" << actions(act) << "_dim" << dim  << ".h5" << endl;
+	     //cout << "Comparing with cov_seg" << s_tr << "_"<< all_people (pe_tr) << "_" << actions(act) << "_dim" << dim  << ".h5" << endl;
 	     mat train_cov;
 	     train_cov.load( load_cov_seg_tr.str() );
 	     
