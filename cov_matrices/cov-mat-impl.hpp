@@ -103,6 +103,9 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
     std::stringstream save_cov_seg;
     save_cov_seg << save_folder.str() << "/cov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
     
+    std::stringstream save_LogMcov_seg;
+    save_LogMcov_seg << save_folder.str() << "/LogMcov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
+      
     double THRESH = 0.000001;
     mat cov_seg_i = stat_seg.cov();
     
@@ -124,11 +127,16 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
       cov_seg_i = V*diagmat(D)*V.t();  
       
     }  
-    
     //end suggestion
     
-    
-    cov_seg_i.save( save_cov_seg.str(), hdf5_binary ); 
+     
+     eig_sym(D, V, cov_seg_i);
+     mat log_M = V*diagmat( log(D) )*V.t();
+     cov_seg_i.save( save_cov_seg.str(), hdf5_binary ); 
+     mat log_M.save( save_LogMcov_seg.str(), hdf5_binary );
+     cov_seg_i.print("cov_seg_i");
+     log_M.print("log_M");
+     getchar();
     
     
     s++;
