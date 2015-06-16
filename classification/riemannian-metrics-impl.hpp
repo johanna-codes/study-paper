@@ -23,8 +23,8 @@
    logA = fun.log_matrix(A);
    logB = fun.log_matrix(B);
    
-    logA.print("logA");
-    logB.print("logB");
+    //logA.print("logA");
+    //logB.print("logB");
     
    dist = norm( logA - logB, "fro");
    

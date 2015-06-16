@@ -105,8 +105,8 @@
 	     mat train_cov;
 	     train_cov.load( load_cov_seg_tr.str() );
 	     
-	     test_cov.print("test_cov");
-	     train_cov.print("train_cov");
+	     //test_cov.print("test_cov");
+	     //train_cov.print("train_cov");
 	     
 	     
 	     dist = Ri_met.logEucl(test_cov, train_cov);
