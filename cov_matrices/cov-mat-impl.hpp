@@ -35,7 +35,7 @@ cov_mat_kth::calculate( field<string> in_all_people, int  in_dim  )
 	std::stringstream load_labels_video_i;
 	
 	
-	cout << "Loading.." << endl;
+	//cout << "Loading.." << endl;
 	load_folder << path << "/kth-features/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
 	load_feat_video_i << load_folder.str() << "/" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
 	load_labels_video_i << load_folder.str() << "/lab_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
@@ -95,6 +95,8 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
     }
     
     
+    cout << stat_seg.count() << endl;
+    getchar();
     std::stringstream save_cov_seg;
     save_cov_seg << save_folder.str() << "/cov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
     
