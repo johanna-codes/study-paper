@@ -67,6 +67,8 @@
  kth_cv::one_seg_est_lab(int pe_test, std::string load_sub_path, std::string segm_name)
  {
    wall_clock timer;
+   timer.tic();
+
    mat logMtest_cov;
    logMtest_cov.load(segm_name);
 
