@@ -82,7 +82,7 @@
    
    for (int pe_tr = 0; pe_tr< n_peo; ++pe_tr)
    {
-     while (pe_tr!= pe_test)
+     if (pe_tr!= pe_test)
      {	     
        
        cout << "Comparing with person " << all_people (pe_tr) << endl;
