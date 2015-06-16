@@ -90,7 +90,7 @@
    
    
    double est_lab;
-   cout << endl << "Comparing with person ";
+   cout << "Comparing with person ";
    
    for (int pe_tr = 0; pe_tr< n_peo; ++pe_tr)
    {
@@ -143,7 +143,7 @@
    
    double n = timer.toc();
    //cout << "number of seconds: " << n << endl;
-   cout << "est_lab "<< est_lab << endl << endl;
+   cout << " est_lab "<< est_lab << endl << endl;
    //getchar();
    return est_lab;
    
