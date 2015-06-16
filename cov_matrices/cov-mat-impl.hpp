@@ -151,7 +151,7 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
   total_seg( 0 ) = s;
   save_seg << save_folder.str() << "/num_seg_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
   total_seg.save( save_seg.str(), raw_ascii );
-  cout << "Total # of segments" << s << endl;
+  cout << "Total # of segments " << s << endl;
   //cout << "press a key " ;
   //getchar();
     
