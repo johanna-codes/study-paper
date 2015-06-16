@@ -135,6 +135,7 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
     }
     else {
      cout << " " << stat_seg.count();
+     getchar();
      
     }
     
