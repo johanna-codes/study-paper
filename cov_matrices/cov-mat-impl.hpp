@@ -133,7 +133,7 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
      eig_sym(D, V, cov_seg_i);
      mat log_M = V*diagmat( log(D) )*V.t();
      cov_seg_i.save( save_cov_seg.str(), hdf5_binary ); 
-     mat log_M.save( save_LogMcov_seg.str(), hdf5_binary );
+     log_M.save( save_LogMcov_seg.str(), hdf5_binary );
      cov_seg_i.print("cov_seg_i");
      log_M.print("log_M");
      getchar();
