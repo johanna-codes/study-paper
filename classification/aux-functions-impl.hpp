@@ -10,16 +10,16 @@
  {
    eig_sym(D, V, M);
    
-   cout << "D: " << D << endl;
-   getchar();
-   cout << "V: " << V << endl;
-   getchar();
-   cout << "M: " << M << endl;
-   getchar();
+//    cout << "D: " << D << endl;
+//    getchar();
+//    cout << "V: " << V << endl;
+//    getchar();
+//    cout << "M: " << M << endl;
+//    getchar();
    mat log_M = V*diagmat( log(D) )*V.t();
    
-   cout << "log_M: " << log_M << endl;
-   getchar();
+   //cout << "log_M: " << log_M << endl;
+   //getchar();
    
    return log_M;
  }

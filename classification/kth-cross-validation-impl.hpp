@@ -118,6 +118,7 @@
 	       tmp_dist = dist;
 	       est_lab = act;
 	     }
+	     cout << "Press a key" << endl;
 	     getchar();
 	       
 	
