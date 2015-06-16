@@ -80,7 +80,7 @@
    
    
    double est_lab;
-   cout << endl << "Comparing with person "
+   cout << endl << "Comparing with person ";
    
    for (int pe_tr = 0; pe_tr< n_peo; ++pe_tr)
    {
