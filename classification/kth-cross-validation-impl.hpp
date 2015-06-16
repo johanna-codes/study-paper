@@ -114,7 +114,7 @@
 	     
 	     if (dist < tmp_dist)
 	     {
-	       cout << "Es menor" << endl;
+	       //cout << "Es menor" << endl;
 	       tmp_dist = dist;
 	       est_lab = act;
 	     }
