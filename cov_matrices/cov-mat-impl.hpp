@@ -98,15 +98,34 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
    std::stringstream save_cov_seg;
    save_cov_seg << save_folder.str() << "/cov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
    
-   mat cov_seg_i = stat_seg.cov();
-   cov_seg_i.print();
-   getchar();
+    double THRESH = 0.000001;
+    mat cov_seg_i = stat_seg.cov();
+   
+   //Following Mehrtash suggestions as per email dated June26th 2014
+   cov_seg_i = 0.5*(cov_seg_i + cov_seg_i.t());
+   vec D;
+   mat V;
+   eig_sym(D, V, cov_seg_i);
+   uvec q1 = find(D < THRESH);
+   
+   if (q1.n_elem>0)
+   {
+     for (uword pos = 0; pos < q1.n_elem; ++pos)
+     {
+       D( q1(pos) ) = THRESH;
+       
+    }
+    
+    cov_seg_i = V*diagmat(D)*V.t();  
+     
+  }  
+  
+  //end suggestion
+   
+   
    cov_seg_i.save( save_cov_seg.str(), hdf5_binary ); 
    
-   mat borrame;
-   borrame.load( save_cov_seg.str(), hdf5_binary ); 
-   borrame.print();
-   getchar();
+   
    s++;
     
    
