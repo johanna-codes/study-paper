@@ -81,9 +81,10 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
     for (int j=l; j<=segment_length+1; ++j)
     {
       //k++;
+      cout << " " << j;
       uvec indices = find(lab_video_i == j);
       mat tmp_feat = mat_features_video_i.cols(indices);
-      cout << "row&col " << tmp_feat.n_rows << " & " << tmp_feat.n_cols << endl;
+      //cout << "row&col " << tmp_feat.n_rows << " & " << tmp_feat.n_cols << endl;
       for (int v=0; v < tmp_feat.n_cols; ++v)
       {
 	vec sample = tmp_feat.col(v);
