@@ -81,7 +81,7 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
     for (int j=l; j< l + segment_length; ++j)
     {
       //k++;
-      cout << " " << j;
+      //cout << " " << j;
       uvec indices = find(lab_video_i == j);
       mat tmp_feat = mat_features_video_i.cols(indices);
       //cout << "row&col " << tmp_feat.n_rows << " & " << tmp_feat.n_cols << endl;
@@ -95,7 +95,7 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
       
     }
     
-    cout << endl;
+    //cout << endl;
     cout << " " << stat_seg.count();
     std::stringstream save_cov_seg;
     save_cov_seg << save_folder.str() << "/cov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
