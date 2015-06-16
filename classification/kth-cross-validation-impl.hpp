@@ -45,6 +45,7 @@
 	 num_s = total_seg(0);
 	 uvec  est_lab_segm;
 	 est_lab_segm.zeros(num_s);
+	 vec count = zeros<vec>( n_actions );
 	 
 	 for (int s=0; s<num_s; ++s)
 	 {
@@ -54,9 +55,18 @@
 	   cout << "LogMcov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5" << endl;
 	   //debe devolver el est_labe de ese segmento
 	   est_lab_segm(s) = one_seg_est_lab( pe, load_sub_path.str(),  load_cov_seg.str());
+	   count( est_lab_segm(s) )++;
 	   //getchar();
 	 }
+	 
+	 uword  index_video;
+	 double max_val = count.max(index_video);
+	 est_lab_segm.print("est_lab_segm");
+	 cout << "This video is " << actions(act) << " and was classified as class: " << actions(index_video ) << endl;
+	 getchar();
        }
+       
+       
      }
    }
  }
@@ -132,8 +142,8 @@
    }
    
    double n = timer.toc();
-   cout << "number of seconds: " << n << endl;
-   cout << "est_lab "<< est_lab << endl;
+   //cout << "number of seconds: " << n << endl;
+   cout << "est_lab "<< est_lab << endl << endl;
    //getchar();
    return est_lab;
    
