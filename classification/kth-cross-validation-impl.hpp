@@ -71,7 +71,7 @@
 	    
 	  }
       
-	 getchar();
+	 //getchar();
        }
        
        
@@ -101,14 +101,14 @@
    
    
    double est_lab;
-   cout << "Comparing with person ";
+   //cout << "Comparing with person ";
    
    for (int pe_tr = 0; pe_tr< n_peo; ++pe_tr)
    {
      if (pe_tr!= pe_test)
      {	     
        
-       cout << " " << all_people (pe_tr);
+       //cout << " " << all_people (pe_tr);
        
 
        for (int sc = 1; sc<=total_sc; ++sc) //scene
@@ -154,7 +154,7 @@
    
    double n = timer.toc();
    //cout << "number of seconds: " << n << endl;
-   cout << " est_lab "<< est_lab << endl << endl;
+   //cout << " est_lab "<< est_lab << endl << endl;
    //getchar();
    return est_lab;
    
