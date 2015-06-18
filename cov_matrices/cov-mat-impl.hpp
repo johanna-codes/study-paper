@@ -22,7 +22,7 @@ cov_mat_kth::calculate( field<string> in_all_people, int  in_dim  )
   int n_peo =  all_people.n_rows;
   //all_people.print("people");
   
-  for (int sc = 4; sc<=total_scenes; ++sc) //scene
+  for (int sc = 3; sc<=total_scenes; ++sc) //scene
   {
     for (int pe = 0; pe< n_peo; ++pe)
     {
