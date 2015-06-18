@@ -108,8 +108,8 @@
  uword
  kth_cv::one_seg_est_lab(int pe_test, std::string load_sub_path, std::string segm_name)
  {
-   wall_clock timer;
-   timer.tic();
+   //wall_clock timer;
+   //timer.tic();
 
    mat logMtest_cov;
    logMtest_cov.load(segm_name);
@@ -173,7 +173,7 @@
      }
    }
    
-   double n = timer.toc();
+   //double n = timer.toc();
    //cout << "number of seconds: " << n << endl;
    //cout << " est_lab "<< est_lab << endl << endl;
    //getchar();
