@@ -22,7 +22,7 @@ const int col;
 const int row;
 const int scale_factor;
 const int shift;
-const int scene;
+const int total_scene;
 int dim;
 
 

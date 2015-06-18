@@ -7,7 +7,7 @@ opt_feat::opt_feat(const std::string in_path,
 		   const int in_shift,
 		   const int in_scene //only for kth
 )
-:path(in_path), actionNames(in_actionNames), col(in_col), row(in_row), scale_factor(in_scale_factor), shift(in_shift), scene(in_scene)
+:path(in_path), actionNames(in_actionNames), col(in_col), row(in_row), scale_factor(in_scale_factor), shift(in_shift), total_scene(in_scene)
 {
   
   actions.load( actionNames );  
@@ -23,7 +23,7 @@ opt_feat::features_all_videos( field<string> all_people )
   int n_peo =  all_people.n_rows;
   //all_people.print("people");
     
-  for (int sc = 1; sc<=1; ++sc) //scene
+  for (int sc = 1; sc<=total_scene; ++sc) //scene
   {
     for (int pe = 0; pe< n_peo; ++pe)
     {

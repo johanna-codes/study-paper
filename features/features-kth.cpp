@@ -48,12 +48,12 @@ main(int argc, char** argv)
   
   int scale_factor = atoi( argv[1] );
   int shift = atoi( argv[2] );
-  int scene = 4;
+  int total_scene = 4;
   
   field<string> all_people;
   all_people.load(peopleList);
   
-  opt_feat opt_feat_kth(path, actionNames, ori_col, ori_row, scale_factor, shift, scene);
+  opt_feat opt_feat_kth(path, actionNames, ori_col, ori_row, scale_factor, shift, total_scene);
   opt_feat_kth.features_all_videos( all_people );
   
   
