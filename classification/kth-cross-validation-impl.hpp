@@ -22,10 +22,20 @@
    int n_actions = actions.n_rows;
    int n_peo =  all_people.n_rows;
  
-   int acc;
+   float acc;
    acc = 0;
    
    int n_test = n_peo*n_actions*total_scenes;
+   vec real_labels;
+   vec est_labels;
+   field<std::string> test_video_list(n_test);
+   
+   
+   real_labels.zeros(n_test);
+   est_labels.zeros(n_test);
+   
+   int k=0;
+   
    
    for (int sc = 1; sc<=total_scenes; ++sc) //scene
    {
@@ -54,7 +64,7 @@
 	   std::stringstream load_cov_seg;
 	   load_cov_seg << load_sub_path.str() << "/LogMcov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
 	   
-	   cout << "LogMcov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5" << endl;
+	   //cout << "LogMcov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5" << endl;
 	   //debe devolver el est_labe de ese segmento
 	   est_lab_segm(s) = one_seg_est_lab( pe, load_sub_path.str(),  load_cov_seg.str());
 	   count( est_lab_segm(s) )++;
@@ -65,6 +75,17 @@
 	 double max_val = count.max(index_video);
 	 //est_lab_segm.t().print("est_lab_segm");
 	 cout << "This video is " << actions(act) << " and was classified as class: " << actions(index_video ) << endl;
+	 
+	 
+	 real_labels(k) = act;
+	 est_labels(k) = index_video;
+	 test_video_list(k) = load_sub_path.str();
+	 
+	 real_labels.save("real_labels.dat", raw_ascii);
+	 est_labels.save("est_labels.dat", raw_ascii);
+	 test_video_list.save("test_video_list.dat", raw_ascii);
+	 k++;
+	 
 	 
 	 if (index_video == act)  {
 	    acc++;
