@@ -259,7 +259,7 @@
 	   est_labels(k) = index_video;
 	   test_video_list(k) = load_sub_path.str();
 	   
-	   real_labels.save("Stein_div_Eucl_real_labels.dat", raw_ascii);
+	   real_labels.save("Stein_div_real_labels.dat", raw_ascii);
 	   est_labels.save("Stein_div__est_labels.dat", raw_ascii);
 	   test_video_list.save("Stein_div_test_video_list.dat", raw_ascii);
 	   k++;

@@ -64,8 +64,8 @@ main(int argc, char** argv)
   all_people.load(peopleList);
   
    kth_cv kth_CV(path, actionNames, all_people, scale_factor, shift, total_scenes, segment_length, dim);
-   //kth_CV.logEucl();
-   kth_CV.SteinDiv();
+   kth_CV.logEucl();
+   //kth_CV.SteinDiv();
 		
 		
   //cov_mat_kth get_cov_seg(path, actionNames, scale_factor, shift, scene, segment_length);
