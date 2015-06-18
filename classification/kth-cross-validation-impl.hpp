@@ -10,7 +10,7 @@
  ):path(in_path), actionNames(in_actionNames), all_people (in_all_people), scale_factor(in_scale_factor), shift(in_shift), total_scenes(in_scene), segment_length(in_segment_length), dim(in_dim)
  {
    actions.load( actionNames );  
-
+   
    
  }
  
@@ -23,11 +23,11 @@
    
    int n_actions = actions.n_rows;
    int n_peo =  all_people.n_rows;
- 
+   
    float acc;
    acc = 0;
    
-   int n_test = n_peo*n_actions*total_scenes;
+   int n_test = n_peo*n_actions*total_scenes - 1; // - person13_handclapping_d3
    vec real_labels;
    vec est_labels;
    field<std::string> test_video_list(n_test);
@@ -45,56 +45,61 @@
      {
        for (int act=0; act<n_actions; ++act)
        {
-	 
-	 //load number of segments
-	 
-	 vec total_seg; 
-	 int num_s;
-	 std::stringstream load_sub_path;
-	 std::stringstream load_num_seg;
-
-	 load_sub_path  << path << "/kth-cov-mat/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
-	 load_num_seg << load_sub_path.str() << "/num_seg_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
-	 total_seg.load( load_num_seg.str());
-	 num_s = total_seg(0);
-	 uvec  est_lab_segm;
-	 est_lab_segm.zeros(num_s);
-	 vec count = zeros<vec>( n_actions );
-	 
-	 for (int s=0; s<num_s; ++s)
+	 if(  !( ( sc==3 && pe==12) && act==1) ) //person13_handclapping_d3
 	 {
-	   std::stringstream load_cov_seg;
-	   load_cov_seg << load_sub_path.str() << "/LogMcov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
 	   
-	   //cout << "LogMcov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5" << endl;
-	   //debe devolver el est_labe de ese segmento
-	   est_lab_segm(s) = logEucl_one_seg_est_lab( pe, load_sub_path.str(),  load_cov_seg.str());
-	   count( est_lab_segm(s) )++;
+	   //load number of segments
+	   
+	   vec total_seg; 
+	   int num_s;
+	   std::stringstream load_sub_path;
+	   std::stringstream load_num_seg;
+	   
+	   load_sub_path  << path << "/kth-cov-mat/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
+	   load_num_seg << load_sub_path.str() << "/num_seg_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
+	   total_seg.load( load_num_seg.str());
+	   num_s = total_seg(0);
+	   uvec  est_lab_segm;
+	   est_lab_segm.zeros(num_s);
+	   vec count = zeros<vec>( n_actions );
+	   
+	   
+	   for (int s=0; s<num_s; ++s)
+	   {
+	     std::stringstream load_cov_seg;
+	     load_cov_seg << load_sub_path.str() << "/LogMcov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
+	     
+	     //cout << "LogMcov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5" << endl;
+	     //debe devolver el est_labe de ese segmento
+	     est_lab_segm(s) = logEucl_one_seg_est_lab( pe, load_sub_path.str(),  load_cov_seg.str());
+	     count( est_lab_segm(s) )++;
+	     //getchar();
+	   }
+	   
+	   
+	   uword  index_video;
+	   double max_val = count.max(index_video);
+	   //est_lab_segm.t().print("est_lab_segm");
+	   cout << "This video is " << actions(act) << " and was classified as class: " << actions(index_video ) << endl;
+	   
+	   
+	   real_labels(k) = act;
+	   est_labels(k) = index_video;
+	   test_video_list(k) = load_sub_path.str();
+	   
+	   real_labels.save("Log_Eucl_real_labels.dat", raw_ascii);
+	   est_labels.save("Log_Eucl_est_labels.dat", raw_ascii);
+	   test_video_list.save("Log_Eucl_test_video_list.dat", raw_ascii);
+	   k++;
+	   
+	   
+	   if (index_video == act)  {
+	     acc++;
+	     
+	   }
+	   
 	   //getchar();
 	 }
-	 
-	 uword  index_video;
-	 double max_val = count.max(index_video);
-	 //est_lab_segm.t().print("est_lab_segm");
-	 cout << "This video is " << actions(act) << " and was classified as class: " << actions(index_video ) << endl;
-	 
-	 
-	 real_labels(k) = act;
-	 est_labels(k) = index_video;
-	 test_video_list(k) = load_sub_path.str();
-	 
-	 real_labels.save("Log_Eucl_real_labels.dat", raw_ascii);
-	 est_labels.save("Log_Eucl_est_labels.dat", raw_ascii);
-	 test_video_list.save("Log_Eucl_test_video_list.dat", raw_ascii);
-	 k++;
-	 
-	 
-	 if (index_video == act)  {
-	    acc++;
-	    
-	  }
-      
-	 //getchar();
        }
        
        
@@ -112,10 +117,10 @@
  {
    //wall_clock timer;
    //timer.tic();
-
+   
    mat logMtest_cov;
    logMtest_cov.load(segm_name);
-
+   
    int n_actions = actions.n_rows;
    int n_peo =  all_people.n_rows;
    
@@ -133,7 +138,7 @@
        
        //cout << " " << all_people (pe_tr);
        
-
+       
        for (int sc = 1; sc<=total_scenes; ++sc) //scene
        {
 	 for (int act=0; act<n_actions; ++act)
@@ -158,7 +163,7 @@
 	     //train_cov.print("train_cov");
 	     
 	     dist = norm( logMtest_cov - logMtrain_cov, "fro");
-
+	     
 	     //cout << "dist " << dist << endl;
 	     
 	     if (dist < tmp_dist)
@@ -194,11 +199,12 @@
    
    int n_actions = actions.n_rows;
    int n_peo =  all_people.n_rows;
- 
+   
    float acc;
    acc = 0;
    
-   int n_test = n_peo*n_actions*total_scenes;
+      int n_test = n_peo*n_actions*total_scenes - 1; // - person13_handclapping_d3
+
    vec real_labels;
    vec est_labels;
    field<std::string> test_video_list(n_test);
@@ -216,57 +222,58 @@
      {
        for (int act=0; act<n_actions; ++act)
        {
-	 
-	 //load number of segments
-	 
-	 vec total_seg; 
-	 int num_s;
-	 std::stringstream load_sub_path;
-	 std::stringstream load_num_seg;
-
-	 load_sub_path  << path << "/kth-cov-mat/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
-	 load_num_seg << load_sub_path.str() << "/num_seg_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
-	 total_seg.load( load_num_seg.str());
-	 num_s = total_seg(0);
-	 uvec  est_lab_segm;
-	 est_lab_segm.zeros(num_s);
-	 vec count = zeros<vec>( n_actions );
-	 
-	 for (int s=0; s<num_s; ++s)
+	 if(  !( ( sc==3 && pe==12) && act==1) ) //person13_handclapping_d3
 	 {
-	   std::stringstream load_cov_seg;
-	   load_cov_seg << load_sub_path.str() << "/cov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
+	   //load number of segments
 	   
-	   est_lab_segm(s) = SteinDiv_one_seg_est_lab( pe, load_sub_path.str(),  load_cov_seg.str());
-	   count( est_lab_segm(s) )++;
+	   vec total_seg; 
+	   int num_s;
+	   std::stringstream load_sub_path;
+	   std::stringstream load_num_seg;
+	   
+	   load_sub_path  << path << "/kth-cov-mat/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
+	   load_num_seg << load_sub_path.str() << "/num_seg_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
+	   total_seg.load( load_num_seg.str());
+	   num_s = total_seg(0);
+	   uvec  est_lab_segm;
+	   est_lab_segm.zeros(num_s);
+	   vec count = zeros<vec>( n_actions );
+	   
+	   for (int s=0; s<num_s; ++s)
+	   {
+	     std::stringstream load_cov_seg;
+	     load_cov_seg << load_sub_path.str() << "/cov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
+	     
+	     est_lab_segm(s) = SteinDiv_one_seg_est_lab( pe, load_sub_path.str(),  load_cov_seg.str());
+	     count( est_lab_segm(s) )++;
+	     //getchar();
+	   }
+	   
+	   uword  index_video;
+	   double max_val = count.max(index_video);
+	   //est_lab_segm.t().print("est_lab_segm");
+	   cout << "This video is " << actions(act) << " and was classified as class: " << actions(index_video ) << endl;
+	   
+	   
+	   real_labels(k) = act;
+	   est_labels(k) = index_video;
+	   test_video_list(k) = load_sub_path.str();
+	   
+	   real_labels.save("Stein_div_Eucl_real_labels.dat", raw_ascii);
+	   est_labels.save("Stein_div__est_labels.dat", raw_ascii);
+	   test_video_list.save("Stein_div_test_video_list.dat", raw_ascii);
+	   k++;
+	   
+	   
+	   if (index_video == act)  {
+	     acc++;
+	     
+	   }
+	   
 	   //getchar();
 	 }
 	 
-	 uword  index_video;
-	 double max_val = count.max(index_video);
-	 //est_lab_segm.t().print("est_lab_segm");
-	 cout << "This video is " << actions(act) << " and was classified as class: " << actions(index_video ) << endl;
-	 
-	 
-	 real_labels(k) = act;
-	 est_labels(k) = index_video;
-	 test_video_list(k) = load_sub_path.str();
-	 
-	 real_labels.save("Stein_div_Eucl_real_labels.dat", raw_ascii);
-	 est_labels.save("Stein_div__est_labels.dat", raw_ascii);
-	 test_video_list.save("Stein_div_test_video_list.dat", raw_ascii);
-	 k++;
-	 
-	 
-	 if (index_video == act)  {
-	    acc++;
-	    
-	  }
-      
-	 //getchar();
        }
-       
-       
      }
    }
    
@@ -282,10 +289,10 @@
  {
    //wall_clock timer;
    //timer.tic();
-
+   
    mat test_cov;
    test_cov.load(segm_name);
-
+   
    int n_actions = actions.n_rows;
    int n_peo =  all_people.n_rows;
    
@@ -303,7 +310,7 @@
        
        //cout << " " << all_people (pe_tr);
        
-
+       
        for (int sc = 1; sc<=total_scenes; ++sc) //scene
        {
 	 for (int act=0; act<n_actions; ++act)
@@ -328,11 +335,11 @@
 	     double det_op2 = det( diagmat( ( test_cov%train_cov ) ) );
 	     dist_stein =  log( det_op1 ) - 0.5*log( det_op2 ) ;
 	     
-
+	     
 	     
 	     
 	     //dist_stein = norm( logMtest_cov - logMtrain_cov, "fro");
-
+	     
 	     //cout << "dist " << dist << endl;
 	     
 	     if (dist_stein < tmp_dist)
