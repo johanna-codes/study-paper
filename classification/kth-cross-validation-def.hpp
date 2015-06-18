@@ -13,6 +13,7 @@ class kth_cv //KTH Cross validation
 		const int in_dim 
  		);
     inline void logEucl();
+    inline void SteinDiv();
 
     
     
@@ -32,7 +33,8 @@ class kth_cv //KTH Cross validation
     
     
   private:
-    inline uword one_seg_est_lab( int pe_test, std::string load_sub_path, std::string segm_name );
+    inline uword logEucl_one_seg_est_lab( int pe_test, std::string load_sub_path, std::string segm_name );
+    inline uword SteinDiv_one_seg_est_lab( int pe_test, std::string load_sub_path, std::string segm_name );
     
 
     
