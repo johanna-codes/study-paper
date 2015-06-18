@@ -22,7 +22,7 @@ cov_mat_kth::calculate( field<string> in_all_people, int  in_dim  )
   int n_peo =  all_people.n_rows;
   //all_people.print("people");
   
-  for (int sc = 1; sc<=total_scenes; ++sc) //scene
+  for (int sc = 3; sc<=total_scenes; ++sc) //scene
   {
     for (int pe = 0; pe< n_peo; ++pe)
     {
@@ -41,7 +41,10 @@ cov_mat_kth::calculate( field<string> in_all_people, int  in_dim  )
 	load_labels_video_i << load_folder.str() << "/lab_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
 	
 	//For one Video
+	if (sc!=3 && pe~=12 && act!=1) //person13_handclapping_d3
+	{
 	cov_mat_kth::one_video(load_feat_video_i.str(),	 load_labels_video_i.str(), sc, pe, act );
+	}
 	//getchar();
 	
       }
