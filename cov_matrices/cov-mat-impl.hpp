@@ -6,7 +6,7 @@ cov_mat_kth::cov_mat_kth( const std::string in_path,
 			  const int in_scene, //only for kth
 			  const int in_segment_length
 )
-:path(in_path), actionNames(in_actionNames), scale_factor(in_scale_factor), shift(in_shift), scene(in_scene), segment_length(in_segment_length)
+:path(in_path), actionNames(in_actionNames), scale_factor(in_scale_factor), shift(in_shift), total_scenes(in_scene), segment_length(in_segment_length)
 {
   actions.load( actionNames );  
 }
@@ -22,7 +22,7 @@ cov_mat_kth::calculate( field<string> in_all_people, int  in_dim  )
   int n_peo =  all_people.n_rows;
   //all_people.print("people");
   
-  for (int sc = 1; sc<=1; ++sc) //scene
+  for (int sc = 1; sc<=total_scenes; ++sc) //scene
   {
     for (int pe = 0; pe< n_peo; ++pe)
     {

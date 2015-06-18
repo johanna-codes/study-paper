@@ -7,10 +7,10 @@
 		const int in_scene, //only for kth
 		const int in_segment_length,
 		const int in_dim 
- ):path(in_path), actionNames(in_actionNames), all_people (in_all_people), scale_factor(in_scale_factor), shift(in_shift), scene(in_scene), segment_length(in_segment_length), dim(in_dim)
+ ):path(in_path), actionNames(in_actionNames), all_people (in_all_people), scale_factor(in_scale_factor), shift(in_shift), total_scenes(in_scene), segment_length(in_segment_length), dim(in_dim)
  {
    actions.load( actionNames );  
-   total_sc = 1;
+
    
  }
  
@@ -25,9 +25,9 @@
    int acc;
    acc = 0;
    
-   int n_test = n_peo*n_actions*total_sc;
+   int n_test = n_peo*n_actions*total_scenes;
    
-   for (int sc = 1; sc<=total_sc; ++sc) //scene
+   for (int sc = 1; sc<=total_scenes; ++sc) //scene
    {
      for (int pe = 0; pe< n_peo; ++pe)
      {
@@ -111,7 +111,7 @@
        //cout << " " << all_people (pe_tr);
        
 
-       for (int sc = 1; sc<=total_sc; ++sc) //scene
+       for (int sc = 1; sc<=total_scenes; ++sc) //scene
        {
 	 for (int act=0; act<n_actions; ++act)
 	 {

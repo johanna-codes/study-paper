@@ -56,14 +56,14 @@ main(int argc, char** argv)
   
   int scale_factor = atoi( argv[1] );
   int shift = atoi( argv[2] );
-  int scene = 4;
+  int total_scenes = 4;
   int segment_length = 20;
   int dim = 12; //Action Recognition from Video Using feature Covariance Matrices
   
   field<string> all_people;
   all_people.load(peopleList);
   
-   kth_cv kth_CV(path, actionNames, all_people, scale_factor, shift, scene, segment_length, dim);
+   kth_cv kth_CV(path, actionNames, all_people, scale_factor, shift, total_scenes, segment_length, dim);
    kth_CV.logEucl();
 		
 		
