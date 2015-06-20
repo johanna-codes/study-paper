@@ -1,11 +1,11 @@
 inline
 grass_points::grass_points( const std::string in_path,
-			  const std::string in_actionNames,  
-			  const int in_scale_factor, 
-			  const int in_shift,
-			  const int in_scene, //only for kth
-			  const int in_segment_length,
-			  const int in_p
+			    const std::string in_actionNames,  
+			    const int in_scale_factor, 
+			    const int in_shift,
+			    const int in_scene, //only for kth
+			    const int in_segment_length,
+			    const int in_p
 )
 :path(in_path), actionNames(in_actionNames), scale_factor(in_scale_factor), shift(in_shift), total_scenes(in_scene), segment_length(in_segment_length), p(in_p)
 {
@@ -44,7 +44,7 @@ grass_points::calculate( field<string> in_all_people, int  in_dim  )
 	//For one Video
 	if(  !( ( sc==3 && pe==12) && act==1) ) //person13_handclapping_d3 doesn't exist
 	{
-	one_video(load_feat_video_i.str(),	 load_labels_video_i.str(), sc, pe, act );
+	  one_video(load_feat_video_i.str(),	 load_labels_video_i.str(), sc, pe, act );
 	}
 	//getchar();
 	
@@ -89,12 +89,12 @@ grass_points::one_video( std::string load_feat_video_i,	std::string load_labels_
       //cout << " " << j;
       uvec indices = find(lab_video_i == j);
       mat feat_fr = mat_features_video_i.cols(indices);
-
+      
       for (int v=0; v < feat_fr.n_cols; ++v)
       {
 	vec sample = feat_fr.col(v);
 	feat_seg.push_back(sample);
-
+	
       }
       
       
@@ -111,7 +111,7 @@ grass_points::one_video( std::string load_feat_video_i,	std::string load_labels_
       for (uword i = 0; i < feat_seg.size(); ++i)
       {
 	mat_feat_seg.col(i) = feat_seg.at(i);
-
+	
 	
       }
       
@@ -122,22 +122,22 @@ grass_points::one_video( std::string load_feat_video_i,	std::string load_labels_
       
       
       
-    std::stringstream save_Gnp;
-    save_Gnp << save_folder.str() << "/grass_pt" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
-    
-     Gnp.save( save_cov_seg.str(), hdf5_binary ); 
-
-    
-    
-    s++;
+      std::stringstream save_Gnp;
+      save_Gnp << save_folder.str() << "/grass_pt" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
+      
+      Gnp.save( save_Gnp.str(), hdf5_binary ); 
+      
+      
+      
+      s++;
     }
     else {
-     //cout << " " << stat_seg.count();
-     //getchar();
-     
+      //cout << " " << stat_seg.count();
+      //getchar();
+      
     }
     
-  
+    
     
     
   }
@@ -152,7 +152,7 @@ grass_points::one_video( std::string load_feat_video_i,	std::string load_labels_
   cout << "Total # of segments " << s << endl;
   //cout << "press a key " ;
   //getchar();
-    
+  
 }
 
 
