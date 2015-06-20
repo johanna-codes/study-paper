@@ -92,7 +92,7 @@ grass_points::one_video( std::string load_feat_video_i,	std::string load_labels_
       }
 
     }
-    cout << feat_seg.size() << endl;
+    //cout << feat_seg.size() << endl;
     if (feat_seg.size()>100) // Cuando en el segmento hay mas de 100 vectores 
     {
       mat mat_feat_seg(dim,feat_seg.size());
