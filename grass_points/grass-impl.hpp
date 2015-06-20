@@ -76,12 +76,7 @@ grass_points::one_video( std::string load_feat_video_i,	std::string load_labels_
   
   for (int l=2; l<last-segment_length; l = l+4 )
   {
-    
     std::vector<vec> feat_seg;
-    //int k =0;
-    
-    //cout << " " << l;
-    
     
     for (int j=l; j< l + segment_length; ++j)
     {
@@ -94,40 +89,27 @@ grass_points::one_video( std::string load_feat_video_i,	std::string load_labels_
       {
 	vec sample = feat_fr.col(v);
 	feat_seg.push_back(sample);
-	
       }
-      
-      
+
     }
-    
-    //cout << endl;
-    //cout << " " << stat_seg.count();
-    
+
     if (feat_seg.size()>100) // Cuando en el segmento hay mas de 100 vectores 
     {
-      
       mat mat_feat_seg(dim,feat_seg.size());
       
       for (uword i = 0; i < feat_seg.size(); ++i)
       {
 	mat_feat_seg.col(i) = feat_seg.at(i);
 	
-	
       }
       
       mat U; vec s;   mat V;
       svd(U,s,V,mat_feat_seg); 
       mat Gnp = U.cols(0,p-1);
-      
-      
-      
-      
+
       std::stringstream save_Gnp;
       save_Gnp << save_folder.str() << "/grass_pt" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
-      
       Gnp.save( save_Gnp.str(), hdf5_binary ); 
-      
-      
       
       s++;
     }
@@ -136,10 +118,7 @@ grass_points::one_video( std::string load_feat_video_i,	std::string load_labels_
       //getchar();
       
     }
-    
-    
-    
-    
+
   }
   
   
