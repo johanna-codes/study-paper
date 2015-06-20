@@ -77,8 +77,7 @@ grass_points::one_video( std::string load_feat_video_i,	std::string load_labels_
   for (int l=2; l<last-segment_length; l = l+4 )
   {
     
-    std::vector<vec> 
-    running_stat_vec<rowvec> feat_seg;
+    std::vector<vec> feat_seg;
     //int k =0;
     
     //cout << " " << l;
