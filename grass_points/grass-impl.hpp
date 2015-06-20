@@ -108,9 +108,9 @@ grass_points::one_video( std::string load_feat_video_i,	std::string load_labels_
       mat Gnp = U.cols(0,p-1);
 
       std::stringstream save_Gnp;
-      cout << save_folder.str() << endl;
+      //cout << save_folder.str() << endl;
       save_Gnp << save_folder.str() << "/grass_pt" << seg << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
-      cout << save_Gnp.str() << endl;
+      //cout << save_Gnp.str() << endl;
       Gnp.save( save_Gnp.str(), hdf5_binary ); 
       
       seg++;
