@@ -7,7 +7,7 @@ grass_points::grass_points( const std::string in_path,
 			  const int in_segment_length,
 			  const int in_p
 )
-:path(in_path), actionNames(in_actionNames), scale_factor(in_scale_factor), shift(in_shift), total_scenes(in_scene), segment_length(in_segment_length)
+:path(in_path), actionNames(in_actionNames), scale_factor(in_scale_factor), shift(in_shift), total_scenes(in_scene), segment_length(in_segment_length), p(in_p)
 {
   actions.load( actionNames );  
 }
