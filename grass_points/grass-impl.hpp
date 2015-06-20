@@ -1,5 +1,5 @@
 inline
-cov_mat_kth::grass_points( const std::string in_path,
+grass_points::grass_points( const std::string in_path,
 			  const std::string in_actionNames,  
 			  const int in_scale_factor, 
 			  const int in_shift,
