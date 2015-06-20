@@ -68,7 +68,7 @@ grass_points::one_video( std::string load_feat_video_i,	std::string load_labels_
   int last = lab_video_i( n_vec - 1 );
   //cout << last << endl;
   
-  int s = 0;
+  int seg = 0;
   
   std::stringstream save_folder;
   save_folder << "./kth-grass-point/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
@@ -109,11 +109,11 @@ grass_points::one_video( std::string load_feat_video_i,	std::string load_labels_
 
       std::stringstream save_Gnp;
       cout << save_folder.str() << endl;
-      save_Gnp << save_folder.str() << "/grass_pt" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
+      save_Gnp << save_folder.str() << "/grass_pt" << seg << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
       cout << save_Gnp.str() << endl;
       Gnp.save( save_Gnp.str(), hdf5_binary ); 
       
-      s++;
+      seg++;
     }
     else {
       //cout << " " << stat_seg.count();
@@ -127,10 +127,10 @@ grass_points::one_video( std::string load_feat_video_i,	std::string load_labels_
   std::stringstream save_seg;
   vec total_seg; 
   total_seg.zeros(1);
-  total_seg( 0 ) = s;
+  total_seg( 0 ) = seg;
   save_seg << save_folder.str() << "/num_seg_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
   total_seg.save( save_seg.str(), raw_ascii );
-  cout << "Total # of segments " << s << endl;
+  cout << "Total # of segments " << seg << endl;
   //cout << "press a key " ;
   //getchar();
   
