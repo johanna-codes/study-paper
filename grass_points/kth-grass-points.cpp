@@ -6,6 +6,7 @@
 #include <armadillo>
 #include <iomanip>
 #include <vector>
+#include "omp.h"
 
 using namespace std;
 using namespace arma;
