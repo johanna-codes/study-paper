@@ -80,6 +80,8 @@ opt_feat::features_all_videos( field<string> all_people )
       cout << my_Struct_feat_lab.a << endl;
       cout << my_Struct_feat_lab.b << endl;
       
+      getchar();
+      
       
       
       //feat_lab feat_lab;
