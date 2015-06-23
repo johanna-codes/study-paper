@@ -152,7 +152,7 @@
 	   
 	   vec dist_segm_s = zeros<vec> (num_s);
 	   
-	   omp_set_num_threads(6);
+	   omp_set_num_threads(10);
 	   cout << omp_get_num_threads() << endl;
 	   #pragma omp for
 	   for (int s_tr=0; s_tr<num_s; ++s_tr)
