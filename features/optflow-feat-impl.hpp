@@ -26,20 +26,17 @@ opt_feat::features_all_videos( field<string> all_people )
   
    int nProcessors=omp_get_max_threads();
    std::cout<<nProcessors<<std::endl;
-   omp_set_num_threads(n_actions);
+   omp_set_num_threads(nProcessors);
    std::cout<< omp_get_num_threads()<<std::endl;
     
+
+  //for (int sc = 1; sc<=total_scene; ++sc) //scene
+  //{
     
-  for (int sc = 1; sc<=total_scene; ++sc) //scene
-  {
+    int sc = total_scene; //Solo estoy usando 1 
+    #pragma omp parallel for 
     for (int pe = 0; pe< n_peo; ++pe)
     {
-      wall_clock timer;
-      timer.tic();
-
-
-      //Tantos cores como # de acciones. Ver cuando toma para una persona y 6 acciones
-      #pragma omp parallel for 
       for (int act=0; act<n_actions; ++act)
       {
 	features_video_i.clear();
@@ -85,13 +82,8 @@ opt_feat::features_all_videos( field<string> all_people )
 	mat_features_video_i.save( save_feat_video_i.str(), hdf5_binary );
 	lab_video_i.save( save_labels_video_i.str(), hdf5_binary );
       }
-      
-      #pragma omp barrier
-      double n = timer.toc();
-      cout << "number of seconds: " << n << endl;
-      getchar();
     }
-  }
+  //}
 }
 
 // //****************** Feature Extraction**************************************
