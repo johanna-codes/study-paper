@@ -99,6 +99,7 @@ opt_feat::features_all_videos( field<string> all_people )
  	lab_video_i.save( save_labels_video_i, hdf5_binary );
       }
       
+      double n = timer.toc();
       cout << "number of seconds NO parallel : " << n << endl;
 
 }
