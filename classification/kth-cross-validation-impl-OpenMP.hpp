@@ -174,7 +174,7 @@
 	     //cout << "Press a key" << endl;
 	     //getchar();
 	   }
-	   #pragma omp barrier
+	   //#pragma omp barrier
 	   
 	   
 	   dist_segm_s.t().print("dist_segm_s");
