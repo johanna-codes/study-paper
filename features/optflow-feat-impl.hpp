@@ -23,6 +23,12 @@ opt_feat::features_all_videos( field<string> all_people )
   int n_actions = actions.n_rows;
   int n_peo =  all_people.n_rows;
   //all_people.print("people");
+  
+   int nProcessors=omp_get_max_threads();
+   std::cout<<nProcessors<<std::endl;
+   omp_set_num_threads(n_actions);
+   std::cout<<omp_get_num_threads()<<std::endl;
+    
     
   for (int sc = 1; sc<=total_scene; ++sc) //scene
   {
@@ -33,12 +39,14 @@ opt_feat::features_all_videos( field<string> all_people )
 
 
       //Tantos cores como # de acciones. Ver cuando toma para una persona y 6 acciones
+      // #pragma omp for 
       for (int act=0; act<n_actions; ++act)
       {
 	features_video_i.clear();
 	labels_video_i.clear();
 	std::stringstream ss_video_name;
 	ss_video_name << path << actions (act) << "/" << all_people (pe) << "_" << actions (act) << "_d" << sc << "_uncomp.avi";
+	//Imprimir el thread que esta usando
 	cout << ss_video_name.str() << endl;
 
 	feature_video( ss_video_name.str() ) ; //all_actions_matrix is calculated inside this method
