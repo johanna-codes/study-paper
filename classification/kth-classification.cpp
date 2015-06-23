@@ -18,8 +18,8 @@
 // #include "riemannian-metrics-def.hpp"
 // #include "riemannian-metrics-impl.hpp"
  
-#include "kth-cross-validation-def.hpp"
-#include "kth-cross-validation-impl.hpp"
+#include "kth-cross-validation-def-OpenMP.hpp"
+#include "kth-cross-validation-impl-OpenMP.hpp"
 
 
 
@@ -56,20 +56,19 @@ main(int argc, char** argv)
   
   int scale_factor = atoi( argv[1] );
   int shift = atoi( argv[2] );
-  int total_scenes = 4;
+  int total_scenes = 1; 
   int segment_length = 20;
   int dim = 12; //Action Recognition from Video Using feature Covariance Matrices
   
   field<string> all_people;
   all_people.load(peopleList);
   
-   kth_cv kth_CV(path, actionNames, all_people, scale_factor, shift, total_scenes, segment_length, dim);
-   kth_CV.logEucl();
+   kth_cv_omp kth_CV_omp(path, actionNames, all_people, scale_factor, shift, total_scenes, segment_length, dim);
+   kth_CV_omp.logEucl();
    //kth_CV.SteinDiv();
-		
-		
-  //cov_mat_kth get_cov_seg(path, actionNames, scale_factor, shift, scene, segment_length);
-  //get_cov_seg.calculate( all_people, dim );
+
+   
+   
   
   
   

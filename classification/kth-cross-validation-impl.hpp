@@ -166,6 +166,8 @@
 	     
 	     //cout << "dist " << dist << endl;
 	     
+	     
+	     ///crear un vec aca y guardar todas las distancias
 	     if (dist < tmp_dist)
 	     {
 	       //cout << "Es menor" << endl;
