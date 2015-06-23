@@ -152,7 +152,8 @@
 	   total_seg.load( load_num_seg.str());
 	   num_s = total_seg(0);
 	   
-	   vec dist_segm_s<zeros> (num_s);
+	   vec dist_segm_s = zeros<vec> (num_s);
+	   
 	   
 	   #pragma omp for
 	   for (int s_tr=0; s_tr<num_s; ++s_tr)
