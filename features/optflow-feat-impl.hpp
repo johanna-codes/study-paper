@@ -5,14 +5,15 @@ opt_feat::opt_feat(const std::string in_path,
 		   const int in_row,
 		   const int in_scale_factor, 
 		   const int in_shift,
-		   const int in_scene //only for kth
+		   const int in_scene, //only for kth
+		   const int in_dim,
 )
-:path(in_path), actionNames(in_actionNames), col(in_col), row(in_row), scale_factor(in_scale_factor), shift(in_shift), total_scene(in_scene)
+:path(in_path), actionNames(in_actionNames), col(in_col), row(in_row), scale_factor(in_scale_factor), shift(in_shift), total_scene(in_scene), dim(in_dim)
 {
   
   actions.load( actionNames );  
   //dim = 14; 
-  dim = 12; //Action Recognition from Video Using feature Covariance Matrices
+  //dim = 12; //Action Recognition from Video Using feature Covariance Matrices
 }
 
 inline
@@ -27,6 +28,11 @@ opt_feat::features_all_videos( field<string> all_people )
   {
     for (int pe = 0; pe< n_peo; ++pe)
     {
+      wall_clock timer;
+      timer.tic();
+
+
+      //Tantos cores como # de acciones. Ver cuando toma para una persona y 6 acciones
       for (int act=0; act<n_actions; ++act)
       {
 	features_video_i.clear();
@@ -59,7 +65,7 @@ opt_feat::features_all_videos( field<string> all_people )
 	//tmp_ss4 << "./features_training_" << col << "x" << row << "/feature_vectors_dim" << dim << peo_train (pe) << "_" << actions(act)<< ".dat";
 	
 	cout << "Saving.." << endl;
-	save_folder << "./kth-features/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
+	save_folder << "./kth-features_dim" << dim <<  "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
 	save_feat_video_i   << save_folder.str() << "/" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
 	save_labels_video_i << save_folder.str() << "/lab_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
 	
@@ -68,6 +74,10 @@ opt_feat::features_all_videos( field<string> all_people )
 	mat_features_video_i.save( save_feat_video_i.str(), hdf5_binary );
 	lab_video_i.save( save_labels_video_i.str(), hdf5_binary );
       }
+      
+      double n = timer.toc();
+      cout << "number of seconds: " << n << endl;
+      getchar();
     }
   }
 }
@@ -221,16 +231,21 @@ opt_feat::feature_video( std::string one_video )
             float Sten = 0.5*( tr_S*tr_S - tr_S2 ); 
 	    
 	    
-	
 	    
-	    //14 features. Used in MLSDA paper and WACV_2016a
-	    //features_one_pixel  << x << y << abs(ix) << abs(iy) << abs(ixx) 
-	    //<< abs(iyy) << gm << gd <<  u << v << abs(ut) 
-	    //<< abs(vt) << (ux + vy)  << (vx - uy);
 	    
+	    if (dim ==12)
+	    {
 	    features_one_pixel  << x       << y       << fr   << gm  << u    << v 
 				<< abs(ut) << abs(vt) << Div  << Vor << Gten << Sten;
+	    }
 	    
+	    if (dim ==14)
+	    {
+	      
+	    features_one_pixel  << x << y << abs(ix) << abs(iy) << abs(ixx) 
+	    << abs(iyy) << gm << gd <<  u << v << abs(ut) 
+	    << abs(vt) << (ux + vy)  << (vx - uy);
+	    }
 	 
 
 	    

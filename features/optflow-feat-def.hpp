@@ -7,7 +7,8 @@ public:
 		    const int in_row,
 		    const int in_scale_factor, 
 		    const int in_shift,
-		    const int in_scene
+		    const int in_scene,
+		    const int dim
                   );
     
     inline void features_all_videos( field<string>all_people);
@@ -23,7 +24,7 @@ const int row;
 const int scale_factor;
 const int shift;
 const int total_scene;
-int dim;
+const int dim;
 
 
 vector <vec> features_video_i; //All vectors per vide_i are stored here

@@ -48,12 +48,13 @@ main(int argc, char** argv)
   
   int scale_factor = atoi( argv[1] );
   int shift = atoi( argv[2] );
-  int total_scene = 4;
+  int total_scene = 1; //Hacer solo para scenario 1
+  int dim = 14;
   
   field<string> all_people;
   all_people.load(peopleList);
   
-  opt_feat opt_feat_kth(path, actionNames, ori_col, ori_row, scale_factor, shift, total_scene);
+  opt_feat opt_feat_kth(path, actionNames, ori_col, ori_row, scale_factor, shift, total_scene, dim);
   opt_feat_kth.features_all_videos( all_people );
   
   
