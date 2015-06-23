@@ -174,6 +174,8 @@
 	     //getchar();
 	   }
 	   #pragma omp barrier
+	   
+	   
 	   dist_segm_s.t().print("dist_segm_s");
 	   getchar();
 	 }
