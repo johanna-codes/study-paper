@@ -1,5 +1,3 @@
-#include "omp.h"
-
  inline
  kth_cv_omp::kth_cv_omp(const std::string in_path,
 		const std::string in_actionNames,  
