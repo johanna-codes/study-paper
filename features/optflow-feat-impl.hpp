@@ -26,7 +26,7 @@ opt_feat::features_all_videos( field<string> all_people )
   
    int nProcessors=omp_get_max_threads();
    std::cout<<nProcessors<<std::endl;
-   omp_set_num_threads(n_actions);
+   omp_set_num_threads(2);
    std::cout<< omp_get_num_threads()<<std::endl;
     
     
