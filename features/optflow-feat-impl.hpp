@@ -6,7 +6,7 @@ opt_feat::opt_feat(const std::string in_path,
 		   const int in_scale_factor, 
 		   const int in_shift,
 		   const int in_scene, //only for kth
-		   const int in_dim,
+		   const int in_dim
 )
 :path(in_path), actionNames(in_actionNames), col(in_col), row(in_row), scale_factor(in_scale_factor), shift(in_shift), total_scene(in_scene), dim(in_dim)
 {
