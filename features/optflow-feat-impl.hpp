@@ -70,6 +70,18 @@ opt_feat::features_all_videos( field<string> all_people )
     for (int i = 0; i<load_save_names.n_rows; ++i)
     {
       
+      std::string one_video = load_save_names(i,0);
+      
+      
+      Struct_feat_lab my_Struct_feat_lab;
+      
+      feature_video( one_video, my_Struct_feat_lab );
+      
+      cout << my_Struct_feat_lab.a << endl;
+      cout << my_Struct_feat_lab.b << endl;
+      
+      
+      
       //feat_lab feat_lab;
 // 	features_video_i.clear();
 // 	labels_video_i.clear();
@@ -123,8 +135,8 @@ opt_feat::features_all_videos( field<string> all_people )
 
 
 inline 
-mystruct_feat_lab
-opt_feat::feature_video( std::string one_video )
+void
+opt_feat::feature_video( std::string one_video, Struct_feat_lab &my_Struct_feat_lab )
 {
   
   int new_row = row;
@@ -325,6 +337,5 @@ opt_feat::feature_video( std::string one_video )
     
   }
   
-   feat_lab faet_lab_ex;
-   return faet_lab_ex;
+
 }
