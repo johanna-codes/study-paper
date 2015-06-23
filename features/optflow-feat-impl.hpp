@@ -50,9 +50,9 @@ opt_feat::features_all_videos( field<string> all_people )
 	int tid=omp_get_thread_num();
         //std::cout<<tid<<"\t tid"<<std::endl;
 	
-	cout << "Processing on "<< tid << " for "<< ss_video_name.str() << endl;
+	//cout << "Processing on "<< tid << " for "<< ss_video_name.str() << endl;
 
-	//feature_video( ss_video_name.str() ) ; //all_actions_matrix is calculated inside this method
+	feature_video( ss_video_name.str() ) ; //all_actions_matrix is calculated inside this method
 	mat mat_features_video_i;
 	vec lab_video_i;
 
