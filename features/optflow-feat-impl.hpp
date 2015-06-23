@@ -24,84 +24,84 @@ opt_feat::features_all_videos( field<string> all_people )
   int n_peo =  all_people.n_rows;
   //all_people.print("people");
   
-   field <std::string> load_save_names (n_peo*n_actions,3); 
-   int sc = total_scene; //Solo estoy usando 1 
-   int k =0;
-   
-       for (int pe = 0; pe< n_peo; ++pe)
-       {
-	 for (int act=0; act<n_actions; ++act)
-	 {
-	   std::stringstream ss_video_name;
-	   ss_video_name << path << actions (act) << "/" << all_people (pe) << "_" << actions (act) << "_d" << sc << "_uncomp.avi";
-	   
-	   std::stringstream save_folder;
-	   std::stringstream save_feat_video_i;
-	   std::stringstream save_labels_video_i;
-	   
-	   save_folder << "./kth-features_dim" << dim <<  "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
-	   save_feat_video_i   << save_folder.str() << "/" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
-	   save_labels_video_i << save_folder.str() << "/lab_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
-	   
-	   load_save_names(k,0) = ss_video_name.str();
-	   load_save_names(k,1) = save_feat_video_i.str();
-	   load_save_names(k,2) = save_labels_video_i.str();
-	   k++;
-
+  field <std::string> load_save_names (n_peo*n_actions,3); 
+  int sc = total_scene; //Solo estoy usando 1 
+  int k =0;
+  
+  for (int pe = 0; pe< n_peo; ++pe)
+  {
+    for (int act=0; act<n_actions; ++act)
+    {
+      std::stringstream ss_video_name;
+      ss_video_name << path << actions (act) << "/" << all_people (pe) << "_" << actions (act) << "_d" << sc << "_uncomp.avi";
+      
+      std::stringstream save_folder;
+      std::stringstream save_feat_video_i;
+      std::stringstream save_labels_video_i;
+      
+      save_folder << "./kth-features_dim" << dim <<  "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
+      save_feat_video_i   << save_folder.str() << "/" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
+      save_labels_video_i << save_folder.str() << "/lab_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
+      
+      load_save_names(k,0) = ss_video_name.str();
+      load_save_names(k,1) = save_feat_video_i.str();
+      load_save_names(k,2) = save_labels_video_i.str();
+      k++;
+      
+    }
+  }
+  
+  //int nProcessors=omp_get_max_threads();
+  //std::cout<<nProcessors<<std::endl;
+  //std::cout<< omp_get_num_threads()<<std::endl;
+  
+  
+  wall_clock timer;
+  timer.tic();
+  omp_set_num_threads(10); //Use only 10 processors
+  
+  #pragma omp parallel for 
+  for (int i = 0; i<load_save_names.n_rows; ++i)
+  {
+    
+    std::string one_video = load_save_names(i,0);
+    int tid=omp_get_thread_num();
+    
+    #pragma omp critical
+    cout<< "Processor " << tid <<" doing "<< one_video << endl;
+    
+    
+    Struct_feat_lab my_Struct_feat_lab;
+    
+    feature_video( one_video, my_Struct_feat_lab );
+    mat mat_features_video_i;
+    vec lab_video_i;
+    
+    if (my_Struct_feat_lab.features_video_i.size()>0)
+    {
+      mat_features_video_i.zeros( dim,my_Struct_feat_lab.features_video_i.size() );
+      lab_video_i.zeros( my_Struct_feat_lab.features_video_i.size() );
+      for (uword i = 0; i < my_Struct_feat_lab.features_video_i.size(); ++i)
+      {
+	mat_features_video_i.col(i) = my_Struct_feat_lab.features_video_i.at(i)/norm(my_Struct_feat_lab.features_video_i.at(i),2);
+	lab_video_i(i) = my_Struct_feat_lab.labels_video_i.at(i);
       }
     }
-    
-   //int nProcessors=omp_get_max_threads();
-   //std::cout<<nProcessors<<std::endl;
-   //omp_set_num_threads(10); //Use only 10 processors
-   //std::cout<< omp_get_num_threads()<<std::endl;
-   
-   
-   wall_clock timer;
-   timer.tic();
-    
-//#pragma omp parallel for 
-    for (int i = 0; i<load_save_names.n_rows; ++i)
+    else
     {
-     
-      std::string one_video = load_save_names(i,0);
-      int tid=omp_get_thread_num();
-      
-//      #pragma omp critical
-      cout<< "Processor " << tid <<" doing "<< one_video << endl;
-       
-       
-      Struct_feat_lab my_Struct_feat_lab;
-      
-      feature_video( one_video, my_Struct_feat_lab );
-      mat mat_features_video_i;
-      vec lab_video_i;
- 
- 	if (my_Struct_feat_lab.features_video_i.size()>0)
- 	{
- 	  mat_features_video_i.zeros( dim,my_Struct_feat_lab.features_video_i.size() );
- 	  lab_video_i.zeros( my_Struct_feat_lab.features_video_i.size() );
- 	  for (uword i = 0; i < my_Struct_feat_lab.features_video_i.size(); ++i)
- 	  {
- 	    mat_features_video_i.col(i) = my_Struct_feat_lab.features_video_i.at(i)/norm(my_Struct_feat_lab.features_video_i.at(i),2);
- 	    lab_video_i(i) = my_Struct_feat_lab.labels_video_i.at(i);
- 	  }
- 	}
- 	else
- 	{
- 	  mat_features_video_i.zeros(dim,0);
- 	}
-
- 	std::string save_feat_video_i   = load_save_names(i,1);
- 	std::string save_labels_video_i = load_save_names(i,2);
- 	
- 	mat_features_video_i.save( save_feat_video_i, hdf5_binary );
- 	lab_video_i.save( save_labels_video_i, hdf5_binary );
-      }
-      
-      double n = timer.toc();
-      cout << "number of seconds NO parallel : " << n << endl;
-
+      mat_features_video_i.zeros(dim,0);
+    }
+    
+    std::string save_feat_video_i   = load_save_names(i,1);
+    std::string save_labels_video_i = load_save_names(i,2);
+    
+    mat_features_video_i.save( save_feat_video_i, hdf5_binary );
+    lab_video_i.save( save_labels_video_i, hdf5_binary );
+  }
+  
+  double n = timer.toc();
+  cout << "number of seconds NO parallel : " << n << endl;
+  
 }
 
 // //****************** Feature Extraction**************************************
@@ -112,15 +112,15 @@ inline
 void
 opt_feat::feature_video( std::string one_video, Struct_feat_lab &my_Struct_feat_lab )
 {
-
+  
   
   
   my_Struct_feat_lab.features_video_i.clear();
   my_Struct_feat_lab.labels_video_i.clear();
-
+  
   int new_row = row;
   int new_col = col;
-       
+  
   cv::VideoCapture capVideo(one_video);
   int n_frames = capVideo.get(CV_CAP_PROP_FRAME_COUNT);
   
@@ -134,7 +134,7 @@ opt_feat::feature_video( std::string one_video, Struct_feat_lab &my_Struct_feat_
   cv::Mat prevgray, gray, flow, cflow, frame, prevflow;
   cv::Mat ixMat, iyMat, ixxMat, iyyMat;
   cv::Mat flow_xy[2], mag, ang;
-
+  
   
   string text;
   
@@ -152,16 +152,16 @@ opt_feat::feature_video( std::string one_video, Struct_feat_lab &my_Struct_feat_
     }
     
     
-     if (scale_factor!=1)
-     {
-       new_row = row*scale_factor;
-       new_col = col*scale_factor;
-       cv::resize( frame, frame, cv::Size(new_row, new_col) );
-     }
+    if (scale_factor!=1)
+    {
+      new_row = row*scale_factor;
+      new_col = col*scale_factor;
+      cv::resize( frame, frame, cv::Size(new_row, new_col) );
+    }
     
     
     cv::cvtColor(frame, gray, CV_BGR2GRAY);
-
+    
     
     
     if( prevgray.data )
@@ -225,7 +225,7 @@ opt_feat::feature_video( std::string one_video, Struct_feat_lab &my_Struct_feat_
 	    // dv/dt
 	    float vt = v - prevflow.at<cv::Vec2f>(y, x)[1];
 	    
-
+	    
 	    
 	    if (x>0 && y>0 )
 	    {
@@ -239,44 +239,44 @@ opt_feat::feature_video( std::string one_video, Struct_feat_lab &my_Struct_feat_
 	    float Div = (ux + vy);
 	    float Vor = (vx - uy);
 	    //Adding more features
-            mat G (2,2);
-            mat S;
-            float gd_opflow = ang.at<float>(y,x);
-            float mg_opflow = mag.at<float>(y,x);
-            //Gradient Tensor
-            G   << ux << uy << endr
-            << vx << vy << endr;
-            
-            //Rate of Stein Tensor  
-            S = 0.5*(G + G.t());
-            
-            float tr_G = trace(G);
-            float tr_G2 = trace( square(G) );
-            float tr_S = trace(S);
-            float tr_S2 = trace(square(S));
-            
-            //Tensor Invariants  of the optical flow
-            float Gten = 0.5*( tr_G*tr_G - tr_G2 );
-            float Sten = 0.5*( tr_S*tr_S - tr_S2 ); 
+	    mat G (2,2);
+	    mat S;
+	    float gd_opflow = ang.at<float>(y,x);
+	    float mg_opflow = mag.at<float>(y,x);
+	    //Gradient Tensor
+	    G   << ux << uy << endr
+	    << vx << vy << endr;
+	    
+	    //Rate of Stein Tensor  
+	    S = 0.5*(G + G.t());
+	    
+	    float tr_G = trace(G);
+	    float tr_G2 = trace( square(G) );
+	    float tr_S = trace(S);
+	    float tr_S2 = trace(square(S));
+	    
+	    //Tensor Invariants  of the optical flow
+	    float Gten = 0.5*( tr_G*tr_G - tr_G2 );
+	    float Sten = 0.5*( tr_S*tr_S - tr_S2 ); 
 	    
 	    
 	    
 	    
 	    if (dim ==12)
 	    {
-	    features_one_pixel  << x       << y       << fr   << gm  << u    << v 
-				<< abs(ut) << abs(vt) << Div  << Vor << Gten << Sten;
+	      features_one_pixel  << x       << y       << fr   << gm  << u    << v 
+	      << abs(ut) << abs(vt) << Div  << Vor << Gten << Sten;
 	    }
 	    
 	    if (dim ==14)
 	    {
 	      
-	    features_one_pixel  << x << y << abs(ix) << abs(iy) << abs(ixx) 
-	    << abs(iyy) << gm << gd <<  u << v << abs(ut) 
-	    << abs(vt) << (ux + vy)  << (vx - uy);
+	      features_one_pixel  << x << y << abs(ix) << abs(iy) << abs(ixx) 
+	      << abs(iyy) << gm << gd <<  u << v << abs(ut) 
+	      << abs(vt) << (ux + vy)  << (vx - uy);
 	    }
-	 
-
+	    
+	    
 	    
 	    
 	    if (!is_finite( features_one_pixel ) )
@@ -304,17 +304,17 @@ opt_feat::feature_video( std::string one_video, Struct_feat_lab &my_Struct_feat_
       
       if(cv::waitKey(30)>=0)
 	break;
-
+      
     }
     
-      std::swap(prevgray, gray);
-      std::swap(prevflow, flow);
-      
-     //cv::imshow("color", frame);
-     //cv::waitKey(1);
+    std::swap(prevgray, gray);
+    std::swap(prevflow, flow);
+    
+    //cv::imshow("color", frame);
+    //cv::waitKey(1);
     
     
   }
   
-
+  
 }
