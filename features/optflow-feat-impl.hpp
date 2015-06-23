@@ -77,7 +77,7 @@ opt_feat::features_all_videos( field<string> all_people )
 	save_feat_video_i   << save_folder.str() << "/" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
 	save_labels_video_i << save_folder.str() << "/lab_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
 	
-	//cout << save_feat_video_i.str() << endl;
+	cout << "Saving " << save_feat_video_i.str() << endl;
 	//getchar();
 	mat_features_video_i.save( save_feat_video_i.str(), hdf5_binary );
 	lab_video_i.save( save_labels_video_i.str(), hdf5_binary );
