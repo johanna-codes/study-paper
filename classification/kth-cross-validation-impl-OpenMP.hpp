@@ -152,8 +152,9 @@
 	   
 	   vec dist_segm_s = zeros<vec> (num_s);
 	   
-	   omp_set_num_threads(10);
+	   
 	   #pragma omp for
+	   omp_set_num_threads(10);
 	   for (int s_tr=0; s_tr<num_s; ++s_tr)
 	   {
 	     std::stringstream load_cov_seg_tr;
