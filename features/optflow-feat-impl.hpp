@@ -324,4 +324,7 @@ opt_feat::feature_video( std::string one_video )
     
     
   }
+  
+   feat_lab faet_lab_ex;
+   return faet_lab_ex;
 }
