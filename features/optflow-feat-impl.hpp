@@ -123,7 +123,7 @@ opt_feat::features_all_videos( field<string> all_people )
 
 
 inline 
-feat_lab
+mystruct_feat_lab
 opt_feat::feature_video( std::string one_video )
 {
   

@@ -32,19 +32,17 @@ public:
   
   field<std::string> actions;
   
-    struct feat_lab
-  {
+  typedef struct{
     vector <vec> features_video_i; //All vectors per video_i are stored here
     vector <int> labels_video_i;
-    
-  };
-  
+}mystruct_feat_lab;
+
   
 private:
 
   
   
-  inline feat_lab feature_video( std::string one_video );
+  inline mystruct_feat_lab feature_video( std::string one_video );
   
   
   
