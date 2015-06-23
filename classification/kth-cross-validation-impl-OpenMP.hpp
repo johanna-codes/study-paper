@@ -155,6 +155,7 @@
 	   vec dist_segm_s = zeros<vec> (num_s);
 	   
 	   omp_set_num_threads(6);
+	   cout << omp_get_thread_num() << endl;
 	   #pragma omp for
 	   for (int s_tr=0; s_tr<num_s; ++s_tr)
 	   {
@@ -174,7 +175,7 @@
 	     //cout << "Press a key" << endl;
 	     //getchar();
 	   }
-	   cout << omp_get_thread_num() << endl;
+	   
 	   #pragma omp barrier
 	   	   
 	   dist_segm_s.t().print("dist_segm_s");
