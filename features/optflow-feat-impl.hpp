@@ -140,6 +140,8 @@ inline
 void
 opt_feat::feature_video( std::string one_video, Struct_feat_lab &my_Struct_feat_lab )
 {
+  my_Struct_feat_lab.a = 100;
+  my_Struct_feat_lab.b = 1415415;
   
   int new_row = row;
   int new_col = col;
