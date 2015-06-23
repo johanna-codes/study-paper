@@ -73,7 +73,7 @@ opt_feat::features_all_videos( field<string> all_people )
   //{
  
 
-    for (int i = 0; i< load_save_names.n_rows; ++i)
+    for (int i = 0; i<load_save_names.n_rows; ++i)
     {
       
 // 	features_video_i.clear();
@@ -119,7 +119,7 @@ opt_feat::features_all_videos( field<string> all_people )
 // 	mat_features_video_i.save( save_feat_video_i.str(), hdf5_binary );
 // 	lab_video_i.save( save_labels_video_i.str(), hdf5_binary );
       }
-    }
+
   //}
 }
 
