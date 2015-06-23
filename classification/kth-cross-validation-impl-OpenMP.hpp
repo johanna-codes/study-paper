@@ -153,7 +153,6 @@
 	   vec dist_segm_s = zeros<vec> (num_s);
 	   
 	   omp_set_num_threads(10);
-	   cout << omp_get_num_threads() << endl;
 	   #pragma omp for
 	   for (int s_tr=0; s_tr<num_s; ++s_tr)
 	   {
@@ -163,7 +162,8 @@
 	     //cout << "Comparing with cov_seg" << s_tr << "_"<< all_people (pe_tr) << "_" << actions(act) << "_dim" << dim  << ".h5" << endl;
 	     mat logMtrain_cov;
 	     logMtrain_cov.load( load_cov_seg_tr.str() );
-	     
+	     	   cout << omp_get_num_threads() << endl;
+
 	     //logMtest_cov.print("logMtest_cov");
 	     //train_cov.print("train_cov");
 	     
