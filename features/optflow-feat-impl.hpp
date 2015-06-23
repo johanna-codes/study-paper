@@ -35,10 +35,10 @@ opt_feat::features_all_videos( field<string> all_people )
     
     int sc = total_scene; //Solo estoy usando 1 
     //#pragma omp parallel for 
-    #pragma omp parallel for collapse(2)
+    #pragma omp parallel for (private act)
     for (int pe = 0; pe< n_peo; ++pe)
     {
-      for (int act=0; act<n_actions; ++act)
+      for (act=0; act<n_actions; ++act)
       {
 	features_video_i.clear();
 	labels_video_i.clear();
