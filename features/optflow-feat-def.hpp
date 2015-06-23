@@ -27,15 +27,20 @@ const int total_scene;
 const int dim;
 
 
-vector <vec> features_video_i; //All vectors per video_i are stored here
-vector <int> labels_video_i;
+
 
 field<std::string> actions;
 
 
   private:
     inline void feature_video( std::string one_video );
-
+   
+    struct feat_lab
+    {
+      vector <vec> features_video_i; //All vectors per video_i are stored here
+      vector <int> labels_video_i;
+      
+    };
  
   
 };

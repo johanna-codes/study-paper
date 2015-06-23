@@ -60,13 +60,7 @@ opt_feat::features_all_videos( field<string> all_people )
     
     
     
-    struct cat
-    {
-      string name;
-      string color;
-      int weight;
-      
-    };
+ 
    
    
   //for (int sc = 1; sc<=total_scene; ++sc) //scene
@@ -76,6 +70,7 @@ opt_feat::features_all_videos( field<string> all_people )
     for (int i = 0; i<load_save_names.n_rows; ++i)
     {
       
+      //feat_lab feat_lab;
 // 	features_video_i.clear();
 // 	labels_video_i.clear();
 // 	std::stringstream ss_video_name;
