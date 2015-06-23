@@ -31,6 +31,7 @@ opt_feat::features_all_videos( field<string> all_people )
    
    
    field <std::string> load_save_names (n_peo*n_actions,3); 
+   int sc = total_scene; //Solo estoy usando 1 
    int k =0;
    
        for (int pe = 0; pe< n_peo; ++pe)
@@ -70,7 +71,7 @@ opt_feat::features_all_videos( field<string> all_people )
    
   //for (int sc = 1; sc<=total_scene; ++sc) //scene
   //{
-    int sc = total_scene; //Solo estoy usando 1 
+ 
 
     for (int i = 0; i< load_save_names.n_rows; ++i)
     {
