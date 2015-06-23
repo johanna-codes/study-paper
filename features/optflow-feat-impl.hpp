@@ -120,8 +120,10 @@ opt_feat::features_all_videos( field<string> all_people )
 
 // //****************** Feature Extraction**************************************
 // //***************************************************************************
+
+
 inline 
-void
+struct feat_lab
 opt_feat::feature_video( std::string one_video )
 {
   

@@ -34,7 +34,7 @@ public:
   
   
 private:
-  inline void feature_video( std::string one_video );
+  inline struct feat_lab feature_video( std::string one_video );
   
   struct feat_lab
   {
