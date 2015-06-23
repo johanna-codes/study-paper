@@ -39,7 +39,7 @@ opt_feat::features_all_videos( field<string> all_people )
 
 
       //Tantos cores como # de acciones. Ver cuando toma para una persona y 6 acciones
-      #pragma omp for 
+      #pragma omp parallel for 
       for (int act=0; act<n_actions; ++act)
       {
 	features_video_i.clear();
