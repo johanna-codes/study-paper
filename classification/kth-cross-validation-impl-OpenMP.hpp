@@ -1,3 +1,5 @@
+#include "omp.h"
+
  inline
  kth_cv_omp::kth_cv_omp(const std::string in_path,
 		const std::string in_actionNames,  
@@ -150,10 +152,6 @@
 	   total_seg.load( load_num_seg.str());
 	   num_s = total_seg(0);
 	   
-	   vec dist_segm_s = zeros<vec> (num_s);
-	   
-	   omp_set_num_threads(10);
-	   #pragma omp for
 	   for (int s_tr=0; s_tr<num_s; ++s_tr)
 	   {
 	     std::stringstream load_cov_seg_tr;
@@ -162,22 +160,25 @@
 	     //cout << "Comparing with cov_seg" << s_tr << "_"<< all_people (pe_tr) << "_" << actions(act) << "_dim" << dim  << ".h5" << endl;
 	     mat logMtrain_cov;
 	     logMtrain_cov.load( load_cov_seg_tr.str() );
-	     	   cout << omp_get_num_threads() << endl;
-
+	     
 	     //logMtest_cov.print("logMtest_cov");
 	     //train_cov.print("train_cov");
 	     
-	     dist_segm_s(s_tr) = norm( logMtest_cov - logMtrain_cov, "fro");
+	     dist = norm( logMtest_cov - logMtrain_cov, "fro");
 	     
-	     //cout << "dist " << dis
+	     //cout << "dist " << dist << endl;
+	     
+	     
+	     ///crear un vec aca y guardar todas las distancias
+	     if (dist < tmp_dist)
+	     {
+	       //cout << "Es menor" << endl;
+	       tmp_dist = dist;
+	       est_lab = act;
+	     }
 	     //cout << "Press a key" << endl;
 	     //getchar();
 	   }
-	   
-	   #pragma omp barrier
-	   	   
-	   dist_segm_s.t().print("dist_segm_s");
-	   getchar();
 	 }
        }
      }
