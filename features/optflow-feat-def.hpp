@@ -26,17 +26,16 @@ public:
   const int total_scene;
   const int dim;
   
-  vector <vec> features_video_i; //All vectors per video_i are stored here
-  vector <int> labels_video_i;
+//   vector <vec> features_video_i; //All vectors per video_i are stored here
+//   vector <int> labels_video_i;
   
   
   field<std::string> actions;
   
   struct Struct_feat_lab{
-    //vector <vec> features_video_i; //All vectors per video_i are stored here
-    //vector <int> labels_video_i;
-    int a;
-    int b;
+    vector <vec> features_video_i; //All vectors per video_i are stored here
+    vector <int> labels_video_i;
+
 };
 
   

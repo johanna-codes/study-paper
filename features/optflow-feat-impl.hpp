@@ -24,12 +24,6 @@ opt_feat::features_all_videos( field<string> all_people )
   int n_peo =  all_people.n_rows;
   //all_people.print("people");
   
-   int nProcessors=omp_get_max_threads();
-   std::cout<<nProcessors<<std::endl;
-   //omp_set_num_threads(nProcessors);
-   std::cout<< omp_get_num_threads()<<std::endl;
-   
-   
    field <std::string> load_save_names (n_peo*n_actions,3); 
    int sc = total_scene; //Solo estoy usando 1 
    int k =0;
@@ -57,79 +51,52 @@ opt_feat::features_all_videos( field<string> all_people )
       }
     }
     
-    
-    
-    
- 
+   //int nProcessors=omp_get_max_threads();
+   //std::cout<<nProcessors<<std::endl;
+   omp_set_num_threads(10); //Use only 10 processors
+   //std::cout<< omp_get_num_threads()<<std::endl;
    
    
-  //for (int sc = 1; sc<=total_scene; ++sc) //scene
-  //{
- 
-
+   
+    
+#pragma omp parallel for 
     for (int i = 0; i<load_save_names.n_rows; ++i)
     {
-      
+     
       std::string one_video = load_save_names(i,0);
-      
-      
+      int tid=omp_get_thread_num();
+       #pragma omp critical
+      cout<< "Processor " << tid <<" doing "<< one_video << endl;
+       
+       
       Struct_feat_lab my_Struct_feat_lab;
       
       feature_video( one_video, my_Struct_feat_lab );
-      
-      cout << my_Struct_feat_lab.a << endl;
-      cout << my_Struct_feat_lab.b << endl;
-      
-      getchar();
-      
-      
-      
-      //feat_lab feat_lab;
-// 	features_video_i.clear();
-// 	labels_video_i.clear();
-// 	std::stringstream ss_video_name;
-// 	ss_video_name << path << actions (act) << "/" << all_people (pe) << "_" << actions (act) << "_d" << sc << "_uncomp.avi";
-// 	//Imprimir el thread que esta usando
-// 	int tid=omp_get_thread_num();
-//         //std::cout<<tid<<"\t tid"<<std::endl;
-// 	
-// 	//cout << "Processing on "<< tid << " for "<< ss_video_name.str() << endl;
-// 
-// 	feature_video( ss_video_name.str() ) ; //all_actions_matrix is calculated inside this method
-// 	mat mat_features_video_i;
-// 	vec lab_video_i;
-// 
-// 	if (features_video_i.size()>0)
-// 	{
-// 	  mat_features_video_i.zeros( dim,features_video_i.size() );
-// 	  lab_video_i.zeros( features_video_i.size() );
-// 	  for (uword i = 0; i < features_video_i.size(); ++i)
-// 	  {
-// 	    mat_features_video_i.col(i) = features_video_i.at(i)/norm(features_video_i.at(i),2);
-// 	    lab_video_i(i) = labels_video_i.at(i);
-// 	  }
-// 	}
-// 	else
-// 	{
-// 	  mat_features_video_i.zeros(dim,0);
-// 	}
-// 	std::stringstream save_folder;
-// 	std::stringstream save_feat_video_i;
-// 	std::stringstream save_labels_video_i;
-// 	//tmp_ss4 << "./features_training_" << col << "x" << row << "/feature_vectors_dim" << dim << peo_train (pe) << "_" << actions(act)<< ".dat";
-// 	
-// 	//cout << "Saving.." << endl;
-// 	save_folder << "./kth-features_dim" << dim <<  "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
-// 	save_feat_video_i   << save_folder.str() << "/" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
-// 	save_labels_video_i << save_folder.str() << "/lab_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
-// 	
-// 	cout << "Saving " << save_feat_video_i.str() << endl;
-// 	//getchar();
-// 	mat_features_video_i.save( save_feat_video_i.str(), hdf5_binary );
-// 	lab_video_i.save( save_labels_video_i.str(), hdf5_binary );
+      mat mat_features_video_i;
+      vec lab_video_i;
+ 
+ 	if (my_Struct_feat_lab.features_video_i.size()>0)
+ 	{
+ 	  mat_features_video_i.zeros( dim,my_Struct_feat_lab.features_video_i.size() );
+ 	  lab_video_i.zeros( my_Struct_feat_lab.features_video_i.size() );
+ 	  for (uword i = 0; i < my_Struct_feat_lab.features_video_i.size(); ++i)
+ 	  {
+ 	    mat_features_video_i.col(i) = my_Struct_feat_lab.features_video_i.at(i)/norm(my_Struct_feat_lab.features_video_i.at(i),2);
+ 	    lab_video_i(i) = my_Struct_feat_lab.labels_video_i.at(i);
+ 	  }
+ 	}
+ 	else
+ 	{
+ 	  mat_features_video_i.zeros(dim,0);
+ 	}
+
+ 	std::string save_feat_video_i   = load_save_names(i,1);
+ 	std::string save_labels_video_i = load_save_names(i,2);
+ 	
+ 	mat_features_video_i.save( save_feat_video_i, hdf5_binary );
+ 	lab_video_i.save( save_labels_video_i, hdf5_binary );
       }
 
-  //}
 }
 
 // //****************** Feature Extraction**************************************
@@ -140,9 +107,12 @@ inline
 void
 opt_feat::feature_video( std::string one_video, Struct_feat_lab &my_Struct_feat_lab )
 {
-  my_Struct_feat_lab.a = 100;
-  my_Struct_feat_lab.b = 1415415;
+
   
+  
+  my_Struct_feat_lab.features_video_i.clear();
+  my_Struct_feat_lab.labels_video_i.clear();
+
   int new_row = row;
   int new_col = col;
        
@@ -320,8 +290,8 @@ opt_feat::feature_video( std::string one_video, Struct_feat_lab &my_Struct_feat_
 	      frame.at<cv::Vec3b>(y,x)[0] = 0;
 	      frame.at<cv::Vec3b>(y,x)[1] = 0;
 	      frame.at<cv::Vec3b>(y,x)[2] = 255;
-	      features_video_i.push_back(features_one_pixel);
-	      labels_video_i.push_back( fr );
+	      my_Struct_feat_lab.features_video_i.push_back(features_one_pixel);
+	      my_Struct_feat_lab.labels_video_i.push_back( fr );
 	    }
 	  }
 	}
