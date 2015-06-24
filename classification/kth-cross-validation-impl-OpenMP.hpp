@@ -38,6 +38,7 @@
    vec est_labels;
    field<std::string> test_video_list(n_test);
    
+  
    
    real_labels.zeros(n_test);
    est_labels.zeros(n_test);
@@ -45,89 +46,75 @@
    int k=0;
    int sc = 1; // = total scenes
    
-
+   mat peo_act(n_test,2)
    
-     for (int pe = 0; pe< n_peo; ++pe)
-     {
-       for (int act=0; act<n_actions; ++act)
-       {
-	   //load number of segments
-	   
-	   vec total_seg; 
-	   int num_s;
-	   std::stringstream load_sub_path;
-	   std::stringstream load_num_seg;
-	   
-	   
- 
-	   
-	   load_sub_path  << path << "/kth-cov-mat_dim" << dim << "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
-	   load_num_seg << load_sub_path.str() << "/num_seg_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
-	   cout << all_people (pe) << "_" << actions(act) << endl;
-	   
-	   total_seg.load( load_num_seg.str());
-	   num_s = total_seg(0);
-	   uvec  est_lab_segm;
-	   est_lab_segm.zeros(num_s);
-	   vec count = zeros<vec>( n_actions );
-	   
-	   // Esto es lo que deberia hacerse en paralelo?? Piensa Piensa piensa
-	   wall_clock timer;
-	   timer.tic();
-	   
-	   
-	   #pragma omp parallel for 
-	   for (int s=0; s<num_s; ++s)
-	   {
-	     std::stringstream load_cov_seg;
-	     load_cov_seg << load_sub_path.str() << "/LogMcov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
-	     
-	     //cout << "LogMcov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5" << endl;
-	     //debe devolver el est_labe de ese segmento
-	     est_lab_segm(s) = logEucl_one_seg_est_lab( pe, load_sub_path.str(),  load_cov_seg.str());
-	     count( est_lab_segm(s) )++;
-	     //getchar();
-	   }
-	   
-	   double n = timer.toc();
-	   cout << "OpenMP number of seconds: " << n << endl;
-	   getchar();
-	   
+  for (int pe = 0; pe< n_peo; ++pe)
+  {
+    for (int act=0; act<n_actions; ++act)
+    {
+	 peo_act (k,0) = pe;
+	 peo_act (k,1) = act;
+	 k++;
 	 
-	   
-	   
-	   //cout << "s: " << s << endl;
-	   
-	   
-	   uword  index_video;
-	   double max_val = count.max(index_video);
-	   //est_lab_segm.t().print("est_lab_segm");
-	   cout << "This video is " << actions(act) << " and was classified as class: " << actions(index_video ) << endl;
-	   
-	   
-	   real_labels(k) = act;
-	   est_labels(k) = index_video;
-	   test_video_list(k) = load_sub_path.str();
-	   
-	   real_labels.save("Log_Eucl_real_labels.dat", raw_ascii);
-	   est_labels.save("Log_Eucl_est_labels.dat", raw_ascii);
-	   test_video_list.save("Log_Eucl_test_video_list.dat", raw_ascii);
-	   k++;
-	   
-	   
-	   if (index_video == act)  {
-	     acc++;
-	     
-	   }
-	   
-	   //getchar();
-
        }
-       
        
      }
    
-   cout << "Performance: " << acc*100/n_test << " %" << endl;
+
+     #pragma omp parallel for 
+     for (int n = 0; n< n_test; ++n)
+     {
+      
+       int pe  = peo_act (n,0);
+       int act = peo_act (n,1);
+       
+       //load number of segments
+       vec total_seg; 
+       int num_s;
+       std::stringstream load_sub_path;
+       std::stringstream load_num_seg;
+       
+       load_sub_path  << path << "/kth-cov-mat_dim" << dim << "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
+       load_num_seg << load_sub_path.str() << "/num_seg_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
+       cout << all_people (pe) << "_" << actions(act) << endl;
+       
+       total_seg.load( load_num_seg.str());
+       num_s = total_seg(0);
+       uvec  est_lab_segm;
+       est_lab_segm.zeros(num_s);
+       vec count = zeros<vec>( n_actions );
+       
+       wall_clock timer;
+       timer.tic();
+	
+       for (int s=0; s<num_s; ++s)
+       {
+	 std::stringstream load_cov_seg;
+	 load_cov_seg << load_sub_path.str() << "/LogMcov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
+	 //cout << "LogMcov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5" << endl;
+	 //debe devolver el est_labe de ese segmento
+	 est_lab_segm(s) = logEucl_one_seg_est_lab( pe, load_sub_path.str(),  load_cov_seg.str());
+	 count( est_lab_segm(s) )++;
+	 
+      }
+
+      uword  index_video;
+      double max_val = count.max(index_video);
+      //est_lab_segm.t().print("est_lab_segm");
+      cout << "This video is " << actions(act) << " and was classified as class: " << actions(index_video ) << endl;
+      real_labels(n) = act;
+      est_labels(n) = index_video;
+      test_video_list(n) = load_sub_path.str();
+      
+      #pragma omp atomic
+      if (index_video == act)  {acc++; }
+	 
+     }
+   
+     real_labels.save("Log_Eucl_real_labels.dat", raw_ascii);
+     est_labels.save("Log_Eucl_est_labels.dat", raw_ascii);
+     test_video_list.save("Log_Eucl_test_video_list.dat", raw_ascii);
+     cout << "Performance: " << acc*100/n_test << " %" << endl;
    
  }
  
