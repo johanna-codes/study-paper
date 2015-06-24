@@ -76,7 +76,11 @@
        
        load_sub_path  << path << "/kth-cov-mat_dim" << dim << "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
        load_num_seg << load_sub_path.str() << "/num_seg_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
-       cout << all_people (pe) << "_" << actions(act) << endl;
+       
+       int tid=omp_get_thread_num();
+       
+       #pragma omp critical
+       cout<< "Processor " << tid <<" doing "<<  all_people (pe) << "_" << actions(act) << endl;
        
        total_seg.load( load_num_seg.str());
        num_s = total_seg(0);
