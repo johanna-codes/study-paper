@@ -58,16 +58,16 @@ opt_feat::features_all_videos( field<string> all_people )
   
   wall_clock timer;
   timer.tic();
-  omp_set_num_threads(5); //Use only 10 processors
+  //omp_set_num_threads(5); //Use only 10 processors
   
-  #pragma omp parallel for 
+  //#pragma omp parallel for 
   for (int i = 0; i<load_save_names.n_rows; ++i)
   {
     
     std::string one_video = load_save_names(i,0);
     int tid=omp_get_thread_num();
     
-    #pragma omp critical
+    //#pragma omp critical
     cout<< "Processor " << tid <<" doing "<< one_video << endl;
     
     
