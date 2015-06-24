@@ -43,10 +43,17 @@ cov_mat_kth::calculate( field<string> in_all_people, int  in_dim  )
 	load_feat_video_i << load_folder.str() << "/" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
 	load_labels_video_i << load_folder.str() << "/lab_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
 	
+	
+	std::ostringstream ss1;
+	std::ostringstream ss2;
+	ss1 << pe;
+	ss2 << act;
+
+	
 	parallel_names(k,0) = load_feat_video_i.str();
 	parallel_names(k,1) = load_labels_video_i.str();
-	parallel_names(k,2) = to_string(pe);
-	parallel_names(k,3) = to_string(act);
+	parallel_names(k,2) = ss1.str();
+	parallel_names(k,3) = ss1=2.str();
 	k++;
 	
       }
