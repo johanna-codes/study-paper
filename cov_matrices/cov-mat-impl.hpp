@@ -45,8 +45,8 @@ cov_mat_kth::calculate( field<string> in_all_people, int  in_dim  )
 	
 	parallel_names(k,0) = load_feat_video_i.str();
 	parallel_names(k,1) = load_labels_video_i.str();
-	parallel_names(k,2) = std::stoi(pe);
-	parallel_names(k,3) = std::stoi(act);
+	parallel_names(k,2) = to_string(pe);
+	parallel_names(k,3) = to_string(act);
 	k++;
 	
       }
