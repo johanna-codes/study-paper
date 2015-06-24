@@ -26,10 +26,14 @@
    int n_actions = actions.n_rows;
    int n_peo =  all_people.n_rows;
    
+   
+   //No hacer acc aqui. Hacerlo al final final. Cuando tengas todos los real_labels and est_labels
    float acc;
    acc = 0;
    
-   int n_test = n_peo*n_actions*total_scenes - 1; // - person13_handclapping_d3
+   //int n_test = n_peo*n_actions*total_scenes - 1; // - person13_handclapping_d3
+   int n_test = n_peo*n_actions*total_scenes; // - person13_handclapping_d3
+   
    vec real_labels;
    vec est_labels;
    field<std::string> test_video_list(n_test);
@@ -39,17 +43,14 @@
    est_labels.zeros(n_test);
    
    int k=0;
+   int sc = 1; // = total scenes
    
+
    
-   for (int sc = 1; sc<=total_scenes; ++sc) //scene
-   {
      for (int pe = 0; pe< n_peo; ++pe)
      {
        for (int act=0; act<n_actions; ++act)
        {
-	 if(  !( ( sc==3 && pe==12) && act==1) ) //person13_handclapping_d3
-	 {
-	   
 	   //load number of segments
 	   
 	   vec total_seg; 
@@ -65,7 +66,8 @@
 	   est_lab_segm.zeros(num_s);
 	   vec count = zeros<vec>( n_actions );
 	   
-	   
+	   // Esto es lo que deberia hacerse en paralelo?? Piensa Piensa piensa
+	   #pragma omp parallel for 
 	   for (int s=0; s<num_s; ++s)
 	   {
 	     std::stringstream load_cov_seg;
@@ -77,6 +79,8 @@
 	     count( est_lab_segm(s) )++;
 	     //getchar();
 	   }
+	   
+	   //cout << "s: " << s << endl;
 	   
 	   
 	   uword  index_video;
@@ -101,12 +105,11 @@
 	   }
 	   
 	   //getchar();
-	 }
+
        }
        
        
      }
-   }
    
    cout << "Performance: " << acc*100/n_test << " %" << endl;
    
