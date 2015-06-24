@@ -62,19 +62,16 @@ cov_mat_kth::calculate( field<string> in_all_people, int  in_dim  )
    
    //Aca podria hacer el paparelo
 
+   #pragma omp parallel for 
     for (int k = 0; k< parallel_names.n_rows; ++k)
     {
-      
       std::string load_feat_video_i   = parallel_names(k,0);
       std::string load_labels_video_i = parallel_names(k,1);
-      
       
       int pe   = atoi( parallel_names(k,2).c_str() );
       int act  = atoi( parallel_names(k,3).c_str() );
       
-      
       cov_mat_kth::one_video(load_feat_video_i, load_labels_video_i, sc, pe, act );
-
     }
 
 }
@@ -161,8 +158,11 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
 
      eig_sym(D, V, cov_seg_i);
      mat log_M = V*diagmat( log(D) )*V.t();
+     #pragma omp critical
+     {
      cov_seg_i.save( save_cov_seg.str(), hdf5_binary ); 
      log_M.save( save_LogMcov_seg.str(), hdf5_binary );
+     }
      s++;
       
     }
@@ -179,8 +179,11 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
   total_seg.zeros(1);
   total_seg( 0 ) = s;
   save_seg << save_folder.str() << "/num_seg_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
+  #pragma omp critical
+  {
   total_seg.save( save_seg.str(), raw_ascii );
-  cout << "Total # of segments " << s << endl;
+  cout <<  all_people (pe) << "_" << actions(act) << "Total # of segments " << s << endl;
+  }
   //cout << "press a key " ;
   //getchar();
 }
