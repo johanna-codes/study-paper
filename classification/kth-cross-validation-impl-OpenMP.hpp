@@ -60,8 +60,8 @@ kth_cv_omp::logEucl()
     
   }
   
-  omp_set_num_threads(8); //Use only 8 processors
-  #pragma omp parallel for 
+  //omp_set_num_threads(8); //Use only 8 processors
+  //#pragma omp parallel for 
   for (int n = 0; n< n_test; ++n)
   {
     
@@ -79,7 +79,7 @@ kth_cv_omp::logEucl()
     
     int tid=omp_get_thread_num();
     
-    #pragma omp critical
+    //#pragma omp critical
     cout<< "Processor " << tid <<" doing "<<  all_people (pe) << "_" << actions(act) << endl;
     
     total_seg.load( load_num_seg.str());
@@ -98,7 +98,7 @@ kth_cv_omp::logEucl()
       //cout << "LogMcov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5" << endl;
       //debe devolver el est_labe de ese segmento
       est_lab_segm(s) = logEucl_one_seg_est_lab( pe, load_sub_path.str(),  load_cov_seg.str());
-      #pragma omp critical
+      //#pragma omp critical
       count( est_lab_segm(s) )++;
       
     }
@@ -111,7 +111,7 @@ kth_cv_omp::logEucl()
     est_labels(n) = index_video;
     test_video_list(n) = load_sub_path.str();
     
-    #pragma omp critical
+    //#pragma omp critical
     if (index_video == act)
     {acc++;  }
     
