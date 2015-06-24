@@ -22,12 +22,16 @@ cov_mat_kth::calculate( field<string> in_all_people, int  in_dim  )
   int n_peo =  all_people.n_rows;
   //all_people.print("people");
   
-  for (int sc = 1; sc<=total_scenes; ++sc) //scene
-  {
-    for (int pe = 0; pe< n_peo; ++pe)
-    {
-      for (int act=0; act<n_actions; ++act)
+  
+  field <std::string> parallel_names(n_peo*n_actions,4); 
+  int sc = total_scene; //Solo estoy usando 1 
+  int k =0;
+  
+  
+      for (int pe = 0; pe< n_peo; ++pe)
       {
+	for (int act=0; act<n_actions; ++act)
+	{
 	
 	
 	std::stringstream load_folder;
@@ -35,21 +39,36 @@ cov_mat_kth::calculate( field<string> in_all_people, int  in_dim  )
 	std::stringstream load_labels_video_i;
 	
 	
-	//cout << "Loading.." << endl;
-	load_folder << path << "/kth-features/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
+	load_folder << path <<"./kth-features_dim" << dim <<  "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
 	load_feat_video_i << load_folder.str() << "/" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
 	load_labels_video_i << load_folder.str() << "/lab_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
 	
-	//For one Video
-	if(  !( ( sc==3 && pe==12) && act==1) ) //person13_handclapping_d3
-	{
-	cov_mat_kth::one_video(load_feat_video_i.str(),	 load_labels_video_i.str(), sc, pe, act );
-	}
-	//getchar();
+	parallel_names(k,0) = load_feat_video_i.str();
+	parallel_names(k,1) = load_labels_video_i.str();
+	parallel_names(k,2) = pe;
+	parallel_names(k,3) = act;
+	k++;
 	
       }
     }
-  }
+    
+   
+   //Aca podria hacer el paparelo
+
+    for (int k = 0; k< parallel_names.n_rows; ++k)
+    {
+      
+      std::string load_feat_video_i  = parallel_names(k,0);
+      std::string load_labels_video_i =parallel_names(k,1);
+      
+      int pe   = parallel_names(k,2);
+      int act  = parallel_names(k,3);
+      
+      
+      cov_mat_kth::one_video(load_feat_video_i, load_labels_video_i, sc, pe, act );
+
+    }
+
 }
 
 
@@ -70,7 +89,7 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
   int s = 0;
   
   std::stringstream save_folder;
-  save_folder << "./kth-cov-mat/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
+  save_folder << "./kth-cov-mat_dim" << dim << "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
   
   
   for (int l=2; l<last-segment_length; l = l+4 )
@@ -131,31 +150,22 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
       
     }  
     //end suggestion
-    
-     
+
      eig_sym(D, V, cov_seg_i);
      mat log_M = V*diagmat( log(D) )*V.t();
      cov_seg_i.save( save_cov_seg.str(), hdf5_binary ); 
      log_M.save( save_LogMcov_seg.str(), hdf5_binary );
-//      cov_seg_i.print("cov_seg_i");
-//      log_M.print("log_M");
-//      getchar();
-    
-    
-    s++;
+     s++;
+      
     }
+    
     else {
      //cout << " " << stat_seg.count();
      //getchar();
      
     }
-    
-  
-    
-    
   }
-  
-  
+
   std::stringstream save_seg;
   vec total_seg; 
   total_seg.zeros(1);
@@ -165,7 +175,6 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
   cout << "Total # of segments " << s << endl;
   //cout << "press a key " ;
   //getchar();
-    
 }
 
 

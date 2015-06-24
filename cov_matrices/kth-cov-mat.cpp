@@ -48,9 +48,9 @@ main(int argc, char** argv)
   
   int scale_factor = atoi( argv[1] );
   int shift = atoi( argv[2] );
-  int total_scenes = 4;
+  int total_scenes = 1;
   int segment_length = 20;
-  int   dim = 12; //Action Recognition from Video Using feature Covariance Matrices
+  int   dim = 14; //Action Recognition from Video Using feature Covariance Matrices
   
   field<string> all_people;
   all_people.load(peopleList);
