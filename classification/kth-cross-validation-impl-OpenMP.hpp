@@ -88,8 +88,8 @@ kth_cv_omp::logEucl()
     est_lab_segm.zeros(num_s);
     vec count = zeros<vec>( n_actions );
     
-    wall_clock timer;
-    timer.tic();
+    //wall_clock timer;
+    //timer.tic();
     
     for (int s=0; s<num_s; ++s)
     {
