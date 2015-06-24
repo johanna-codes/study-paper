@@ -60,7 +60,7 @@ kth_cv_omp::logEucl()
     
   }
   
-  omp_set_num_threads(1); //Use only 8 processors
+  omp_set_num_threads(8); //Use only 8 processors
   #pragma omp parallel for 
   for (int n = 0; n< n_test; ++n)
   {
