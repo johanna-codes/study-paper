@@ -98,6 +98,7 @@ kth_cv_omp::logEucl()
       cout << "LogMcov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5" << endl;
       //debe devolver el est_labe de ese segmento
       est_lab_segm(s) = logEucl_one_seg_est_lab( pe, load_sub_path.str(),  load_cov_seg.str());
+      #pragma omp critical
       count( est_lab_segm(s) )++;
       
     }
