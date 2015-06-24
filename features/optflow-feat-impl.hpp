@@ -108,7 +108,7 @@ opt_feat::features_all_videos( field<string> all_people )
   }
   
   double n = timer.toc();
-  cout << "number of seconds NO parallel : " << n << endl;
+  cout << "number of seconds in parallel : " << n << endl;
   
 }
 
