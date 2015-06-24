@@ -45,8 +45,8 @@ cov_mat_kth::calculate( field<string> in_all_people, int  in_dim  )
 	
 	parallel_names(k,0) = load_feat_video_i.str();
 	parallel_names(k,1) = load_labels_video_i.str();
-	parallel_names(k,2) = pe;
-	parallel_names(k,3) = act;
+	parallel_names(k,2) = std::to_string(pe);
+	parallel_names(k,3) = std::to_string(act);
 	k++;
 	
       }
@@ -58,11 +58,12 @@ cov_mat_kth::calculate( field<string> in_all_people, int  in_dim  )
     for (int k = 0; k< parallel_names.n_rows; ++k)
     {
       
-      std::string load_feat_video_i  = parallel_names(k,0);
-      std::string load_labels_video_i =parallel_names(k,1);
+      std::string load_feat_video_i   = parallel_names(k,0);
+      std::string load_labels_video_i = parallel_names(k,1);
       
-      int pe   = parallel_names(k,2);
-      int act  = parallel_names(k,3);
+      
+      int pe   = atoi( parallel_names(k,2).c_str() );
+      int act  = atoi( parallel_names(k,3).c_str() );
       
       
       cov_mat_kth::one_video(load_feat_video_i, load_labels_video_i, sc, pe, act );
