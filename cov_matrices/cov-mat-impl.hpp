@@ -53,7 +53,7 @@ cov_mat_kth::calculate( field<string> in_all_people, int  in_dim  )
 	parallel_names(k,0) = load_feat_video_i.str();
 	parallel_names(k,1) = load_labels_video_i.str();
 	parallel_names(k,2) = ss1.str();
-	parallel_names(k,3) = ss1=2.str();
+	parallel_names(k,3) = ss2.str();
 	k++;
 	
       }
