@@ -184,7 +184,7 @@ cov_mat_kth::one_video( std::string load_feat_video_i,	std::string load_labels_v
   #pragma omp critical
   {
   total_seg.save( save_seg.str(), raw_ascii );
-  cout <<  all_people (pe) << "_" << actions(act) << "Total # of segments " << s << endl;
+  cout <<  all_people (pe) << "_" << actions(act) << ". Total # of segments " << s << endl;
   }
   //cout << "press a key " ;
   //getchar();
