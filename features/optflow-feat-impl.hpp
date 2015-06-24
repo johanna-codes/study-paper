@@ -39,7 +39,7 @@ opt_feat::features_all_videos( field<string> all_people )
       std::stringstream save_feat_video_i;
       std::stringstream save_labels_video_i;
       
-      save_folder << "./kth-features_dim" << dim <<  "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
+      save_folder << "./kth-features_dim" << dim <<  "_openMP/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
       save_feat_video_i   << save_folder.str() << "/" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
       save_labels_video_i << save_folder.str() << "/lab_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
       
@@ -58,16 +58,16 @@ opt_feat::features_all_videos( field<string> all_people )
   
   wall_clock timer;
   timer.tic();
-  //omp_set_num_threads(5); //Use only 10 processors
+  omp_set_num_threads(8); //Use only 8 processors
   
-  //#pragma omp parallel for 
+  #pragma omp parallel for 
   for (int i = 0; i<load_save_names.n_rows; ++i)
   {
     
     std::string one_video = load_save_names(i,0);
     int tid=omp_get_thread_num();
     
-    //#pragma omp critical
+    #pragma omp critical
     cout<< "Processor " << tid <<" doing "<< one_video << endl;
     
     
@@ -92,11 +92,19 @@ opt_feat::features_all_videos( field<string> all_people )
       mat_features_video_i.zeros(dim,0);
     }
     
+    
+    my_Struct_feat_lab.features_video_i.clear();
+    my_Struct_feat_lab.labels_video_i.clear();
+  
+  
     std::string save_feat_video_i   = load_save_names(i,1);
     std::string save_labels_video_i = load_save_names(i,2);
     
+    #pragma omp critical
+    {
     mat_features_video_i.save( save_feat_video_i, hdf5_binary );
     lab_video_i.save( save_labels_video_i, hdf5_binary );
+    }
   }
   
   double n = timer.toc();
