@@ -72,7 +72,11 @@
 	   vec count = zeros<vec>( n_actions );
 	   
 	   // Esto es lo que deberia hacerse en paralelo?? Piensa Piensa piensa
-	   #pragma omp parallel for 
+	   wall_clock timer;
+	   timer.tic();
+	   
+	   
+	   //#pragma omp parallel for 
 	   for (int s=0; s<num_s; ++s)
 	   {
 	     std::stringstream load_cov_seg;
@@ -84,6 +88,13 @@
 	     count( est_lab_segm(s) )++;
 	     //getchar();
 	   }
+	   
+	   double n = timer.toc();
+	   cout << "number of seconds: " << n << endl;
+	   getchar();
+	   
+	 
+	   
 	   
 	   //cout << "s: " << s << endl;
 	   
