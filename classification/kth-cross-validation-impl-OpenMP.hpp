@@ -76,7 +76,7 @@
 	   timer.tic();
 	   
 	   
-	   //#pragma omp parallel for 
+	   #pragma omp parallel for 
 	   for (int s=0; s<num_s; ++s)
 	   {
 	     std::stringstream load_cov_seg;
@@ -90,7 +90,7 @@
 	   }
 	   
 	   double n = timer.toc();
-	   cout << "number of seconds: " << n << endl;
+	   cout << "OpenMP number of seconds: " << n << endl;
 	   getchar();
 	   
 	 
