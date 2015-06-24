@@ -46,7 +46,7 @@
    int k=0;
    int sc = 1; // = total scenes
    
-   mat peo_act(n_test,2)
+   mat peo_act(n_test,2);
    
   for (int pe = 0; pe< n_peo; ++pe)
   {
@@ -110,8 +110,9 @@
       est_labels(n) = index_video;
       test_video_list(n) = load_sub_path.str();
       
-      #pragma omp atomic
-      if (index_video == act)  {acc++; }
+      #pragma omp critical
+      if (index_video == act)
+      {acc++;  }
 	 
      }
    
