@@ -24,7 +24,7 @@ cov_mat_kth::calculate( field<string> in_all_people, int  in_dim  )
   
   
   field <std::string> parallel_names(n_peo*n_actions,4); 
-  int sc = total_scene; //Solo estoy usando 1 
+  int sc = total_scenes; //Solo estoy usando 1 
   int k =0;
   
   
