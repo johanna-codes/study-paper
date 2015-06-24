@@ -20,7 +20,7 @@ using namespace arma;
 //const std::string path = "/media/johanna/HD1T/codes/datasets_codes/KTH/"; 
 
 //WANDA
-const std::string path = "/home/johanna/codes/codes-git/study-paper/trunk/features";
+const std::string path = "/home/johanna/codes/codes-git/study-paper/trunk/features/";
 
 
 
