@@ -213,7 +213,7 @@ inline
 void
 kth_cv_omp::SteinDiv()
 {
-  
+  cout << "SteinDiv"  << endl;
   int n_actions = actions.n_rows;
   int n_peo =  all_people.n_rows;
   
@@ -286,9 +286,8 @@ kth_cv_omp::SteinDiv()
 	
       }
     }
-
-  
-  cout << "Performance: " << acc*100/n_test << " %" << endl;
+    
+    cout << "Performance for SteinDiv" << acc*100/n_test << " %" << endl;
   
 }
 
