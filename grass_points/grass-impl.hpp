@@ -21,34 +21,29 @@ grass_points::calculate( field<string> in_all_people, int  in_dim  )
   dim = in_dim;
   int n_actions = actions.n_rows;
   int n_peo =  all_people.n_rows;
-  //all_people.print("people");
+  int sc = total_scenes;
   
-  for (int sc = 1; sc<=total_scenes; ++sc) //scene
+  for (int pe = 0; pe< n_peo; ++pe)
   {
-    for (int pe = 0; pe< n_peo; ++pe)
+    for (int act=0; act<n_actions; ++act)
     {
-      for (int act=0; act<n_actions; ++act)
-      {
-	
-	
-	std::stringstream load_folder;
-	std::stringstream load_feat_video_i;
-	std::stringstream load_labels_video_i;
-	
-	
-	//cout << "Loading.." << endl;
-	load_folder << path << "/kth-features/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
-	load_feat_video_i << load_folder.str() << "/" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
-	load_labels_video_i << load_folder.str() << "/lab_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
-	
-	//For one Video
-	if(  !( ( sc==3 && pe==12) && act==1) ) //person13_handclapping_d3 doesn't exist
-	{
-	  one_video(load_feat_video_i.str(),	 load_labels_video_i.str(), sc, pe, act );
-	}
-	//getchar();
-	
-      }
+      
+      
+      std::stringstream load_folder;
+      std::stringstream load_feat_video_i;
+      std::stringstream load_labels_video_i;
+      
+      
+      //cout << "Loading.." << endl;
+      //load_folder << path << "/kth-features/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
+      load_folder << path <<"kth-features_dim" << dim <<  "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
+      load_feat_video_i << load_folder.str() << "/" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
+      load_labels_video_i << load_folder.str() << "/lab_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
+      
+      //For one Video
+      one_video(load_feat_video_i.str(),	 load_labels_video_i.str(), sc, pe, act );
+      
+      
     }
   }
 }
@@ -90,7 +85,7 @@ grass_points::one_video( std::string load_feat_video_i,	std::string load_labels_
 	vec sample = feat_fr.col(v);
 	feat_seg.push_back(sample);
       }
-
+      
     }
     //cout << feat_seg.size() << endl;
     if (feat_seg.size()>100) // Cuando en el segmento hay mas de 100 vectores 
@@ -106,7 +101,7 @@ grass_points::one_video( std::string load_feat_video_i,	std::string load_labels_
       mat U; vec s;   mat V;
       svd(U,s,V,mat_feat_seg); 
       mat Gnp = U.cols(0,p-1);
-
+      
       std::stringstream save_Gnp;
       //cout << save_folder.str() << endl;
       save_Gnp << save_folder.str() << "/grass_pt" << seg << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
@@ -120,7 +115,7 @@ grass_points::one_video( std::string load_feat_video_i,	std::string load_labels_
       //getchar();
       
     }
-
+    
   }
   
   
