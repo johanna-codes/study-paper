@@ -64,8 +64,8 @@ main(int argc, char** argv)
   all_people.load(peopleList);
   
    kth_cv_omp kth_CV_omp(path, actionNames, all_people, scale_factor, shift, total_scenes, segment_length, dim);
-   kth_CV_omp.logEucl();
-   //kth_CV.SteinDiv();
+   //kth_CV_omp.logEucl();
+   kth_CV_omp.SteinDiv();
 
    
    

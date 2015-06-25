@@ -220,8 +220,10 @@ kth_cv_omp::SteinDiv()
   float acc;
   acc = 0;
   
-  int n_test = n_peo*n_actions*total_scenes - 1; // - person13_handclapping_d3
+  //int n_test = n_peo*n_actions*total_scenes - 1; // - person13_handclapping_d3
+  int n_test = n_peo*n_actions*total_scenes; 
   
+  int sc = total_scenes; //Doing only for scenario 1
   vec real_labels;
   vec est_labels;
   field<std::string> test_video_list(n_test);
@@ -232,23 +234,16 @@ kth_cv_omp::SteinDiv()
   
   int k=0;
   
-  
-  for (int sc = 1; sc<=total_scenes; ++sc) //scene
-  {
+
     for (int pe = 0; pe< n_peo; ++pe)
     {
       for (int act=0; act<n_actions; ++act)
       {
-	if(  !( ( sc==3 && pe==12) && act==1) ) //person13_handclapping_d3
-	{
-	  //load number of segments
-	  
 	  vec total_seg; 
 	  int num_s;
 	  std::stringstream load_sub_path;
 	  std::stringstream load_num_seg;
-	  
-	  load_sub_path  << path << "/kth-cov-mat/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
+	  load_sub_path  << path << "/kth-cov-mat_dim" << dim << "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
 	  load_num_seg << load_sub_path.str() << "/num_seg_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
 	  total_seg.load( load_num_seg.str());
 	  num_s = total_seg(0);
@@ -277,7 +272,7 @@ kth_cv_omp::SteinDiv()
 	  test_video_list(k) = load_sub_path.str();
 	  
 	  real_labels.save("Stein_div_real_labels.dat", raw_ascii);
-	  est_labels.save("Stein_div__est_labels.dat", raw_ascii);
+	  est_labels.save("Stein_div_est_labels.dat", raw_ascii);
 	  test_video_list.save("Stein_div_test_video_list.dat", raw_ascii);
 	  k++;
 	  
@@ -287,12 +282,11 @@ kth_cv_omp::SteinDiv()
 	    
 	  }
 	  
-	  //getchar();
-	}
+
 	
       }
     }
-  }
+
   
   cout << "Performance: " << acc*100/n_test << " %" << endl;
   
