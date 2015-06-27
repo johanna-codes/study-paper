@@ -72,6 +72,9 @@ grass_points::calculate( field<string> in_all_people, int  in_dim  )
     int pe   = atoi( parallel_names(k,2).c_str() );
     int act  = atoi( parallel_names(k,3).c_str() );
     
+    cout <<  all_people (pe) << "_" << actions(act) << endl;
+      
+    #pragma omp critical
     one_video(load_feat_video_i, load_labels_video_i, sc, pe, act );
   }
   
@@ -156,7 +159,7 @@ grass_points::one_video( std::string load_feat_video_i,	std::string load_labels_
   #pragma omp critical
   {
     total_seg.save( save_seg.str(), raw_ascii );
-    cout <<  all_people (pe) << "_" << actions(act) << ". Total # of segments " << seg << endl;
+    //cout <<  all_people (pe) << "_" << actions(act) << ". Total # of segments " << seg << endl;
   }
   //cout << "press a key " ;
   //getchar();
