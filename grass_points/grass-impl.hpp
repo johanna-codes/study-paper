@@ -21,7 +21,13 @@ grass_points::calculate( field<string> in_all_people, int  in_dim  )
   dim = in_dim;
   int n_actions = actions.n_rows;
   int n_peo =  all_people.n_rows;
-  int sc = total_scenes;
+  //all_people.print("people");
+  
+  
+  field <std::string> parallel_names(n_peo*n_actions,4); 
+  int sc = total_scenes; //Solo estoy usando 1 
+  int k =0;
+  
   
   for (int pe = 0; pe< n_peo; ++pe)
   {
@@ -34,18 +40,41 @@ grass_points::calculate( field<string> in_all_people, int  in_dim  )
       std::stringstream load_labels_video_i;
       
       
-      //cout << "Loading.." << endl;
-      //load_folder << path << "/kth-features/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
       load_folder << path <<"kth-features_dim" << dim <<  "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
       load_feat_video_i << load_folder.str() << "/" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
       load_labels_video_i << load_folder.str() << "/lab_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
       
-      //For one Video
-      one_video(load_feat_video_i.str(),	 load_labels_video_i.str(), sc, pe, act );
       
+      std::ostringstream ss1;
+      std::ostringstream ss2;
+      ss1 << pe;
+      ss2 << act;
+      
+      
+      parallel_names(k,0) = load_feat_video_i.str();
+      parallel_names(k,1) = load_labels_video_i.str();
+      parallel_names(k,2) = ss1.str();
+      parallel_names(k,3) = ss2.str();
+      k++;
       
     }
   }
+  
+  
+  //Aca podria hacer el paparelo
+  
+  #pragma omp parallel for 
+  for (int k = 0; k< parallel_names.n_rows; ++k)
+  {
+    std::string load_feat_video_i   = parallel_names(k,0);
+    std::string load_labels_video_i = parallel_names(k,1);
+    
+    int pe   = atoi( parallel_names(k,2).c_str() );
+    int act  = atoi( parallel_names(k,3).c_str() );
+    
+    one_video(load_feat_video_i, load_labels_video_i, sc, pe, act );
+  }
+  
 }
 
 
@@ -53,7 +82,7 @@ inline
 void
 grass_points::one_video( std::string load_feat_video_i,	std::string load_labels_video_i, int sc, int pe, int act )
 {
-  cout << load_feat_video_i << endl;
+  //cout << load_feat_video_i << endl;
   mat mat_features_video_i;
   vec lab_video_i;
   
@@ -66,7 +95,7 @@ grass_points::one_video( std::string load_feat_video_i,	std::string load_labels_
   int seg = 0;
   
   std::stringstream save_folder;
-  save_folder << "./kth-grass-point/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
+  save_folder << "./kth-grass-point-dim"<< dim << "-L" << segment_length << "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
   
   
   for (int l=2; l<last-segment_length; l = l+4 )
@@ -106,8 +135,8 @@ grass_points::one_video( std::string load_feat_video_i,	std::string load_labels_
       //cout << save_folder.str() << endl;
       save_Gnp << save_folder.str() << "/grass_pt" << seg << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
       //cout << save_Gnp.str() << endl;
+      #pragma omp critical
       Gnp.save( save_Gnp.str(), hdf5_binary ); 
-      
       seg++;
     }
     else {
@@ -124,8 +153,11 @@ grass_points::one_video( std::string load_feat_video_i,	std::string load_labels_
   total_seg.zeros(1);
   total_seg( 0 ) = seg;
   save_seg << save_folder.str() << "/num_seg_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
-  total_seg.save( save_seg.str(), raw_ascii );
-  cout << "Total # of segments " << seg << endl;
+  #pragma omp critical
+  {
+    total_seg.save( save_seg.str(), raw_ascii );
+    cout <<  all_people (pe) << "_" << actions(act) << ". Total # of segments " << seg << endl;
+  }
   //cout << "press a key " ;
   //getchar();
   
