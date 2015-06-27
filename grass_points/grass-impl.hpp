@@ -72,9 +72,10 @@ grass_points::calculate( field<string> in_all_people, int  in_dim  )
     int pe   = atoi( parallel_names(k,2).c_str() );
     int act  = atoi( parallel_names(k,3).c_str() );
     
-    cout <<  all_people (pe) << "_" << actions(act) << endl;
-      
     #pragma omp critical
+    cout <<  all_people (pe) << "_" << actions(act) << endl;
+    
+    
     one_video(load_feat_video_i, load_labels_video_i, sc, pe, act );
   }
   
