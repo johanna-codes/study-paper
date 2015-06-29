@@ -388,9 +388,9 @@ kth_cv_omp::ALGOOO()
   
   
   int k=0;
-  for (int pi = 1; pi<n_peo; pi++) 
+  for (int pi = 0; pi<n_peo; pi++) 
   {
-    for (int pj = 1; pj<n_peo; pj++)
+    for (int pj = 0; pj<n_peo; pj++)
     {
       
       if (pi!= pj)
