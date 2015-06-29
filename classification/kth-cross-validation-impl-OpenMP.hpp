@@ -457,7 +457,7 @@ kth_cv_omp::proj_grass(int p)
       load_gp_seg << load_sub_path.str() << "/grass_pt" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
       //cout << "LogMcov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5" << endl;
       //debe devolver el est_labe de ese segmento
-      est_lab_segm(s) = ProjectionMetric_one_seg_est_lab( pe, load_sub_path.str(),  load_gp_seg.str());
+      est_lab_segm(s) = ProjectionMetric_one_seg_est_lab( pe, load_sub_path.str(),  load_gp_seg.str(), p);
       //#pragma omp critical
       count( est_lab_segm(s) )++;
       
@@ -492,7 +492,7 @@ kth_cv_omp::ProjectionMetric_one_seg_est_lab(int pe_test, std::string load_sub_p
   //wall_clock timer;
   //timer.tic();
   
-  grass_metric grass_dist();
+  grass_metric grass_dist;
   
   mat grass_point_test;
   grass_point_test.load(segm_name);
