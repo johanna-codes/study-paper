@@ -405,3 +405,6 @@ kth_cv_omp::ALGOOO()
   }
   
   cout << k << endl;
+  
+  
+}
