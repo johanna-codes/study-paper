@@ -14,6 +14,7 @@ class kth_cv_omp //KTH Cross validation
  		);
     inline void logEucl();
     inline void SteinDiv();
+    inline void ALGOOO();
 
     
     

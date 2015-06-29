@@ -28,7 +28,7 @@
 //const std::string path = "/media/johanna/HD1T/codes/datasets_codes/KTH/"; 
 
 //WANDA
-const std::string path = "/home/johanna/codes/codes-git/study-paper/trunk/cov_matrices";
+const std::string path  = "/home/johanna/codes/codes-git/study-paper/trunk/";
 
 
 
@@ -65,8 +65,8 @@ main(int argc, char** argv)
   
    kth_cv_omp kth_CV_omp(path, actionNames, all_people, scale_factor, shift, total_scenes, segment_length, dim);
    //kth_CV_omp.logEucl();
-   kth_CV_omp.SteinDiv();
-
+   //kth_CV_omp.SteinDiv();
+   kth_CV_omp.ALGOOO();
    
    
   

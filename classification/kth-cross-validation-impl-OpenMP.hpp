@@ -74,7 +74,7 @@ kth_cv_omp::logEucl()
     std::stringstream load_sub_path;
     std::stringstream load_num_seg;
     
-    load_sub_path  << path << "/kth-cov-mat_dim" << dim << "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
+    load_sub_path  << path << "cov_matrices/kth-cov-mat_dim" << dim << "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
     load_num_seg << load_sub_path.str() << "/num_seg_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
     
     int tid=omp_get_thread_num();
@@ -234,60 +234,60 @@ kth_cv_omp::SteinDiv()
   
   int k=0;
   
-
-    for (int pe = 0; pe< n_peo; ++pe)
+  
+  for (int pe = 0; pe< n_peo; ++pe)
+  {
+    for (int act=0; act<n_actions; ++act)
     {
-      for (int act=0; act<n_actions; ++act)
+      vec total_seg; 
+      int num_s;
+      std::stringstream load_sub_path;
+      std::stringstream load_num_seg;
+      load_sub_path  << path << "/kth-cov-mat_dim" << dim << "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
+      load_num_seg << load_sub_path.str() << "/num_seg_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
+      total_seg.load( load_num_seg.str());
+      num_s = total_seg(0);
+      uvec  est_lab_segm;
+      est_lab_segm.zeros(num_s);
+      vec count = zeros<vec>( n_actions );
+      
+      for (int s=0; s<num_s; ++s)
       {
-	  vec total_seg; 
-	  int num_s;
-	  std::stringstream load_sub_path;
-	  std::stringstream load_num_seg;
-	  load_sub_path  << path << "/kth-cov-mat_dim" << dim << "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
-	  load_num_seg << load_sub_path.str() << "/num_seg_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
-	  total_seg.load( load_num_seg.str());
-	  num_s = total_seg(0);
-	  uvec  est_lab_segm;
-	  est_lab_segm.zeros(num_s);
-	  vec count = zeros<vec>( n_actions );
-	  
-	  for (int s=0; s<num_s; ++s)
-	  {
-	    std::stringstream load_cov_seg;
-	    load_cov_seg << load_sub_path.str() << "/cov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
-	    
-	    est_lab_segm(s) = SteinDiv_one_seg_est_lab( pe, load_sub_path.str(),  load_cov_seg.str());
-	    count( est_lab_segm(s) )++;
-	    //getchar();
-	  }
-	  
-	  uword  index_video;
-	  double max_val = count.max(index_video);
-	  //est_lab_segm.t().print("est_lab_segm");
-	  cout << "This video is " << actions(act) << " and was classified as class: " << actions(index_video ) << endl;
-	  
-	  
-	  real_labels(k) = act;
-	  est_labels(k) = index_video;
-	  test_video_list(k) = load_sub_path.str();
-	  
-	  real_labels.save("Stein_div_real_labels.dat", raw_ascii);
-	  est_labels.save("Stein_div_est_labels.dat", raw_ascii);
-	  test_video_list.save("Stein_div_test_video_list.dat", raw_ascii);
-	  k++;
-	  
-	  
-	  if (index_video == act)  {
-	    acc++;
-	    
-	  }
-	  
-
+	std::stringstream load_cov_seg;
+	load_cov_seg << load_sub_path.str() << "/cov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
+	
+	est_lab_segm(s) = SteinDiv_one_seg_est_lab( pe, load_sub_path.str(),  load_cov_seg.str());
+	count( est_lab_segm(s) )++;
+	//getchar();
+      }
+      
+      uword  index_video;
+      double max_val = count.max(index_video);
+      //est_lab_segm.t().print("est_lab_segm");
+      cout << "This video is " << actions(act) << " and was classified as class: " << actions(index_video ) << endl;
+      
+      
+      real_labels(k) = act;
+      est_labels(k) = index_video;
+      test_video_list(k) = load_sub_path.str();
+      
+      real_labels.save("Stein_div_real_labels.dat", raw_ascii);
+      est_labels.save("Stein_div_est_labels.dat", raw_ascii);
+      test_video_list.save("Stein_div_test_video_list.dat", raw_ascii);
+      k++;
+      
+      
+      if (index_video == act)  {
+	acc++;
 	
       }
+      
+      
+      
     }
-    
-    cout << "Performance for SteinDiv" << acc*100/n_test << " %" << endl;
+  }
+  
+  cout << "Performance for SteinDiv" << acc*100/n_test << " %" << endl;
   
 }
 
@@ -375,3 +375,33 @@ kth_cv_omp::SteinDiv_one_seg_est_lab(int pe_test, std::string load_sub_path, std
 }
 
 
+
+
+///Grassmann Manifolds
+inline
+void
+kth_cv_omp::ALGOOO()
+{
+  
+  int n_actions = actions.n_rows;
+  int n_peo =  all_people.n_rows;
+  
+  
+  int k=0;
+  for (int pi = 1; pi<n_peo; pi++) 
+  {
+    for (int pj = 1; pj<n_peo; pj++)
+    {
+      
+      if (pi!= pj)
+      {
+	for (int act=0; act<n_actions; ++act)
+	{
+	  k++;
+	}
+	
+      }
+    }
+  }
+  
+  cout << k << endl;
