@@ -406,8 +406,9 @@ kth_cv_omp::ALGOOO()
 	  k++;
 	  
 	  cout << all_people (pi) << "_" << all_people (pj) << "_" << actions(act) << endl;
-	  getchar();
+	  
 	}
+	getchar();
       }
     }
   }
