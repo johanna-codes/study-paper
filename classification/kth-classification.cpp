@@ -69,7 +69,7 @@ main(int argc, char** argv)
    kth_cv_omp kth_CV_omp(path, actionNames, all_people, scale_factor, shift, total_scenes, segment_length, dim);
    //kth_CV_omp.logEucl();
    //kth_CV_omp.SteinDiv();
-   kth_CV_omp.ALGOOO();
+   kth_CV_omp.proj_grass();
    
    
   
