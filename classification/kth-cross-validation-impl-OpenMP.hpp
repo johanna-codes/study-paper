@@ -383,10 +383,13 @@ void
 kth_cv_omp::ALGOOO()
 {
   
+  int s = segment_length;
   int n_actions = actions.n_rows;
   int n_peo =  all_people.n_rows;
   
+  int total_comb = n_peo*(n_peo-1)*n_actions;
   
+  field<int> list_openMP(total_comb,3);
   int k=0;
   for (int pi = 0; pi<n_peo; pi++) 
   {
@@ -397,14 +400,36 @@ kth_cv_omp::ALGOOO()
       {
 	for (int act=0; act<n_actions; ++act)
 	{
+	  list_openMP(k,0) = pi;
+	  list_openMP(k,1) = pj;
+	  list_openMP(k,2) = act;
 	  k++;
+	  
+	  cout << all_people (pi) << "_" << all_people (pj) << "_" << actions(act) << endl;
+	  getchar();
 	}
-	
       }
     }
   }
   
-  cout << k << endl;
+//  for (int k=0; k< total_comb; ++k)
+//  {
+//    //cargar list_openMP(0) y list_openMP(1)
+//    
+//    int pi  = list_openMP(k,0) ;
+//    int pj  = list_openMP(k,1);
+//    int act = list_openMP(k,2);
+//    
+//    std::stringstream subfolder;
+//    subfolder << path << "grass_points/kth-grass-point-dim" << dim << "-L" << s << "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift;
+//    
+//    
+//    
+//    
+//    
+//    
+//    
+//  }
   
   
 }
