@@ -62,6 +62,7 @@ main(int argc, char** argv)
   int total_scenes = 1; //Only for Scenario 1.
   int segment_length = 20;
   int dim = 14; 
+  int p = 12;//PQ NO SE> POR BOBA> FUE UN ERROR :(
   
   field<string> all_people;
   all_people.load(peopleList);
@@ -69,7 +70,7 @@ main(int argc, char** argv)
    kth_cv_omp kth_CV_omp(path, actionNames, all_people, scale_factor, shift, total_scenes, segment_length, dim);
    //kth_CV_omp.logEucl();
    //kth_CV_omp.SteinDiv();
-   kth_CV_omp.proj_grass();
+   kth_CV_omp.proj_grass(p);
    
    
   

@@ -14,7 +14,7 @@ class kth_cv_omp //KTH Cross validation
  		);
     inline void logEucl();
     inline void SteinDiv();
-    inline void proj_grass();
+    inline void proj_grass(int p);
 
     
     
@@ -37,7 +37,7 @@ class kth_cv_omp //KTH Cross validation
     inline uword logEucl_one_seg_est_lab( int pe_test, std::string load_sub_path, std::string segm_name );
     inline uword SteinDiv_one_seg_est_lab( int pe_test, std::string load_sub_path, std::string segm_name );
     
-    inline uword ProjectionMetric_one_seg_est_lab(int pe_test, std::string load_sub_path, std::string segm_name);
+    inline uword ProjectionMetric_one_seg_est_lab(int pe_test, std::string load_sub_path, std::string segm_name, int p);
     
 
     

@@ -380,7 +380,7 @@ kth_cv_omp::SteinDiv_one_seg_est_lab(int pe_test, std::string load_sub_path, std
 ///Grassmann Manifolds
 inline
 void
-kth_cv_omp::proj_grass()
+kth_cv_omp::proj_grass(int p)
 {
   
    int n_actions = actions.n_rows;
@@ -487,7 +487,7 @@ kth_cv_omp::proj_grass()
 
 inline
 uword
-kth_cv_omp::ProjectionMetric_one_seg_est_lab(int pe_test, std::string load_sub_path, std::string segm_name)
+kth_cv_omp::ProjectionMetric_one_seg_est_lab(int pe_test, std::string load_sub_path, std::string segm_name, int p)
 {
   //wall_clock timer;
   //timer.tic();
@@ -539,7 +539,7 @@ kth_cv_omp::ProjectionMetric_one_seg_est_lab(int pe_test, std::string load_sub_p
 	    //Cambiar por la metrica
 	    //dist = norm( logMtest_cov - logMtrain_cov, "fro");
 	    //dist entre grass_point_test y grass_point_train 
-	    
+	    dist = grass_dist.proj_metric(grass_point_test,grass_point_train, p);
 	    
 	    //cout << "dist " << dist << endl;
 	    
