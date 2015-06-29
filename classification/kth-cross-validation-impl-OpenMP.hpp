@@ -380,57 +380,191 @@ kth_cv_omp::SteinDiv_one_seg_est_lab(int pe_test, std::string load_sub_path, std
 ///Grassmann Manifolds
 inline
 void
-kth_cv_omp::ALGOOO()
+kth_cv_omp::proj_grass()
 {
   
-  int s = segment_length;
+   int n_actions = actions.n_rows;
+  int n_peo =  all_people.n_rows;
+  
+  
+  //No hacer acc aqui. Hacerlo al final final. Cuando tengas todos los real_labels and est_labels
+  float acc;
+  acc = 0;
+  
+  //int n_test = n_peo*n_actions*total_scenes - 1; // - person13_handclapping_d3
+  int n_test = n_peo*n_actions*total_scenes; // - person13_handclapping_d3
+  
+  vec real_labels;
+  vec est_labels;
+  field<std::string> test_video_list(n_test);
+  
+  
+  
+  real_labels.zeros(n_test);
+  est_labels.zeros(n_test);
+  
+  int k=0;
+  int sc = 1; // = total scenes
+  
+  mat peo_act(n_test,2);
+  
+  for (int pe = 0; pe< n_peo; ++pe)
+  {
+    for (int act=0; act<n_actions; ++act)
+    {
+      peo_act (k,0) = pe;
+      peo_act (k,1) = act;
+      k++;
+      
+    }
+    
+  }
+  
+  //omp_set_num_threads(8); //Use only 8 processors
+  //#pragma omp parallel for 
+  for (int n = 0; n< n_test; ++n)
+  {
+    
+    int pe  = peo_act (n,0);
+    int act = peo_act (n,1);
+    
+    //load number of segments
+    vec total_seg; 
+    int num_s;
+    std::stringstream load_sub_path;
+    std::stringstream load_num_seg;
+    load_sub_path  << path << "grass_points/kth-grass-point-dim" << dim << "-L" << segment_length << "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift;
+    //load_sub_path  << path << "cov_matrices/kth-cov-mat_dim" << dim << "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
+    load_num_seg << load_sub_path.str() << "/num_seg_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
+    
+    int tid=omp_get_thread_num();
+    
+    //#pragma omp critical
+    cout<< "Processor " << tid <<" doing "<<  all_people (pe) << "_" << actions(act) << endl;
+    
+    total_seg.load( load_num_seg.str());
+    num_s = total_seg(0);
+    uvec  est_lab_segm;
+    est_lab_segm.zeros(num_s);
+    vec count = zeros<vec>( n_actions );
+    
+    //wall_clock timer;
+    //timer.tic();
+    
+    for (int s=0; s<num_s; ++s)
+    {
+      std::stringstream load_gp_seg;
+      load_gp_seg << load_sub_path.str() << "/grass_pt" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
+      //cout << "LogMcov_seg" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5" << endl;
+      //debe devolver el est_labe de ese segmento
+      est_lab_segm(s) = ProjectionMetric_one_seg_est_lab( pe, load_sub_path.str(),  load_gp_seg.str());
+      //#pragma omp critical
+      count( est_lab_segm(s) )++;
+      
+    }
+    
+    uword  index_video;
+    double max_val = count.max(index_video);
+    //est_lab_segm.t().print("est_lab_segm");
+    cout << "This video is " << actions(act) << " and was classified as class: " << actions(index_video ) << endl;
+    real_labels(n) = act;
+    est_labels(n) = index_video;
+    test_video_list(n) = load_sub_path.str();
+    
+    //#pragma omp critical
+    if (index_video == act)
+    {acc++;  }
+    
+  }
+  
+  real_labels.save("grass_PM_real_labels.dat", raw_ascii);
+  est_labels.save("grass_PM_est_labels.dat", raw_ascii);
+  test_video_list.save("grass_PM_test_video_list.dat", raw_ascii);
+  cout << "Performance: " << acc*100/n_test << " %" << endl;
+  
+}
+
+
+inline
+uword
+kth_cv_omp::ProjectionMetric_one_seg_est_lab(int pe_test, std::string load_sub_path, std::string segm_name)
+{
+  //wall_clock timer;
+  //timer.tic();
+  
+  grass_metric grass_dist();
+  
+  mat grass_point_test;
+  grass_point_test.load(segm_name);
+  
   int n_actions = actions.n_rows;
   int n_peo =  all_people.n_rows;
   
-  int total_comb = n_peo*(n_peo-1)*n_actions;
+  double dist, tmp_dist;
+  tmp_dist = datum::inf;
   
-  field<int> list_openMP(total_comb,3);
-  int k=0;
-  for (int pi = 0; pi<n_peo; pi++) 
+  
+  double est_lab;
+  //cout << "Comparing with person ";
+  
+  for (int pe_tr = 0; pe_tr< n_peo; ++pe_tr)
   {
-    for (int pj = 0; pj<n_peo; pj++)
-    {
+    if (pe_tr!= pe_test)
+    {	     
       
-      if (pi!= pj)
+      //cout << " " << all_people (pe_tr);
+      
+      
+      for (int sc = 1; sc<=total_scenes; ++sc) //scene
       {
 	for (int act=0; act<n_actions; ++act)
 	{
-	  list_openMP(k,0) = pi;
-	  list_openMP(k,1) = pj;
-	  list_openMP(k,2) = act;
-	  k++;
+	  vec total_seg; 
+	  int num_s;
+	  std::stringstream load_num_seg;
+	  load_num_seg << load_sub_path << "/num_seg_"<< all_people (pe_tr) << "_" << actions(act) << "_dim" << dim  << ".dat";
+	  total_seg.load( load_num_seg.str());
+	  num_s = total_seg(0);
 	  
-	  cout << all_people (pi) << "_" << all_people (pj) << "_" << actions(act) << endl;
-	  
+	  for (int s_tr=0; s_tr<num_s; ++s_tr)
+	  {
+	    std::stringstream load_gp_seg_tr;
+	    load_gp_seg_tr << load_sub_path << "/grass_pt" << s_tr << "_" << all_people (pe_tr) << "_" << actions(act) << "_dim" << dim  << ".h5";
+	    
+	    //cout << "Comparing with cov_seg" << s_tr << "_"<< all_people (pe_tr) << "_" << actions(act) << "_dim" << dim  << ".h5" << endl;
+	    mat grass_point_train;
+	    grass_point_train.load( load_gp_seg_tr.str() );
+	    
+	   
+	    //Cambiar por la metrica
+	    //dist = norm( logMtest_cov - logMtrain_cov, "fro");
+	    //dist entre grass_point_test y grass_point_train 
+	    
+	    
+	    //cout << "dist " << dist << endl;
+	    
+	    
+	    ///crear un vec aca y guardar todas las distancias
+	    if (dist < tmp_dist)
+	    {
+	      //cout << "Es menor" << endl;
+	      tmp_dist = dist;
+	      est_lab = act;
+	    }
+	    //cout << "Press a key" << endl;
+	    //getchar();
+	  }
 	}
-	getchar();
       }
     }
   }
   
-//  for (int k=0; k< total_comb; ++k)
-//  {
-//    //cargar list_openMP(0) y list_openMP(1)
-//    
-//    int pi  = list_openMP(k,0) ;
-//    int pj  = list_openMP(k,1);
-//    int act = list_openMP(k,2);
-//    
-//    std::stringstream subfolder;
-//    subfolder << path << "grass_points/kth-grass-point-dim" << dim << "-L" << s << "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift;
-//    
-//    
-//    
-//    
-//    
-//    
-//    
-//  }
-  
+  //double n = timer.toc();
+  //cout << "number of seconds: " << n << endl;
+  //cout << " est_lab "<< est_lab << endl << endl;
+  //getchar();
+  return est_lab;
   
 }
+
+

@@ -17,6 +17,9 @@
 
 // #include "riemannian-metrics-def.hpp"
 // #include "riemannian-metrics-impl.hpp"
+
+#include "grassmann-metrics-def.hpp"
+#include "grassmann-metrics-impl.hpp"
  
 #include "kth-cross-validation-def-OpenMP.hpp"
 #include "kth-cross-validation-impl-OpenMP.hpp"
