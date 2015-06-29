@@ -34,7 +34,7 @@
    
    vec cos2_theta = square(cos_theta);
    double tmp_mul = prod(cos2_theta);   
-   double dist = sqrt (1 - tmp_sum);
+   double dist = sqrt (1 - tmp_mul);
    
    return dist;
    
