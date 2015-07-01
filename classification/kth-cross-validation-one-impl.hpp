@@ -75,7 +75,7 @@ kth_cv_omp::logEucl()
     cout<< "Processor " << tid <<" doing "<<  all_people (pe) << "_" << actions(act) << endl;
     
     std::stringstream load_cov_seg;
-    load_cov_seg << load_sub_path.str() << "/LogMcov" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
+    load_cov_seg << load_sub_path.str() << "/LogMcov_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
     
     #pragma omp critical
     cout << load_cov_seg << endl;
