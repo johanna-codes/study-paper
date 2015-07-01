@@ -56,7 +56,8 @@ main(int argc, char** argv)
   all_people.load(peopleList);
   
   cov_mat_kth get_cov_seg(path, actionNames, scale_factor, shift, total_scenes, segment_length);
-  get_cov_seg.calculate( all_people, dim );
+  //get_cov_seg.calculate( all_people, dim );
+  get_cov_seg.calculate_one_per_video( all_people, dim );
   
   
   
