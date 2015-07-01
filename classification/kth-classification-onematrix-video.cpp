@@ -68,8 +68,8 @@ main(int argc, char** argv)
   
   //Cross Validation
    kth_cv_omp kth_CV_omp_onesegment(path, actionNames, all_people, scale_factor, shift, total_scenes,  dim);
-   //kth_CV_omp_onesegment.logEucl();
-   kth_CV_omp_onesegment.SteinDiv();
+   kth_CV_omp_onesegment.logEucl();
+   //kth_CV_omp_onesegment.SteinDiv();
    //kth_CV_omp.proj_grass(p);
    //kth_CV_omp.BC_grass();
    
