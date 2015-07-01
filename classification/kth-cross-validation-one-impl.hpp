@@ -237,7 +237,7 @@ kth_cv_omp::SteinDiv()
   real_labels.save("Stein_div_real_labels.dat", raw_ascii);
   est_labels.save("Stein_div_est_labels.dat", raw_ascii);
   test_video_list.save("Stein_div_test_video_list.dat", raw_ascii);
-  cout << "Performance for SteinDiv" << acc*100/n_test << " %" << endl;
+  cout << "Performance for SteinDiv " << acc*100/n_test << " %" << endl;
 
   
 }
@@ -266,17 +266,14 @@ kth_cv_omp::SteinDiv_one_seg(int pe_test, std::string load_sub_path, std::string
   {
     if (pe_tr!= pe_test)
     {	     
-      
-      //cout << " " << all_people (pe_tr);
-      
-      
+
       for (int sc = 1; sc<=total_scenes; ++sc) //scene
       {
-	for (int act=0; act<n_actions; ++act)
+	for (int act = 0; act<n_actions; ++act)
 	{
 	  
 	   std::stringstream load_cov_tr;
-	   load_cov_tr << load_sub_path << "/LogMcov_" <<  all_people (pe_tr) << "_" << actions(act) << "_dim" << dim  << ".h5";
+	   load_cov_tr << load_sub_path << "/cov_" <<  all_people (pe_tr) << "_" << actions(act) << "_dim" << dim  << ".h5";
 	   mat train_cov;
 	   train_cov.load( load_cov_tr.str() );
 	   
