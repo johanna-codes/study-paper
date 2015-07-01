@@ -288,10 +288,10 @@ cov_mat_kth::one_video_one_cov( std::string load_feat_video_i, std::string load_
 
 
     std::stringstream save_cov_seg;
-    save_cov_seg << save_folder.str() << "/cov_seg" <<  all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
+    save_cov_seg << save_folder.str() << "/cov_" <<  all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
     
     std::stringstream save_LogMcov_seg;
-    save_LogMcov_seg << save_folder.str() << "/LogMcov_seg" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
+    save_LogMcov_seg << save_folder.str() << "/LogMcov_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
       
     double THRESH = 0.000001;
     mat cov_seg_i = stat_seg.cov();
