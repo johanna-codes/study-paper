@@ -77,6 +77,9 @@ kth_cv_omp::logEucl()
     std::stringstream load_cov_seg;
     load_cov_seg << load_sub_path.str() << "/LogMcov" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
     
+    #pragma omp critical
+    cout << load_cov_seg << endl;
+    
     est_label_video_i = logEucl_one_seg( pe, load_sub_path.str(), load_cov_seg.str());
     
  
