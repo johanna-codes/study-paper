@@ -33,7 +33,8 @@ class kth_cv_omp //KTH Cross validation
     
     
   private:
-    inline uword logEucl_one_seg( int pe_test, std::string load_sub_path, std::string load_cov_seg );
+    inline uword logEucl_one_seg( int pe_test, std::string load_sub_path, std::string load_cov);
+    inline uword SteinDiv_one_seg( int pe_test, std::string load_sub_path, std::string load_cov);
    
     //inline uword SteinDiv_one_seg_est_lab( int pe_test, std::string load_sub_path, std::string segm_name );
     
