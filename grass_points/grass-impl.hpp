@@ -163,7 +163,6 @@ grass_points::calculate( field<string> in_all_people, int  in_dim  )
   }
   
   
-  //Aca podria hacer el paparelo
   
   omp_set_num_threads(4); //Use only 8 processors
   #pragma omp parallel for 
