@@ -89,7 +89,7 @@ grass_points::one_video_one_point( std::string load_feat_video_i, int sc, int pe
   
   mat_features_video_i.load( load_feat_video_i, hdf5_binary );
   
-  int half = floor(mat_features_video_i/2);
+  int half = floor(mat_features_video_i.n_cols/2);
   
   
   mat mat_features_video_i_tmp(dim,half);
