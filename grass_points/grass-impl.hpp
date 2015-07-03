@@ -60,7 +60,7 @@ grass_points::calculate_onepervideo( field<string> in_all_people, int  in_dim  )
   
   
  
-  omp_set_num_threads(8); //Use only 8 processors
+  omp_set_num_threads(4); //Use only 8 processors
   
   #pragma omp parallel for 
   for (int k = 0; k< parallel_names.n_rows; ++k)
@@ -164,7 +164,7 @@ grass_points::calculate( field<string> in_all_people, int  in_dim  )
   
   
   
-  omp_set_num_threads(4); //Use only 8 processors
+  omp_set_num_threads(8); //Use only 8 processors
   #pragma omp parallel for 
   for (int k = 0; k< parallel_names.n_rows; ++k)
   {
@@ -176,7 +176,6 @@ grass_points::calculate( field<string> in_all_people, int  in_dim  )
     
     #pragma omp critical
     cout <<  all_people (pe) << "_" << actions(act) << endl;
-    
     
     one_video(load_feat_video_i, load_labels_video_i, sc, pe, act );
   }
