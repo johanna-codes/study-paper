@@ -13,6 +13,7 @@ public:
 
 
     inline void calculate( field<string> all_people, int dim );
+    inline void calculate_onepervideo( field<string> all_people, int dim  );
 
 const std::string path;
 const std::string actionNames;
@@ -30,6 +31,7 @@ field<string> all_people;
 
   private: 
     inline void one_video( std::string load_feat_video_i, std::string load_labels_video_i, int sc, int pe, int act );
+    inline void one_video_one_point( std::string load_feat_video_i, int sc, int pe, int act );
 
 
  

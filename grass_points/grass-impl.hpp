@@ -12,7 +12,109 @@ grass_points::grass_points( const std::string in_path,
   actions.load( actionNames );  
 }
 
+// One Grassmann Point per Video
 
+inline
+void
+grass_points::calculate_onepervideo( field<string> in_all_people, int  in_dim  )
+{
+  all_people = in_all_people;
+  dim = in_dim;
+  int n_actions = actions.n_rows;
+  int n_peo =  all_people.n_rows;
+  //all_people.print("people");
+  
+  
+  field <std::string> parallel_names(n_peo*n_actions,3); 
+  int sc = total_scenes; //Solo estoy usando 1 
+  int k =0;
+  
+  
+  for (int pe = 0; pe< n_peo; ++pe)
+  {
+    for (int act=0; act<n_actions; ++act)
+    {
+      
+      
+      std::stringstream load_folder;
+      std::stringstream load_feat_video_i;
+      
+      
+      load_folder << path <<"kth-features_dim" << dim <<  "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
+      load_feat_video_i << load_folder.str() << "/" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
+      
+      
+      std::ostringstream ss1;
+      std::ostringstream ss2;
+      ss1 << pe;
+      ss2 << act;
+      
+      
+      parallel_names(k,0) = load_feat_video_i.str();
+      parallel_names(k,1) = ss1.str();
+      parallel_names(k,2) = ss2.str();
+      k++;
+      
+    }
+  }
+  
+  
+  //Aca podria hacer el paparelo
+  
+  omp_set_num_threads(8); //Use only 8 processors
+  #pragma omp parallel for 
+  for (int k = 0; k< parallel_names.n_rows; ++k)
+  {
+    std::string load_feat_video_i   = parallel_names(k,0);
+    
+    int pe   = atoi( parallel_names(k,1).c_str() );
+    int act  = atoi( parallel_names(k,2).c_str() );
+    
+    #pragma omp critical
+    cout <<  all_people (pe) << "_" << actions(act) << endl;
+    
+    
+    one_video_one_point(load_feat_video_i, sc, pe, act );
+  }
+  
+}
+
+
+inline
+void
+grass_points::one_video_one_point( std::string load_feat_video_i, int sc, int pe, int act )
+{
+  //cout << load_feat_video_i << endl;
+  mat mat_features_video_i;
+  
+  mat_features_video_i.load( load_feat_video_i, hdf5_binary );
+  
+  std::stringstream save_folder;
+  save_folder << "./kth-grass-point-one-dim" << dim << "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
+  
+  
+  mat U; vec s;   mat V;
+  svd(U,s,V,mat_features_video_i); 
+  mat Gnp = U.cols(0,p-1);
+  
+  std::stringstream save_Gnp;
+  //cout << save_folder.str() << endl;
+  save_Gnp << save_folder.str() << "/grass_pt_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
+  //cout << save_Gnp.str() << endl;
+  
+  #pragma omp critical
+  Gnp.save( save_Gnp.str(), hdf5_binary ); 
+
+
+
+}
+
+
+
+
+
+
+// Several Grasmann Poits per Video
 inline
 void
 grass_points::calculate( field<string> in_all_people, int  in_dim  )
