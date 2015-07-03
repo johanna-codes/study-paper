@@ -93,6 +93,8 @@ grass_points::one_video_one_point( std::string load_feat_video_i, int sc, int pe
   save_folder << "./kth-grass-point-one-dim" << dim << "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
   cout << "Llega aqui?? " << endl;
   
+  
+  cout << mat_features_video_i.n_rows << " & " << mat_features_video_i.n_cols << endl;
   mat U; vec s;   mat V;
   svd(U,s,V,mat_features_video_i); 
   cout << "Llega aqui?? " << endl;
