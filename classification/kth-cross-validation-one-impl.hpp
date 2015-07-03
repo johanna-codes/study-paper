@@ -80,7 +80,7 @@ kth_cv_omp::logEucl()
     //#pragma omp critical
     //cout << load_cov_seg.str() << endl;
     
-    est_label_video_i = logEucl_one_seg( pe, load_sub_path.str(), load_cov.str());
+    est_label_video_i = logEucl_one_video( pe, load_sub_path.str(), load_cov.str());
     
  
     
@@ -102,7 +102,7 @@ kth_cv_omp::logEucl()
 
 inline
 uword
-kth_cv_omp::logEucl_one_seg(int pe_test, std::string load_sub_path, std::string load_cov)
+kth_cv_omp::logEucl_one_video(int pe_test, std::string load_sub_path, std::string load_cov)
 {
   //wall_clock timer;
   //timer.tic();
@@ -222,7 +222,7 @@ kth_cv_omp::SteinDiv()
     //#pragma omp critical
     //cout << load_cov_seg.str() << endl;
     
-    est_label_video_i = SteinDiv_one_seg( pe, load_sub_path.str(), load_cov.str());
+    est_label_video_i = SteinDiv_one_video( pe, load_sub_path.str(), load_cov.str());
     
  
     
@@ -245,7 +245,7 @@ kth_cv_omp::SteinDiv()
 
 inline
 uword
-kth_cv_omp::SteinDiv_one_seg(int pe_test, std::string load_sub_path, std::string load_cov)
+kth_cv_omp::SteinDiv_one_video(int pe_test, std::string load_sub_path, std::string load_cov)
 {
   //wall_clock timer;
   //timer.tic();
@@ -303,9 +303,6 @@ kth_cv_omp::SteinDiv_one_seg(int pe_test, std::string load_sub_path, std::string
 
 
 
-/*
-
-
 
 ///Grassmann Manifolds
 
@@ -315,15 +312,14 @@ void
 kth_cv_omp::proj_grass(int p)
 {
   
-   int n_actions = actions.n_rows;
+  int n_actions = actions.n_rows;
   int n_peo =  all_people.n_rows;
-  
   
   float acc;
   acc = 0;
   
   //int n_test = n_peo*n_actions*total_scenes - 1; // - person13_handclapping_d3
-  int n_test = n_peo*n_actions*total_scenes; 
+  int n_test = n_peo*n_actions*total_scenes; // - person13_handclapping_d3
   
   vec real_labels;
   vec est_labels;
@@ -346,62 +342,45 @@ kth_cv_omp::proj_grass(int p)
       peo_act (k,0) = pe;
       peo_act (k,1) = act;
       k++;
-      
     }
-    
   }
   
+    std::stringstream load_sub_path;
+    load_sub_path  << path << "grass_points/kth-grass-point-one-dim" << dim << "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
+    
+    
   //omp_set_num_threads(8); //Use only 8 processors
-  //#pragma omp parallel for 
+  #pragma omp parallel for 
   for (int n = 0; n< n_test; ++n)
   {
     
     int pe  = peo_act (n,0);
     int act = peo_act (n,1);
     
-    //load number of segments
-    vec total_seg; 
-    int num_s;
-    std::stringstream load_sub_path;
-    std::stringstream load_num_seg;
-    load_sub_path  << path << "grass_points/kth-grass-point-dim" << dim << "-L" << segment_length << "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift;
-    load_num_seg << load_sub_path.str() << "/num_seg_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".dat";
+ 
     
     int tid=omp_get_thread_num();
+    uword est_label_video_i;
     
-    //#pragma omp critical
+    #pragma omp critical
     cout<< "Processor " << tid <<" doing "<<  all_people (pe) << "_" << actions(act) << endl;
     
-    total_seg.load( load_num_seg.str());
-    num_s = total_seg(0);
-    uvec  est_lab_segm;
-    est_lab_segm.zeros(num_s);
-    vec count = zeros<vec>( n_actions );
-    
-    //wall_clock timer;
-    //timer.tic();
-    
-    for (int s=0; s<num_s; ++s)
-    {
-      std::stringstream load_gp_seg;
-      load_gp_seg << load_sub_path.str() << "/grass_pt" << s << "_"<< all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
-      est_lab_segm(s) = ProjectionMetric_one_seg_est_lab( pe, load_sub_path.str(),  load_gp_seg.str(), p);
-      //#pragma omp critical
-      count( est_lab_segm(s) )++;
-      
-    }
-    
-    uword  index_video;
-    double max_val = count.max(index_video);
-    //est_lab_segm.t().print("est_lab_segm");
-    cout << "This video is " << actions(act) << " and was classified as class: " << actions(index_video ) << endl;
-    real_labels(n) = act;
-    est_labels(n) = index_video;
-    test_video_list(n) = load_sub_path.str();
+    std::stringstream load_Gnp;
+    load_Gnp << load_sub_path.str() << "/grass_pt_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
+
     
     //#pragma omp critical
-    if (index_video == act)
+    //cout << load_cov_seg.str() << endl;
+    
+    est_label_video_i = ProjectionMetric_one_video( pe, load_sub_path.str(), load_Gnp.str(), p);
+    
+ 
+    
+    #pragma omp critical
+    {
+    if (est_label_video_i == act)
     {acc++;  }
+    }
     
   }
   
@@ -415,15 +394,14 @@ kth_cv_omp::proj_grass(int p)
 
 inline
 uword
-kth_cv_omp::ProjectionMetric_one_seg_est_lab(int pe_test, std::string load_sub_path, std::string segm_name, int p)
+kth_cv_omp::ProjectionMetric_one_video(int pe_test, std::string load_sub_path, std::string load_Gnp, int p)
 {
   //wall_clock timer;
   //timer.tic();
   
   grass_metric grass_dist;
-  
   mat grass_point_test;
-  grass_point_test.load(segm_name);
+  grass_point_test.load(load_Gnp);
   
   int n_actions = actions.n_rows;
   int n_peo =  all_people.n_rows;
@@ -438,47 +416,42 @@ kth_cv_omp::ProjectionMetric_one_seg_est_lab(int pe_test, std::string load_sub_p
   {
     if (pe_tr!= pe_test)
     {	     
-
+      
+      //cout << " " << all_people (pe_tr);
+      
+      
       for (int sc = 1; sc<=total_scenes; ++sc) //scene
       {
 	for (int act=0; act<n_actions; ++act)
 	{
-	  vec total_seg; 
-	  int num_s;
-	  std::stringstream load_num_seg;
-	  load_num_seg << load_sub_path << "/num_seg_"<< all_people (pe_tr) << "_" << actions(act) << "_dim" << dim  << ".dat";
-	  total_seg.load( load_num_seg.str());
-	  num_s = total_seg(0);
 	  
-	  for (int s_tr=0; s_tr<num_s; ++s_tr)
-	  {
-	    std::stringstream load_gp_seg_tr;
-	    load_gp_seg_tr << load_sub_path << "/grass_pt" << s_tr << "_" << all_people (pe_tr) << "_" << actions(act) << "_dim" << dim  << ".h5";
-	    
-	    mat grass_point_train;
-	    grass_point_train.load( load_gp_seg_tr.str() );
-	    
-	    dist = grass_dist.proj_metric(grass_point_test,grass_point_train, p);
+	   std::stringstream load_Gnp_tr;
+	   load_Gnp_tr << load_sub_path << "/LogMcov_" <<  all_people (pe_tr) << "_" << actions(act) << "_dim" << dim  << ".h5";
+	   mat grass_point_train;
+	   grass_point_train.load( load_Gnp_tr.str() );
+	   
+	   dist = grass_dist.proj_metric(grass_point_test,grass_point_train, p);
 
+	    
 	    if (dist < tmp_dist)
 	    {
 	      tmp_dist = dist;
 	      est_lab = act;
-	    }   
-	  }
+	    }
+	  
 	}
       }
     }
   }
-  
-  //double n = timer.toc();
-  //cout << "number of seconds: " << n << endl;
-  //cout << " est_lab "<< est_lab << endl << endl;
-  //getchar();
+
   return est_lab;
   
 }
 
+
+
+
+/*
 ///Binet-Cauchy Metric
 
 inline
