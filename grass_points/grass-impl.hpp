@@ -93,7 +93,7 @@ grass_points::one_video_one_point( std::string load_feat_video_i, int sc, int pe
   
   
   mat mat_features_video_i_tmp(dim,half);
-  k =0;
+  int k =0;
   for (uword c=0; c<mat_features_video_i.n_cols; c=c+2)
   {
     mat_features_video_i_tmp.col(k) = mat_features_video_i.col(c);
