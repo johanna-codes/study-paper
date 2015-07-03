@@ -61,7 +61,7 @@ grass_points::calculate_onepervideo( field<string> in_all_people, int  in_dim  )
   
   //Aca podria hacer el paparelo
   
-  omp_set_num_threads(8); //Use only 8 processors
+  //omp_set_num_threads(8); //Use only 8 processors
   #pragma omp parallel for 
   for (int k = 0; k< parallel_names.n_rows; ++k)
   {
