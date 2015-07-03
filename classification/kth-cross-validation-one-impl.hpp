@@ -426,7 +426,9 @@ kth_cv_omp::ProjectionMetric_one_video(int pe_test, std::string load_sub_path, s
 	{
 	  
 	   std::stringstream load_Gnp_tr;
-	   load_Gnp_tr << load_sub_path << "/LogMcov_" <<  all_people (pe_tr) << "_" << actions(act) << "_dim" << dim  << ".h5";
+	   load_Gnp_tr << load_sub_path << "/grass_pt_" <<  all_people (pe_tr) << "_" << actions(act) << "_dim" << dim  << ".h5";
+	   
+
 	   mat grass_point_train;
 	   grass_point_train.load( load_Gnp_tr.str() );
 	   
