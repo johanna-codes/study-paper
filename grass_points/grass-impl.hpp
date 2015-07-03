@@ -95,6 +95,7 @@ grass_points::one_video_one_point( std::string load_feat_video_i, int sc, int pe
   
   mat U; vec s;   mat V;
   svd(U,s,V,mat_features_video_i); 
+  cout << "Llega aqui?? " << endl;
   mat Gnp = U.cols(0,p-1);
   
   std::stringstream save_Gnp;
