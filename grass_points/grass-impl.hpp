@@ -89,32 +89,29 @@ grass_points::one_video_one_point( std::string load_feat_video_i, int sc, int pe
   
   mat_features_video_i.load( load_feat_video_i, hdf5_binary );
   
+  
+  /*
   int half = floor(mat_features_video_i.n_cols/2);
-  
-  
   mat mat_features_video_i_tmp(dim,half);
-  //cout << "half: " << half << endl;
-  //cout << mat_features_video_i.n_cols << endl;
-  
-  
   int k =0;
   for (uword c=0; c<mat_features_video_i.n_cols-1; c=c+2)
   {
-   //cout << " " << c ;
     mat_features_video_i_tmp.col(k) = mat_features_video_i.col(c);
     ++k;
   }
-  
   mat_features_video_i.clear();
   //cout << "k: " << k << " & half: " << half << endl;
   //getchar();
+  
+  */
+  
   
   std::stringstream save_folder;
   save_folder << "./kth-grass-point-one-dim" << dim << "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
   
   
   mat U; vec s;   mat V;
-  svd(U,s,V,mat_features_video_i_tmp); 
+  svd_econ(U,s,V,mat_features_video_i); 
   cout << "Llega aqui?? " << endl;
   mat Gnp = U.cols(0,p-1);
   
