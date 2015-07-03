@@ -345,8 +345,8 @@ kth_cv_omp::proj_grass(int p)
     }
   }
   
-    std::stringstream load_sub_path;
-    load_sub_path  << path << "grass_points/kth-grass-point-one-dim" << dim << "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
+  std::stringstream load_sub_path;
+  load_sub_path  << path << "grass_points/kth-grass-point-one-dim" << dim << "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
     
     
   //omp_set_num_threads(8); //Use only 8 processors
