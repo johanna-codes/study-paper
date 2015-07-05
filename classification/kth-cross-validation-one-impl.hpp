@@ -363,7 +363,7 @@ kth_cv_omp::proj_grass(int p)
     uword est_label_video_i;
     
     #pragma omp critical
-    cout<< "Processor " << tid <<" doing "<<  all_people (pe) << "_" << actions(act) << endl;
+    //cout<< "Processor " << tid <<" doing "<<  all_people (pe) << "_" << actions(act) << endl;
     
     std::stringstream load_Gnp;
     load_Gnp << load_sub_path.str() << "/grass_pt_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
@@ -387,7 +387,7 @@ kth_cv_omp::proj_grass(int p)
   real_labels.save("grass_PM_real_labels.dat", raw_ascii);
   est_labels.save("grass_PM_est_labels.dat", raw_ascii);
   test_video_list.save("grass_PM_test_video_list.dat", raw_ascii);
-  cout << "Performance: " << acc*100/n_test << " %" << endl;
+  cout << "Performance for Projection Metric: " << acc*100/n_test << " %" << endl;
   
 }
 
@@ -507,7 +507,7 @@ kth_cv_omp::BC_grass()
     uword est_label_video_i;
     
     #pragma omp critical
-    cout<< "Processor " << tid <<" doing "<<  all_people (pe) << "_" << actions(act) << endl;
+    //cout<< "Processor " << tid <<" doing "<<  all_people (pe) << "_" << actions(act) << endl;
     
     std::stringstream load_Gnp;
     load_Gnp << load_sub_path.str() << "/grass_pt_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
@@ -531,7 +531,7 @@ kth_cv_omp::BC_grass()
   real_labels.save("grass_BC_real_labels.dat", raw_ascii);
   est_labels.save("grass_BC_est_labels.dat", raw_ascii);
   test_video_list.save("grass_BC_test_video_list.dat", raw_ascii);
-  cout << "Performance: " << acc*100/n_test << " %" << endl;
+  cout << "Performance for Binet-Cauchy: " << acc*100/n_test << " %" << endl;
   
 }
 
