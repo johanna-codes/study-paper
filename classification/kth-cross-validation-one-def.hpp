@@ -36,6 +36,7 @@ class kth_cv_omp //KTH Cross validation
     inline uword logEucl_one_video( int pe_test, std::string load_sub_path, std::string load_cov);
     inline uword SteinDiv_one_video( int pe_test, std::string load_sub_path, std::string load_cov);
     inline uword ProjectionMetric_one_video(int pe_test, std::string load_sub_path, std::string load_Gnp, int p);
+    inline uword BinetCauchyMetric_one_video(int pe_test, std::string load_sub_path, std::string load_Gnp);
 
    
     
