@@ -95,7 +95,7 @@ kth_cv_svm::logEucl_distances()
     
     //save dist_video_i person, action  
     std::stringstream save_vec_dist;
-    save_vec_dist << "./svm/logEucl/dist_vector_" << all_people (pe) << "_" << actions(act) << ".h5" ;
+    save_vec_dist << "./kth-svm/logEucl/dist_vector_" << all_people (pe) << "_" << actions(act) << ".h5" ;
     
     
     #pragma omp critical
