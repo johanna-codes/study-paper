@@ -122,7 +122,7 @@ kth_cv_svm::logEucl_CV()
       
       
 
-      cout << "Using SVM to classify person " << all_people (pe_ts) << endl;
+      cout << "Using SVM to classify " << all_people (pe_ts) << endl;
       for (int act =0; act<n_actions; ++acc)
       {
 	 vec test_dist;
@@ -140,6 +140,8 @@ kth_cv_svm::logEucl_CV()
 	}
    
 	float response = SVM.predict(cvMatTesting_onevideo, true);
+	
+	cout << "response " << response << endl;
 	real_labels(j) = act;
 	est_labels(j) = response;
 	test_video_list(j) = load_vec_dist.str();
