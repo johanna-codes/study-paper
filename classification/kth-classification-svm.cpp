@@ -12,18 +12,15 @@
  using namespace std;
  using namespace arma;
  
-// #include "aux-functions-def.hpp"
-// #include "aux-functions-impl.hpp"
-
-// #include "riemannian-metrics-def.hpp"
-// #include "riemannian-metrics-impl.hpp"
 
 #include "grassmann-metrics-def.hpp"
 #include "grassmann-metrics-impl.hpp"
  
-#include "kth-svm-cross-validation-def.hpp"
-#include "kth-svm-cross-validation-impl.hpp"
+#include "kth-LogEucl-svm-cross-validation-def.hpp"
+#include "kth-LogEucl-svm-cross-validation-impl.hpp"
 
+ #include "kth-SteinDiv-svm-cross-validation-def.hpp"
+#include "kth-SteinDiv-svm-cross-validation-impl.hpp"
 
 
 
@@ -66,9 +63,15 @@ main(int argc, char** argv)
   field<string> all_people;
   all_people.load(peopleList);
   
-  //Cross Validation
-   kth_cv_svm run_kth_cv_svm(path, actionNames, all_people, scale_factor, shift, total_scenes,  dim);
-   run_kth_cv_svm.logEucl();
+  //Cross Validation LogEuclidean
+  cout << "Cross Validation for Log-Euclidean Distance" << endl;
+  kth_cv_svm_LogEucl run_kth_cv_svm_LogEucl(path, actionNames, all_people, scale_factor, shift, total_scenes,  dim);
+  run_kth_cv_svm_LogEucl.run();
+   
+   //Cross Validation Stein Divergence
+  cout << "Cross Validation for Stein Divergence" << endl;
+  kth_cv_svm_Stein run_kth_cv_svm_SD(path, actionNames, all_people, scale_factor, shift, total_scenes,  dim);
+  run_kth_cv_svm_SD.run();
    
    
    //kth_CV_omp_onesegment.SteinDiv();
