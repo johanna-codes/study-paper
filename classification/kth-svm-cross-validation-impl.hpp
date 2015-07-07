@@ -130,7 +130,7 @@ kth_cv_svm::logEucl_CV()
 	 std::stringstream load_vec_dist;
 	 load_vec_dist << path << "./classification/kth-svm/logEucl/dist_vector_" << all_people (pe_ts) << "_" << actions(act_ts) << ".h5" ;
 	 test_dist.load( load_vec_dist.str() );
-	 cout << all_people (pe_ts) << "_" << actions(act_ts) << endl;
+	 //cout << all_people (pe_ts) << "_" << actions(act_ts) << endl;
 	 
 	 cv::Mat cvMatTesting_onevideo(1, n_dim, CV_32FC1);
 	 
@@ -164,7 +164,6 @@ kth_cv_svm::logEucl_CV()
     
     
   }
-  
   cout << "Performance: " << acc*100/(n_peo*n_actions) << " %" << endl;
 }
 
