@@ -158,9 +158,9 @@ kth_cv_svm::logEucl_CV()
       }
       
       ///cambiar nombres
-      real_labels.save("svm_LogEucl_real_labels.dat", raw_ascii);
-      est_labels.save("svm_LogEucl_est_labels.dat", raw_ascii);
-      test_video_list.save("svm_LogEucl_test_video_list.dat", raw_ascii); 
+      real_labels.save("./svm_results/svm_LogEucl_real_labels.dat", raw_ascii);
+      est_labels.save("./svm_results/svm_LogEucl_est_labels.dat", raw_ascii);
+      test_video_list.save("./svm_results/svm_LogEucl_test_video_list.dat", raw_ascii); 
       //getchar();
     
     
