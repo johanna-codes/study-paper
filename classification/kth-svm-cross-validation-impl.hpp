@@ -33,13 +33,14 @@ void
 kth_cv_svm::logEucl_CV()
 {
   
+  
   int n_actions = actions.n_rows;
   int n_peo =  all_people.n_rows;
   
   
   //int n_test = n_peo*n_actions*total_scenes - 1; // - person13_handclapping_d3
   int n_test = (n_peo-1)*n_actions*total_scenes; // - person13_handclapping_d3
-  
+  int n_dim = n_test;
   int sc = 1; // = total scenes
   fvec dist_vector;
   
@@ -60,7 +61,7 @@ kth_cv_svm::logEucl_CV()
     
     fmat training_data;
     vec lab;
-    training_data.zeros(dim,n_test);
+    training_data.zeros(n_dim,n_test);
     lab.zeros(n_test);
     int k=0;
     for (int pe_tr=0; pe_tr<n_peo; ++pe_tr)
@@ -81,13 +82,13 @@ kth_cv_svm::logEucl_CV()
     
     //Training the model with OpenCV
     cout << "Preparing data to train the data" << endl;
-    cv::Mat cvMatTraining(n_test, dim, CV_32FC1);
+    cv::Mat cvMatTraining(n_test, n_dim, CV_32FC1);
     float fl_labels[n_test] ;
     
     
       for (uword m=0; m<n_test; ++m)
       {
-	for (uword d=0; d<dim; ++d)
+	for (uword d=0; d<n_dim; ++d)
 	{
 	  cvMatTraining.at<float>(m,d) = training_data(d,m); 
 	  //cout << " OpenCV: " << cvMatTraining.at<float>(m,d) << " - Arma: " <<training_data(d,m); 
@@ -130,9 +131,9 @@ kth_cv_svm::logEucl_CV()
 	 test_dist.load( load_vec_dist.str() );
 	 
 	 
-	 cv::Mat cvMatTesting_onevideo(1, dim, CV_32FC1);
+	 cv::Mat cvMatTesting_onevideo(1, n_dim, CV_32FC1);
 	 
-	 for (uword d=0; d<dim; ++d)
+	 for (uword d=0; d<n_dim; ++d)
 	 {
 	   cvMatTesting_onevideo.at<float>(0,d) = test_dist(d); 
 	   
