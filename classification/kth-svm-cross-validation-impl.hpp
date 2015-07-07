@@ -22,7 +22,7 @@ inline
 void
 kth_cv_svm::logEucl()
 {
-  logEucl_distances();
+  //logEucl_distances();
   logEucl_CV(); //cross validation;
   
   
@@ -80,7 +80,7 @@ kth_cv_svm::logEucl_CV()
     }
     
     //Training the model with OpenCV
-    
+    cout << "Preparing data to train the data" << endl
     cv::Mat cvMatTraining(n_test, dim, CV_32FC1);
     float fl_labels[n_test] ;
     
