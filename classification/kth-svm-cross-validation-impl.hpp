@@ -60,7 +60,7 @@ kth_cv_svm::logEucl_CV()
   {
     
     fmat training_data;
-    vec lab;
+    fvec lab;
     training_data.zeros(n_dim,n_test);
     lab.zeros(n_test);
     int k=0;
@@ -129,7 +129,7 @@ kth_cv_svm::logEucl_CV()
 	 std::stringstream load_vec_dist;
 	 load_vec_dist << path << "./classification/kth-svm/logEucl/dist_vector_" << all_people (pe_ts) << "_" << actions(act) << ".h5" ;
 	 test_dist.load( load_vec_dist.str() );
-	 
+	 cout << all_people (pe_ts) << "_" << actions(act) << endl;
 	 
 	 cv::Mat cvMatTesting_onevideo(1, n_dim, CV_32FC1);
 	 
