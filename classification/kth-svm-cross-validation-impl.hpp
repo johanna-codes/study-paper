@@ -75,7 +75,7 @@ kth_cv_svm::logEucl_CV()
 	    load_vec_dist << path << "./classification/kth-svm/logEucl/dist_vector_" << all_people (pe_tr) << "_" << actions(act) << ".h5" ;
 	    dist_vector.load( load_vec_dist.str() );
 	    training_data.col(k) = dist_vector;
-	    lab(k) = k;
+	    lab(k) = act;
 	    ++k;
 	}
     }
@@ -159,6 +159,7 @@ kth_cv_svm::logEucl_CV()
       real_labels.save("svm_LogEucl_real_labels.dat", raw_ascii);
       est_labels.save("svm_LogEucl_est_labels.dat", raw_ascii);
       test_video_list.save("svm_LogEucl_test_video_list.dat", raw_ascii); 
+      getchar();
     
     
   }
