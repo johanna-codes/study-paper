@@ -1,7 +1,7 @@
 #include "omp.h"
 
 inline
-kth_cv_svm::kth_cv_svm(const std::string in_path,
+kth_cv_svm_LogEucl::kth_cv_svm_LogEucl(const std::string in_path,
 		       const std::string in_actionNames,  
 		       const field<std::string> in_all_people,
 		       const int in_scale_factor, 
@@ -20,17 +20,17 @@ kth_cv_svm::kth_cv_svm(const std::string in_path,
 
 inline
 void
-kth_cv_svm::logEucl()
+kth_cv_svm_LogEucl::run()
 {
-  //logEucl_distances();
-  logEucl_CV(); //cross validation;
+  distances();
+  CV(); //cross validation;
   
   
 }
 
 inline
 void
-kth_cv_svm::logEucl_CV()
+kth_cv_svm_LogEucl::CV()
 {
   
   
@@ -176,7 +176,7 @@ kth_cv_svm::logEucl_CV()
 
 inline
 void
-kth_cv_svm::logEucl_distances()
+kth_cv_svm_LogEucl::distances()
 {
   
   int n_actions = actions.n_rows;
@@ -226,7 +226,7 @@ kth_cv_svm::logEucl_distances()
     //#pragma omp critical
     //cout << load_cov_seg.str() << endl;
     
-    dist_video_i = dist_logEucl_one_video( pe, load_sub_path.str(), load_cov.str());
+    dist_video_i = dist_one_video( pe, load_sub_path.str(), load_cov.str());
     
     //save dist_video_i person, action  
     std::stringstream save_vec_dist;
@@ -243,7 +243,7 @@ kth_cv_svm::logEucl_distances()
 
 inline
 vec
-kth_cv_svm::dist_logEucl_one_video(int pe_test, std::string load_sub_path, std::string load_cov)
+kth_cv_svm_LogEucl::dist_one_video(int pe_test, std::string load_sub_path, std::string load_cov)
 {
   //wall_clock timer;
   //timer.tic();
