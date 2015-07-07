@@ -47,11 +47,11 @@ kth_cv_svm::logEucl_CV()
   float acc=0;
   vec real_labels;
   vec est_labels;
-  field<std::string> test_video_list(n_test);
+  field<std::string> test_video_list(n_peo*n_actions);
   
   
-  real_labels.zeros(n_test);
-  est_labels.zeros(n_test);
+  real_labels.zeros(n_peo*n_actions);
+  est_labels.zeros(n_peo*n_actions);
   
   int j =0;
   
