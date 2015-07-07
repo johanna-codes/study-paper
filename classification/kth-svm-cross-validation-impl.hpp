@@ -106,7 +106,7 @@ kth_cv_svm::logEucl_CV()
       //cout << "Setting parameters" << endl;
       CvSVMParams params;
       params.svm_type    = CvSVM::C_SVC;
-      params.kernel_type = CvSVM::RBF; 
+      params.kernel_type = CvSVM::LINEAR; 
       params.gamma = 1;
       params.term_crit   = cvTermCriteria(CV_TERMCRIT_ITER,  (int)1e7, 1e-6);
       
