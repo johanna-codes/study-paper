@@ -81,7 +81,8 @@ kth_cv_svm::logEucl_CV()
     }
     
     //Training the model with OpenCV
-    cout << "Preparing data to train the data" << endl;
+    cout << "Using SVM to classify " << all_people (pe_ts) << endl;
+    //cout << "Preparing data to train the data" << endl;
     cv::Mat cvMatTraining(n_test, n_dim, CV_32FC1);
     float fl_labels[n_test] ;
     
@@ -102,7 +103,7 @@ kth_cv_svm::logEucl_CV()
       
       cv::Mat cvMatLabels(n_test, 1, CV_32FC1,fl_labels );
       
-      cout << "Setting parameters" << endl;
+      //cout << "Setting parameters" << endl;
       CvSVMParams params;
       params.svm_type    = CvSVM::C_SVC;
       params.kernel_type = CvSVM::RBF; 
@@ -110,7 +111,7 @@ kth_cv_svm::logEucl_CV()
       params.term_crit   = cvTermCriteria(CV_TERMCRIT_ITER,  (int)1e7, 1e-6);
       
       // Train the SVM
-      cout << "Training" << endl;
+      //cout << "Training" << endl;
       CvSVM SVM;
       SVM.train( cvMatTraining , cvMatLabels, cv::Mat(), cv::Mat(), params);
       
@@ -122,7 +123,7 @@ kth_cv_svm::logEucl_CV()
       
       
 
-      cout << "Using SVM to classify " << all_people (pe_ts) << endl;
+      
       for (int act_ts =0; act_ts<n_actions; ++act_ts)
       {
 	 vec test_dist;
@@ -141,7 +142,7 @@ kth_cv_svm::logEucl_CV()
    
 	float response = SVM.predict(cvMatTesting_onevideo, true);
 	
-	cout << "response " << response << endl;
+	//cout << "response " << response << endl;
 	real_labels(j) = act_ts;
 	est_labels(j) = response;
 	test_video_list(j) = load_vec_dist.str();
@@ -159,13 +160,12 @@ kth_cv_svm::logEucl_CV()
       real_labels.save("svm_LogEucl_real_labels.dat", raw_ascii);
       est_labels.save("svm_LogEucl_est_labels.dat", raw_ascii);
       test_video_list.save("svm_LogEucl_test_video_list.dat", raw_ascii); 
-      getchar();
+      //getchar();
     
     
   }
   
-  
-  //save performance
+  cout << "Performance: " << acc*100/(n_peo*n_actions) << " %" << endl;
 }
 
 
