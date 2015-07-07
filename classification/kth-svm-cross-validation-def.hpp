@@ -36,7 +36,9 @@ class kth_cv_svm //KTH Cross validation
     
     
   private:
+    
     inline void logEucl_distances();
+    inline void logEucl_CV();
     inline vec dist_logEucl_one_video(int pe_test, std::string load_sub_path, std::string load_cov);
     
     
