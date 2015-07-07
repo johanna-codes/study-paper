@@ -122,7 +122,7 @@ kth_cv_svm::logEucl_CV()
       
       
 
-
+      cout << "Using SVM to classify person " << all_people (pe_ts) << endl;
       for (int act =0; act<n_actions; ++acc)
       {
 	 vec test_dist;
