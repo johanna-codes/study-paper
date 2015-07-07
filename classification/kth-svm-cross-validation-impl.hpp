@@ -123,13 +123,13 @@ kth_cv_svm::logEucl_CV()
       
 
       cout << "Using SVM to classify " << all_people (pe_ts) << endl;
-      for (int act =0; act<n_actions; ++acc)
+      for (int act_ts =0; act_ts<n_actions; ++act_ts)
       {
 	 vec test_dist;
 	 std::stringstream load_vec_dist;
-	 load_vec_dist << path << "./classification/kth-svm/logEucl/dist_vector_" << all_people (pe_ts) << "_" << actions(act) << ".h5" ;
+	 load_vec_dist << path << "./classification/kth-svm/logEucl/dist_vector_" << all_people (pe_ts) << "_" << actions(act_ts) << ".h5" ;
 	 test_dist.load( load_vec_dist.str() );
-	 cout << all_people (pe_ts) << "_" << actions(act) << endl;
+	 cout << all_people (pe_ts) << "_" << actions(act_ts) << endl;
 	 
 	 cv::Mat cvMatTesting_onevideo(1, n_dim, CV_32FC1);
 	 
@@ -142,12 +142,12 @@ kth_cv_svm::logEucl_CV()
 	float response = SVM.predict(cvMatTesting_onevideo, true);
 	
 	cout << "response " << response << endl;
-	real_labels(j) = act;
+	real_labels(j) = act_ts;
 	est_labels(j) = response;
 	test_video_list(j) = load_vec_dist.str();
 	j++;
 	
-	if (response == act)  {
+	if (response == act_ts)  {
 	  acc++;
 	  
 	}
