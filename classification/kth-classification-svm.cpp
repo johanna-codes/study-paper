@@ -25,6 +25,9 @@
 #include "kth-GrassPM-svm-cross-validation-def.hpp"
 #include "kth-GrassPM-svm-cross-validation-impl.hpp"
 
+ 
+#include "kth-GrassBC-svm-cross-validation-def.hpp"
+#include "kth-GrassBC-svm-cross-validation-impl.hpp"
 
 
 //Home
@@ -76,10 +79,15 @@ main(int argc, char** argv)
 //   kth_cv_svm_Stein run_kth_cv_svm_SD(path, actionNames, all_people, scale_factor, shift, total_scenes,  dim);
 //   run_kth_cv_svm_SD.run();
   
-   //Cross Validation Stein Divergence
-  cout << "Cross Validation for Grassmann: PM" << endl;
-  kth_cv_svm_Grass_PM run_kth_cv_svm_PM(path, actionNames, all_people, scale_factor, shift, total_scenes,  dim);
-  run_kth_cv_svm_PM.run(p);
+//   //Cross Validation Grassmann Projection Metric
+//   cout << "Cross Validation for Grassmann: PM" << endl;
+//   kth_cv_svm_Grass_PM run_kth_cv_svm_PM(path, actionNames, all_people, scale_factor, shift, total_scenes,  dim);
+//   run_kth_cv_svm_PM.run(p);
+  
+//   //Cross Validation Grassmann Binet-Cauchy Metric
+  cout << "Cross Validation for Grassmann: BC" << endl;
+  kth_cv_svm_Grass_BC run_kth_cv_svm_BC(path, actionNames, all_people, scale_factor, shift, total_scenes,  dim);
+  run_kth_cv_svm_BC.run();
    
    
    //kth_CV_omp_onesegment.SteinDiv();
