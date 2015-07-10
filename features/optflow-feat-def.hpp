@@ -44,6 +44,7 @@ private:
   
   
   inline void feature_video( std::string one_video, Struct_feat_lab &my_Struct_feat_lab );
+  inline cv::Mat Shift_Image( cv::Mat src_in, int num_pixels_x, int num_pixels_y);
   
   
   
