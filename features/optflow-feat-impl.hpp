@@ -58,7 +58,7 @@ opt_feat::features_all_videos( field<string> all_people )
   
   wall_clock timer;
   timer.tic();
-  omp_set_num_threads(1); //Use only 8 processors
+  //omp_set_num_threads(8); //Use only 8 processors
   
   #pragma omp parallel for 
   for (int i = 0; i<load_save_names.n_rows; ++i)
@@ -336,8 +336,8 @@ opt_feat::feature_video( std::string one_video, Struct_feat_lab &my_Struct_feat_
     std::swap(prevgray, gray);
     std::swap(prevflow, flow);
     
-    cv::imshow("color", frame);
-    cv::waitKey();
+    //cv::imshow("color", frame);
+    //cv::waitKey();
     
     
   }
