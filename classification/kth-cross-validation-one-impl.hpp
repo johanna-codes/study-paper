@@ -82,6 +82,8 @@ kth_cv_omp::logEucl()
     
     est_label_video_i = logEucl_one_video( pe, load_sub_path.str(), load_cov.str());
     
+    real_labels(n)=act;
+    est_labels(n)=est_label_video_i;
  
     
     #pragma omp critical
@@ -224,6 +226,8 @@ kth_cv_omp::SteinDiv()
     
     est_label_video_i = SteinDiv_one_video( pe, load_sub_path.str(), load_cov.str());
     
+    real_labels(n)=act;
+    est_labels(n)=est_label_video_i;
  
     
     #pragma omp critical
@@ -374,6 +378,8 @@ kth_cv_omp::proj_grass(int p)
     
     est_label_video_i = ProjectionMetric_one_video( pe, load_sub_path.str(), load_Gnp.str(), p);
     
+    real_labels(n)=act;
+    est_labels(n)=est_label_video_i;
  
     
     #pragma omp critical
@@ -517,6 +523,9 @@ kth_cv_omp::BC_grass()
     //cout << load_cov_seg.str() << endl;
     
     est_label_video_i = BinetCauchyMetric_one_video( pe, load_sub_path.str(), load_Gnp.str());
+    
+    real_labels(n)=act;
+    est_labels(n)=est_label_video_i;
     
  
     

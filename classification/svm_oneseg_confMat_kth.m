@@ -116,8 +116,8 @@ set(gcf,'PaperPosition', myfiguresize);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-BC_est  =load('./svm_results/svm_Grass_PM_est_labels.dat');
-BC_real =load('./svm_results/svm_Grass_PM_real_labels.dat');
+BC_est  =load('./svm_results/svm_Grass_BC_est_labels.dat');
+BC_real =load('./svm_results/svm_Grass_BC_real_labels.dat');
 confMat = confMatGet(BC_real + 1, BC_est + 1); %My labels start at 0.
 opt=confMatPlot('defaultOpt');
 opt.className={'box', 'hclap', 'hwave', 'jog', 'run','walk'};
