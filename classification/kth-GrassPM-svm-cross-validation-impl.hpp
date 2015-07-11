@@ -161,7 +161,7 @@ kth_cv_svm_Grass_PM::CV()
     
     
   }
-  cout << "Performance: " << acc*100/(n_peo*n_actions) << " %" << endl;
+  cout << "Performance Grassmann Projection Metric: " << acc*100/(n_peo*n_actions) << " %" << endl;
 }
 
 
@@ -213,8 +213,8 @@ kth_cv_svm_Grass_PM::distances()
     int tid=omp_get_thread_num();
     vec dist_video_i;
     
-    #pragma omp critical
-    cout<< "Processor " << tid <<" doing "<<  all_people (pe) << "_" << actions(act) << endl;
+    //#pragma omp critical
+    //cout<< "Processor " << tid <<" doing "<<  all_people (pe) << "_" << actions(act) << endl;
     
     std::stringstream load_Gnp;
     load_Gnp << load_sub_path.str() << "/grass_pt_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";

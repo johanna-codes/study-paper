@@ -165,7 +165,7 @@ kth_cv_svm_LogEucl::CV()
     
     
   }
-  cout << "Performance: " << acc*100/(n_peo*n_actions) << " %" << endl;
+  cout << "Performance for Log_Euclidean Distance: " << acc*100/(n_peo*n_actions) << " %" << endl;
 }
 
 
@@ -217,8 +217,8 @@ kth_cv_svm_LogEucl::distances()
     int tid=omp_get_thread_num();
     vec dist_video_i;
     
-    #pragma omp critical
-    cout<< "Processor " << tid <<" doing "<<  all_people (pe) << "_" << actions(act) << endl;
+    //#pragma omp critical
+    //cout<< "Processor " << tid <<" doing "<<  all_people (pe) << "_" << actions(act) << endl;
     
     std::stringstream load_cov;
     load_cov << load_sub_path.str() << "/LogMcov_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
