@@ -154,9 +154,9 @@ kth_cv_svm_Grass_PM::CV()
       }
       
       ///cambiar nombres
-      real_labels.save("./svm_results/svm_Grass_PM_real_labels.dat", raw_ascii);
-      est_labels.save("./svm_results/svm_Grass_PM_est_labels.dat", raw_ascii);
-      test_video_list.save("./svm_results/svm_Grass_PM_test_video_list.dat", raw_ascii); 
+      real_labels.save("./svm_results_nor/svm_Grass_PM_real_labels.dat", raw_ascii);
+      est_labels.save("./svm_results_nor/svm_Grass_PM_est_labels.dat", raw_ascii);
+      test_video_list.save("./svm_results_nor/svm_Grass_PM_test_video_list.dat", raw_ascii); 
       //getchar();
     
     
@@ -221,6 +221,8 @@ kth_cv_svm_Grass_PM::distances()
     
     
     dist_video_i = dist_one_video( pe, load_sub_path.str(), load_Gnp.str());
+    dist_video_i = dist_video_i/norm(dist_video_i,2);
+
     
     //save dist_video_i person, action  
     std::stringstream save_vec_dist;

@@ -158,9 +158,9 @@ kth_cv_svm_LogEucl::CV()
       }
       
       ///cambiar nombres
-      real_labels.save("./svm_results/svm_LogEucl_real_labels.dat", raw_ascii);
-      est_labels.save("./svm_results/svm_LogEucl_est_labels.dat", raw_ascii);
-      test_video_list.save("./svm_results/svm_LogEucl_test_video_list.dat", raw_ascii); 
+      real_labels.save("./svm_results_nor/svm_LogEucl_real_labels.dat", raw_ascii);
+      est_labels.save("./svm_results_nor/svm_LogEucl_est_labels.dat", raw_ascii);
+      test_video_list.save("./svm_results_nor/svm_LogEucl_test_video_list.dat", raw_ascii); 
       //getchar();
     
     
@@ -227,7 +227,8 @@ kth_cv_svm_LogEucl::distances()
     //cout << load_cov_seg.str() << endl;
     
     dist_video_i = dist_one_video( pe, load_sub_path.str(), load_cov.str());
-    
+    dist_video_i = dist_video_i/norm(dist_video_i,2);
+
     //save dist_video_i person, action  
     std::stringstream save_vec_dist;
     save_vec_dist << "./kth-svm/logEucl/dist_vector_" << all_people (pe) << "_" << actions(act) << ".h5" ;
