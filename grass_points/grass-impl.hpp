@@ -72,8 +72,8 @@ grass_points::calculate_onepervideo( field<string> in_all_people, int  in_dim  )
     int pe   = atoi( parallel_names(k,1).c_str() );
     int act  = atoi( parallel_names(k,2).c_str() );
     
-    #pragma omp critical
-    cout <<  all_people (pe) << "_" << actions(act) << endl;
+    //#pragma omp critical
+    //cout <<  all_people (pe) << "_" << actions(act) << endl;
         
     one_video_one_point(load_feat_video_i, sc, pe, act );
   }
