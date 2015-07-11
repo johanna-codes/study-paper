@@ -71,7 +71,7 @@ kth_cv_svm_Grass_BC::CV()
 	{
 
 	    std::stringstream load_vec_dist;
-	    load_vec_dist << path << "./classification/kth-svm/Grass_PM/dist_vector_" << all_people (pe_tr) << "_" << actions(act) << ".h5" ;
+	    load_vec_dist << path << "./classification/kth-svm/Grass_BC/dist_vector_" << all_people (pe_tr) << "_" << actions(act) << ".h5" ;
 	    dist_vector.load( load_vec_dist.str() );
 	    training_data.col(k) = dist_vector;
 	    lab(k) = act;
@@ -124,7 +124,7 @@ kth_cv_svm_Grass_BC::CV()
       {
 	 vec test_dist;
 	 std::stringstream load_vec_dist;
-	 load_vec_dist << path << "./classification/kth-svm/Grass_PM/dist_vector_" << all_people (pe_ts) << "_" << actions(act_ts) << ".h5" ;
+	 load_vec_dist << path << "./classification/kth-svm/Grass_BC/dist_vector_" << all_people (pe_ts) << "_" << actions(act_ts) << ".h5" ;
 	 test_dist.load( load_vec_dist.str() );
 	 //cout << all_people (pe_ts) << "_" << actions(act_ts) << endl;
 	 
@@ -153,9 +153,9 @@ kth_cv_svm_Grass_BC::CV()
       }
       
       ///cambiar nombres
-      real_labels.save("./svm_results/svm_Grass_PM_real_labels.dat", raw_ascii);
-      est_labels.save("./svm_results/svm_Grass_PM_est_labels.dat", raw_ascii);
-      test_video_list.save("./svm_results/svm_Grass_PM_test_video_list.dat", raw_ascii); 
+      real_labels.save("./svm_results/svm_Grass_BC_real_labels.dat", raw_ascii);
+      est_labels.save("./svm_results/svm_Grass_BC_est_labels.dat", raw_ascii);
+      test_video_list.save("./svm_results/svm_Grass_BC_test_video_list.dat", raw_ascii); 
       //getchar();
     
     
