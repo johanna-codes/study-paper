@@ -62,7 +62,7 @@ main(int argc, char** argv)
   {
     
     int shift = vec_shift(i);
-    
+    cout << "Cov for " << shift << endl;
     field<string> all_people;
     all_people.load(peopleList);
     
