@@ -219,8 +219,6 @@ kth_cv_svm_Grass_PM::distances()
     std::stringstream load_Gnp;
     load_Gnp << load_sub_path.str() << "/grass_pt_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
     
-    //#pragma omp critical
-    //cout << load_cov_seg.str() << endl;
     
     dist_video_i = dist_one_video( pe, load_sub_path.str(), load_Gnp.str());
     

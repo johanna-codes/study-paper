@@ -2,12 +2,13 @@ clear all
 close all
 clc
 
-%Results for Overlapping Segments
+%Results for One Segment per Video
+%%With no normalisation
 ACC = [];
 %% Riemannian Manifolds
 
-logEucl_est  =load('./results_L20/Log_Eucl_est_labels.dat');
-logEucl_real =load('./results_L20/Log_Eucl_real_labels.dat');
+logEucl_est  =load('./svm_results/svm_LogEucl_est_labels.dat');
+logEucl_real =load('./svm_results/svm_LogEucl_real_labels.dat');
 confMat = confMatGet(logEucl_real + 1, logEucl_est + 1); %My labels start at 0.
 opt=confMatPlot('defaultOpt');
 opt.className={'box', 'hclap', 'hwave', 'jog', 'run','walk'};
@@ -44,8 +45,8 @@ set(gcf,'PaperPosition', myfiguresize);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Steindiv_est  =load('./results_L20/Stein_div_est_labels.dat');
-Steindiv_real =load('./results_L20/Stein_div_real_labels.dat');
+Steindiv_est  =load('./svm_results/svm_SteinDiv_est_labels.dat');
+Steindiv_real =load('./svm_results/svm_SteinDiv_real_labels.dat');
 confMat = confMatGet(Steindiv_real + 1, Steindiv_est + 1); %My labels start at 0.
 opt=confMatPlot('defaultOpt');
 opt.className={'box', 'hclap', 'hwave', 'jog', 'run','walk'};
@@ -80,8 +81,8 @@ set(gcf,'PaperPosition', myfiguresize);
 
 %% Grassmann Manifolds
 
-PM_est  =load('./results_L20/grass_PM_est_labels.dat');
-PM_real =load('./results_L20/grass_PM_real_labels.dat');
+PM_est  =load('./svm_results/svm_Grass_PM_est_labels.dat');
+PM_real =load('./svm_results/svm_Grass_PM_real_labels.dat');
 confMat = confMatGet(PM_real + 1, PM_est + 1); %My labels start at 0.
 opt=confMatPlot('defaultOpt');
 opt.className={'box', 'hclap', 'hwave', 'jog', 'run','walk'};
@@ -115,8 +116,8 @@ set(gcf,'PaperPosition', myfiguresize);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-BC_est  =load('./results_L20/grass_BC_est_labels.dat');
-BC_real =load('./results_L20/grass_BC_real_labels.dat');
+BC_est  =load('./svm_results/svm_Grass_PM_est_labels.dat');
+BC_real =load('./svm_results/svm_Grass_PM_real_labels.dat');
 confMat = confMatGet(BC_real + 1, BC_est + 1); %My labels start at 0.
 opt=confMatPlot('defaultOpt');
 opt.className={'box', 'hclap', 'hwave', 'jog', 'run','walk'};
@@ -155,7 +156,7 @@ close all
 figure
 labels = {'Log_Eucl';'Stein_Div';'Projection';'Binet-Cauchy'};
 xname = strtrim(cellstr(num2str(ACC'))') 
-bar(ACC, 'm')
+bar(ACC, 'g')
 text(1:numel(ACC),ACC,xname,'horizontalalignment','center','verticalalignment','bottom') 
 ylim([0 90])
 set(gca,'XTickLabel',labels,'FontSize',15 );
@@ -183,5 +184,5 @@ myfiguresize = [left, bottom, width, height];
 set(gcf,'PaperPosition', myfiguresize);
 
 % Save the file as PNG
-%print('/home/johanna/latex-svn/latex_rioux/reports/study-paper/images/bar_all_metrics','-dpng','-r300');
+print('/home/johanna/Desktop/study-paper-report/images/svm_one_segment_bar_all_metrics','-dpng','-r300');
 

@@ -92,9 +92,9 @@ kth_cv_omp::logEucl()
     
   }
   
-  real_labels.save("Log_Eucl_real_labels.dat", raw_ascii);
-  est_labels.save("Log_Eucl_est_labels.dat", raw_ascii);
-  test_video_list.save("Log_Eucl_test_video_list.dat", raw_ascii);
+  real_labels.save("./results_onesegment/Log_Eucl_real_labels.dat", raw_ascii);
+  est_labels.save("./results_onesegment/Log_Eucl_est_labels.dat", raw_ascii);
+  test_video_list.save("./results_onesegment/Log_Eucl_test_video_list.dat", raw_ascii);
   cout << "Performance: " << acc*100/n_test << " %" << endl;
   
 }
@@ -234,9 +234,9 @@ kth_cv_omp::SteinDiv()
     
   }
   
-  real_labels.save("Stein_div_real_labels.dat", raw_ascii);
-  est_labels.save("Stein_div_est_labels.dat", raw_ascii);
-  test_video_list.save("Stein_div_test_video_list.dat", raw_ascii);
+  real_labels.save("./results_onesegment/Stein_div_real_labels.dat", raw_ascii);
+  est_labels.save("./results_onesegment/Stein_div_est_labels.dat", raw_ascii);
+  test_video_list.save("./results_onesegment/Stein_div_test_video_list.dat", raw_ascii);
   cout << "Performance for SteinDiv " << acc*100/n_test << " %" << endl;
 
   
@@ -384,9 +384,9 @@ kth_cv_omp::proj_grass(int p)
     
   }
   
-  real_labels.save("grass_PM_real_labels.dat", raw_ascii);
-  est_labels.save("grass_PM_est_labels.dat", raw_ascii);
-  test_video_list.save("grass_PM_test_video_list.dat", raw_ascii);
+  real_labels.save("./results_onesegment/grass_PM_real_labels.dat", raw_ascii);
+  est_labels.save("./results_onesegment/grass_PM_est_labels.dat", raw_ascii);
+  test_video_list.save("./results_onesegment/grass_PM_test_video_list.dat", raw_ascii);
   cout << "Performance for Projection Metric: " << acc*100/n_test << " %" << endl;
   
 }
@@ -528,9 +528,9 @@ kth_cv_omp::BC_grass()
     
   }
   
-  real_labels.save("grass_BC_real_labels.dat", raw_ascii);
-  est_labels.save("grass_BC_est_labels.dat", raw_ascii);
-  test_video_list.save("grass_BC_test_video_list.dat", raw_ascii);
+  real_labels.save("./results_onesegment/grass_BC_real_labels.dat", raw_ascii);
+  est_labels.save("./results_onesegment/grass_BC_est_labels.dat", raw_ascii);
+  test_video_list.save("./results_onesegment/grass_BC_test_video_list.dat", raw_ascii);
   cout << "Performance for Binet-Cauchy: " << acc*100/n_test << " %" << endl;
   
 }
