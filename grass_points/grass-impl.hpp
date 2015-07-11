@@ -40,7 +40,9 @@ grass_points::calculate_onepervideo( field<string> in_all_people, int  in_dim  )
       std::stringstream load_feat_video_i;
       
       
-      load_folder << path <<"kth-features_dim" << dim <<  "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
+      //load_folder << path <<"kth-features_dim" << dim <<  "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
+      load_folder << path <<"kth-features_dim" << dim <<  "_openMP/sc" <<  "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
+
       load_feat_video_i << load_folder.str() << "/" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
       
       
@@ -158,7 +160,9 @@ grass_points::calculate( field<string> in_all_people, int  in_dim  )
       std::stringstream load_labels_video_i;
       
       
-      load_folder << path <<"kth-features_dim" << dim <<  "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
+      //load_folder << path <<"kth-features_dim" << dim <<  "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
+      load_folder << path <<"kth-features_dim" << dim <<  "_openMP/sc" <<  "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
+
       load_feat_video_i << load_folder.str() << "/" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
       load_labels_video_i << load_folder.str() << "/lab_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
       
