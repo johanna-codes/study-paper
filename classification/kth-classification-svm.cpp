@@ -65,8 +65,9 @@ main(int argc, char** argv)
   all_people.load(peopleList);
   
   
-  ///Train 
-  
+  //********************************************************************************
+  // ******************************Training****************************************** 
+  //********************************************************************************  
  
   //Cross Validation LogEuclidean
    cout << "Training Log-Euclidean Distance" << endl;
@@ -74,14 +75,14 @@ main(int argc, char** argv)
    run_kth_cv_svm_LogEucl.train(scale_factor, shift);
    
     //Cross Validation Stein Divergence
-   //cout << "Cross Validation for Stein Divergence" << endl;
-   //kth_cv_svm_Stein run_kth_cv_svm_SD(path, actionNames, all_people, scale_factor, shift, total_scenes,  dim);
-   //run_kth_cv_svm_SD.run();
+   cout << "Training Stein Divergence" << endl;
+   kth_cv_svm_Stein run_kth_cv_svm_SD(path, actionNames, all_people, total_scenes,  dim);
+   run_kth_cv_svm_SD.train(scale_factor, shift);
   
    //Cross Validation Grassmann Projection Metric
-   //cout << "Cross Validation for Grassmann: PM" << endl;
-   //kth_cv_svm_Grass_PM run_kth_cv_svm_PM(path, actionNames, all_people, scale_factor, shift, total_scenes,  dim);
-   //run_kth_cv_svm_PM.run(p);
+   cout << "Training for Grassmann: PM" << endl;
+   kth_cv_svm_Grass_PM run_kth_cv_svm_PM(path, actionNames, all_people, total_scenes,  dim);
+   run_kth_cv_svm_PM.train(p, scale_factor, shift);
   
   //Cross Validation Grassmann Binet-Cauchy Metric
   cout << "Training Grassmann with Binet-Cauchy metric" << endl;
@@ -89,20 +90,29 @@ main(int argc, char** argv)
   run_kth_cv_svm_BC.train(scale_factor, shift);
    
 
-  
-  ///Test 
-  cout << "Cross Validation for Grassmann using Binet-Cauchy metric" << endl;
-  cout << "shift: " << shift << endl;
-  
-  //kth_cv_svm_Grass_BC run_kth_cv_svm_BC(path, actionNames, all_people, total_scenes,  dim);
-  run_kth_cv_svm_BC.test(scale_factor, shift);
-  
+  //********************************************************************************
+  // ******************************Testing****************************************** 
+  //********************************************************************************
+ 
   cout << "Cross Validation for Log-Euclidean Distance" << endl;
   cout << "shift: " << shift << endl;
-
-  
   //kth_cv_svm_LogEucl run_kth_cv_svm_LogEucl(path, actionNames, all_people, total_scenes,  dim);
-   run_kth_cv_svm_LogEucl.test(scale_factor, shift);
+  run_kth_cv_svm_LogEucl.test(scale_factor, shift);
+  
+   cout << "Cross Validation for Stein Divergence" << endl;
+   cout << "shift: " << shift << endl;
+   //kth_cv_svm_Stein run_kth_cv_svm_SD(path, actionNames, all_people, total_scenes,  dim);
+   run_kth_cv_svm_SD.test(scale_factor, shift);
+  
+   cout << "Cross Validation for Grassmann using Projection Metric" << endl;
+   cout << "shift: " << shift << endl;
+   //kth_cv_svm_Grass_PM run_kth_cv_svm_PM(path, actionNames, all_people, total_scenes,  dim);
+   run_kth_cv_svm_PM.test(p, scale_factor, shift);
+   
+   cout << "Cross Validation for Grassmann using Binet-Cauchy metric" << endl;
+   cout << "shift: " << shift << endl;
+   //kth_cv_svm_Grass_BC run_kth_cv_svm_BC(path, actionNames, all_people, total_scenes,  dim);
+   run_kth_cv_svm_BC.test(scale_factor, shift);
    
   
   

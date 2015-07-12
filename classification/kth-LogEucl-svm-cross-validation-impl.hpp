@@ -21,8 +21,7 @@ void
 kth_cv_svm_LogEucl::train( int tr_scale, int tr_shift )
 {
   distances(tr_scale, tr_shift);
-  svm_train(); //cross validation;
-  
+  svm_train(); 
   
 }
 
