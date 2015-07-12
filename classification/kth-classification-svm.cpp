@@ -69,7 +69,7 @@ main(int argc, char** argv)
   
  
   //Cross Validation LogEuclidean
-   cout << "Cross Validation for Log-Euclidean Distance" << endl;
+   cout << "Training Log-Euclidean Distance" << endl;
    kth_cv_svm_LogEucl run_kth_cv_svm_LogEucl(path, actionNames, all_people, total_scenes,  dim);
    run_kth_cv_svm_LogEucl.train(scale_factor, shift);
    
@@ -84,7 +84,7 @@ main(int argc, char** argv)
    //run_kth_cv_svm_PM.run(p);
   
   //Cross Validation Grassmann Binet-Cauchy Metric
-  cout << "Cross Validation for Grassmann: BC" << endl;
+  cout << "Training Grassmann with Binet-Cauchy metric" << endl;
   kth_cv_svm_Grass_BC run_kth_cv_svm_BC(path, actionNames, all_people, total_scenes,  dim);
   run_kth_cv_svm_BC.train(scale_factor, shift);
    
@@ -96,6 +96,10 @@ main(int argc, char** argv)
   
   //kth_cv_svm_Grass_BC run_kth_cv_svm_BC(path, actionNames, all_people, total_scenes,  dim);
   run_kth_cv_svm_BC.test(scale_factor, shift);
+  
+  cout << "Cross Validation for Log-Euclidean Distance" << endl;
+  cout << "shift: " << shift << endl;
+
   
   //kth_cv_svm_LogEucl run_kth_cv_svm_LogEucl(path, actionNames, all_people, total_scenes,  dim);
    run_kth_cv_svm_LogEucl.test(scale_factor, shift);
