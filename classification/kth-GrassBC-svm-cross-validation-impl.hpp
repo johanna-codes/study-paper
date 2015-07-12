@@ -66,7 +66,7 @@ kth_cv_svm_Grass_BC::svm_train()
     }
     
     //Training the model with OpenCV
-    cout << "Using SVM to classify " << all_people (pe_ts) << endl;
+    cout << "Using SVM to train run " << pe_ts+1 << endl;
     //cout << "Preparing data to train the data" << endl;
     cv::Mat cvMatTraining(n_test, n_dim, CV_32FC1);
     float fl_labels[n_test] ;
