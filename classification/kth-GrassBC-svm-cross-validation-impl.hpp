@@ -4,11 +4,9 @@ inline
 kth_cv_svm_Grass_BC::kth_cv_svm_Grass_BC(const std::string in_path,
 		       const std::string in_actionNames,  
 		       const field<std::string> in_all_people,
-		       const int in_scale_factor, 
-		       const int in_shift,
 		       const int in_scene, //only for kth
 		       const int in_dim 
-):path(in_path), actionNames(in_actionNames), all_people (in_all_people), scale_factor(in_scale_factor), shift(in_shift), total_scenes(in_scene), dim(in_dim)
+):path(in_path), actionNames(in_actionNames), all_people (in_all_people), total_scenes(in_scene), dim(in_dim)
 {
   actions.load( actionNames );  
   
@@ -19,38 +17,26 @@ kth_cv_svm_Grass_BC::kth_cv_svm_Grass_BC(const std::string in_path,
 
 inline
 void
-kth_cv_svm_Grass_BC::run( )
+kth_cv_svm_Grass_BC::train( int tr_scale, int tr_shift )
 {
-  distances();
-  CV(); //cross validation;
+  distances(tr_scale, tr_shift);
+  svm_train(); //cross validation;
   
   
 }
 
 inline
 void
-kth_cv_svm_Grass_BC::CV()
+kth_cv_svm_Grass_BC::svm_train()
 {
-  
-  
   int n_actions = actions.n_rows;
   int n_peo =  all_people.n_rows;
-  
-  
+    
   //int n_test = n_peo*n_actions*total_scenes - 1; // - person13_handclapping_d3
   int n_test = (n_peo-1)*n_actions*total_scenes; // - person13_handclapping_d3
   int n_dim = n_test;
   int sc = 1; // = total scenes
   fvec dist_vector;
-  
-  float acc=0;
-  vec real_labels;
-  vec est_labels;
-  field<std::string> test_video_list(n_peo*n_actions);
-  
-  
-  real_labels.zeros(n_peo*n_actions);
-  est_labels.zeros(n_peo*n_actions);
   
   int j =0;
   
@@ -116,17 +102,64 @@ kth_cv_svm_Grass_BC::CV()
       SVM.train( cvMatTraining , cvMatLabels, cv::Mat(), cv::Mat(), params);
       
       
+      std::stringstream save_svm_model;
+      save_svm_model << "./svm_models/svm_run_" << pe_ts+1 << endl;
+      SVM.save( save_svm_model.str().c_str() );
+  }
+}
+
+
+inline
+void
+kth_cv_svm_Grass_BC::test(int ts_scale, int ts_shift)
+{
+  
+  
+  int n_actions = actions.n_rows;
+  int n_peo =  all_people.n_rows;
+  
+  
+  //int n_test = n_peo*n_actions*total_scenes - 1; // - person13_handclapping_d3
+  int n_test = (n_peo-1)*n_actions*total_scenes; // - person13_handclapping_d3
+  int n_dim = n_test;
+  int sc = 1; // = total scenes
+  fvec dist_vector;
+  
+  float acc=0;
+  vec real_labels;
+  vec est_labels;
+  field<std::string> test_video_list(n_peo*n_actions);
+  
+  
+  real_labels.zeros(n_peo*n_actions);
+  est_labels.zeros(n_peo*n_actions);
+  
+  int j =0;
+  
+  std::stringstream load_sub_path;
+  load_sub_path  << path << "grass_points/kth-grass-point-one-dim" << dim << "/sc" << sc << "/scale" << ts_scale << "-shift"<< ts_shift ;
+  
+  
+  
+  for (int pe_ts=0; pe_ts<n_peo; ++pe_ts)
+  {
+    
+    std::stringstream load_svm_model;
+    load_svm_model << "./svm_models/svm_run_" << pe_ts+1 << endl;
       
+    CvSVM SVM;
+    SVM.load( load_svm_model.str().c_str() );
       
 
       
       for (int act_ts =0; act_ts<n_actions; ++act_ts)
       {
-	 vec test_dist;
-	 std::stringstream load_vec_dist;
-	 load_vec_dist << path << "./classification/kth-svm/Grass_BC/dist_vector_" << all_people (pe_ts) << "_" << actions(act_ts) << ".h5" ;
-	 test_dist.load( load_vec_dist.str() );
-	 //cout << all_people (pe_ts) << "_" << actions(act_ts) << endl;
+	std::stringstream load_Gnp;
+	load_Gnp << load_sub_path.str() << "/grass_pt_" << all_people (pe_ts) << "_" << actions(act_ts) << "_dim" << dim  << ".h5";
+	
+	vec test_dist;
+	test_dist = dist_one_video( pe_ts, load_sub_path.str(), load_Gnp.str());	 
+
 	 
 	 cv::Mat cvMatTesting_onevideo(1, n_dim, CV_32FC1);
 	 
@@ -138,10 +171,14 @@ kth_cv_svm_Grass_BC::CV()
    
 	float response = SVM.predict(cvMatTesting_onevideo, true);
 	
-	//cout << "response " << response << endl;
+	
+	std::stringstream test_video_name;
+	test_video_name << all_people(pe_ts) << "_" << actions(act_ts);
+	
+	
 	real_labels(j) = act_ts;
 	est_labels(j) = response;
-	test_video_list(j) = load_vec_dist.str();
+	test_video_list(j) = test_video_name.str();
 	j++;
 	
 	if (response == act_ts)  {
@@ -153,10 +190,21 @@ kth_cv_svm_Grass_BC::CV()
       }
       
       ///cambiar nombres
-      real_labels.save("./svm_results_nor/svm_Grass_BC_real_labels.dat", raw_ascii);
-      est_labels.save("./svm_results_nor/svm_Grass_BC_est_labels.dat", raw_ascii);
-      test_video_list.save("./svm_results_nor/svm_Grass_BC_test_video_list.dat", raw_ascii); 
-      //getchar();
+      
+      std::stringstream main_save;
+      main_save << "./svm_results/Grass_BC_scale" <<  ts_scale << "-shift"<< ts_shift;
+      
+      
+      std::stringstream save1, save2,save3;
+      
+      save1 << main_save.str() << "_real_labels.dat";
+      save2 << main_save.str() << "_est_labels.dat";
+      save3 << main_save.str() << "_test_video_list.dat";
+
+
+      real_labels.save(save1.str(), raw_ascii);
+      est_labels.save( save2.str(), raw_ascii);
+      test_video_list.save(save3.str(), raw_ascii); 
     
     
   }
@@ -164,20 +212,19 @@ kth_cv_svm_Grass_BC::CV()
 }
 
 
-
-
-
 ///
 
 inline
 void
-kth_cv_svm_Grass_BC::distances()
+kth_cv_svm_Grass_BC::distances(int scale_factor, int shift)
 {
   
   int n_actions = actions.n_rows;
   int n_peo =  all_people.n_rows;
   
   
+  int scale2 = scale_factor;
+  int shift2 = shift;
   //int n_test = n_peo*n_actions*total_scenes - 1; // - person13_handclapping_d3
   int n_test = n_peo*n_actions*total_scenes; // - person13_handclapping_d3
   
@@ -200,7 +247,7 @@ kth_cv_svm_Grass_BC::distances()
   }
   
   std::stringstream load_sub_path;
-  load_sub_path  << path << "grass_points/kth-grass-point-one-dim" << dim << "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
+  load_sub_path  << path << "grass_points/kth-grass-point-one-dim" << dim << "/sc" << sc << "/scale" << scale2 << "-shift"<< shift2 ;
   
   //omp_set_num_threads(8); //Use only 8 processors
   #pragma omp parallel for 
@@ -222,7 +269,7 @@ kth_cv_svm_Grass_BC::distances()
     //cout << load_cov_seg.str() << endl;
     
     dist_video_i = dist_one_video( pe, load_sub_path.str(), load_Gnp.str());
-    dist_video_i = dist_video_i/norm(dist_video_i,2);
+    //dist_video_i = dist_video_i/norm(dist_video_i,2);
     //save dist_video_i person, action  
     std::stringstream save_vec_dist;
     save_vec_dist << "./kth-svm/Grass_BC/dist_vector_" << all_people (pe) << "_" << actions(act) << ".h5" ;
