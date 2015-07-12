@@ -113,7 +113,7 @@ kth_cv_svm_LogEucl::svm_train()
 
 inline
 void
-kth_cv_svm_LogEucl::test()
+kth_cv_svm_LogEucl::test(int ts_scale, int ts_shift)
 {
   
   
@@ -159,7 +159,8 @@ kth_cv_svm_LogEucl::test()
 	 
 	 std::stringstream load_cov;
 	 load_cov << load_sub_path.str() << "/LogMcov_" << all_people (pe_ts) << "_" << actions(act_ts) << "_dim" << dim  << ".h5";
-	 vec test_dist;
+
+
 	 test_dist = dist_one_video( pe_ts, load_sub_path.str(), load_cov.str());	
 	 
 	 
@@ -174,10 +175,14 @@ kth_cv_svm_LogEucl::test()
    
 	float response = SVM.predict(cvMatTesting_onevideo, true);
 	
+	std::stringstream test_video_name;
+	test_video_name << all_people(pe_ts) << "_" << actions(act_ts);
+	
+	
 	//cout << "response " << response << endl;
 	real_labels(j) = act_ts;
 	est_labels(j) = response;
-	test_video_list(j) = load_vec_dist.str();
+	test_video_list(j) = test_video_name.str();
 	j++;
 	
 	if (response == act_ts)  {
