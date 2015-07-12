@@ -192,7 +192,7 @@ kth_cv_svm_Grass_BC::test(int ts_scale, int ts_shift)
       ///cambiar nombres
       
       std::stringstream main_save;
-      main_save << "./svm_results/Grass_BC_scale" <<  ts_scale << "-shift"<< ts_shift;
+      main_save << "./svm_results_2/Grass_BC_scale" <<  ts_scale << "-shift"<< ts_shift;
       
       
       std::stringstream save1, save2,save3;
