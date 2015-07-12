@@ -38,7 +38,6 @@ kth_cv_svm_Grass_BC::svm_train()
   int sc = 1; // = total scenes
   fvec dist_vector;
   
-  int j =0;
   
   
   for (int pe_ts=0; pe_ts<n_peo; ++pe_ts)
@@ -145,7 +144,7 @@ kth_cv_svm_Grass_BC::test(int ts_scale, int ts_shift)
   {
     
     std::stringstream load_svm_model;
-    load_svm_model << "./svm_models/svm_run_" << pe_ts+1 << endl;
+    load_svm_model << "./svm_models/svm_run_" << pe_ts+1;
       
     CvSVM SVM;
     SVM.load( load_svm_model.str().c_str() );
