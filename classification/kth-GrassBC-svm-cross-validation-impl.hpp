@@ -103,7 +103,7 @@ kth_cv_svm_Grass_BC::svm_train()
       
       
       std::stringstream save_svm_model;
-      save_svm_model << "./svm_models/svm_run_" << pe_ts+1 << endl;
+      save_svm_model << "./svm_models/svm_run_" << pe_ts+1;
       SVM.save( save_svm_model.str().c_str() );
   }
 }
