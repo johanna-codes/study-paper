@@ -91,7 +91,8 @@ main(int argc, char** argv)
 
   
   ///Test 
-  cout << "Cross Validation for Grassmann: BC" << endl;
+  cout << "Cross Validation for Grassmann using Binet-Cauchy metric" << endl;
+  cout << "shift: " << shift << endl;
   kth_cv_svm_Grass_BC run_kth_cv_svm_BC(path, actionNames, all_people, total_scenes,  dim);
   run_kth_cv_svm_BC.test(scale_factor, shift);
   
