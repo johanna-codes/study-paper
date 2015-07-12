@@ -20,7 +20,7 @@ void
 kth_cv_svm_Grass_BC::train( int tr_scale, int tr_shift )
 {
   distances(tr_scale, tr_shift);
-  svm_train(); //cross validation;
+  svm_train(); 
   
   
 }
@@ -102,7 +102,7 @@ kth_cv_svm_Grass_BC::svm_train()
       
       
       std::stringstream save_svm_model;
-      save_svm_model << "./svm_models/svm_run_" << pe_ts+1;
+      save_svm_model << "./svm_models/GrassBC_svm_run_" << pe_ts+1;
       SVM.save( save_svm_model.str().c_str() );
   }
 }
@@ -144,7 +144,7 @@ kth_cv_svm_Grass_BC::test(int ts_scale, int ts_shift)
   {
     
     std::stringstream load_svm_model;
-    load_svm_model << "./svm_models/svm_run_" << pe_ts+1;
+    load_svm_model << "./svm_models/GrassBC_svm_run_" << pe_ts+1;
       
     CvSVM SVM;
     SVM.load( load_svm_model.str().c_str() );
@@ -188,7 +188,7 @@ kth_cv_svm_Grass_BC::test(int ts_scale, int ts_shift)
       
       }
       
-      ///cambiar nombres
+
       
       std::stringstream main_save;
       main_save << "./svm_results_2/Grass_BC_scale" <<  ts_scale << "-shift"<< ts_shift;
