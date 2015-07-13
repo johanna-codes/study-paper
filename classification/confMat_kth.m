@@ -183,5 +183,5 @@ myfiguresize = [left, bottom, width, height];
 set(gcf,'PaperPosition', myfiguresize);
 
 % Save the file as PNG
-%print('/home/johanna/latex-svn/latex_rioux/reports/study-paper/images/bar_all_metrics','-dpng','-r300');
+print('/home/johanna/latex-svn/latex_rioux/reports/study-paper/images/overlapping_bar_all_metrics','-dpng','-r300');
 
