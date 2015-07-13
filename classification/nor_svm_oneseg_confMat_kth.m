@@ -148,7 +148,7 @@ set(gcf,'PaperPosition', myfiguresize);
 % Save the file as PNG
 %print('/home/johanna/latex-svn/latex_rioux/reports/study-paper/images/CM_grass_BC','-dpng','-r300');
 
-pause
+%pause
 close all
 
 
@@ -158,7 +158,7 @@ labels = {'Log_Eucl';'Stein_Div';'Projection';'Binet-Cauchy'};
 xname = strtrim(cellstr(num2str(ACC'))') 
 bar(ACC, 'r')
 text(1:numel(ACC),ACC,xname,'horizontalalignment','center','verticalalignment','bottom') 
-ylim([0 90])
+ylim([0 60])
 set(gca,'XTickLabel',labels,'FontSize',15 );
 ylabel('Recognition Accuracy (%)')
 %xlabel('Metric Employed')
@@ -184,5 +184,10 @@ myfiguresize = [left, bottom, width, height];
 set(gcf,'PaperPosition', myfiguresize);
 
 % Save the file as PNG
-print('/home/johanna/Desktop/study-paper-report/images/nor_svm_one_segment_bar_all_metrics','-dpng','-r300');
+%print('/home/johanna/Desktop/study-paper-report/images/nor_svm_one_segment_bar_all_metrics','-dpng','-r300');
+
+%Nicta
+print('/home/johanna/latex-svn/latex_rioux/reports/study-paper/images/nor_svm_one_segment_bar_all_metrics','-dpng','-r300');
+
+ACC
 

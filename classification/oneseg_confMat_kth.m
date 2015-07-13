@@ -189,5 +189,7 @@ set(gcf,'PaperPosition', myfiguresize);
 %Nicta
 print('/home/johanna/latex-svn/latex_rioux/reports/study-paper/images/one_segment_bar_all_metrics','-dpng','-r300');
 
+ACC
+
 
 
