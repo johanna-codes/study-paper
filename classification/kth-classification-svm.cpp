@@ -102,25 +102,21 @@ main(int argc, char** argv)
     {
       
       int shift = vec_shift(i);
-      cout << "Cov for " << shift << endl;
+      cout << "Shift: " << shift << endl;
       
       cout << "Cross Validation for Log-Euclidean Distance" << endl;
-      cout << "shift: " << shift << endl;
       kth_cv_svm_LogEucl run_kth_cv_svm_LogEucl(path, actionNames, all_people, total_scenes,  dim);
       run_kth_cv_svm_LogEucl.test(scale_factor, shift);
       
       cout << "Cross Validation for Stein Divergence" << endl;
-      cout << "shift: " << shift << endl;
       kth_cv_svm_Stein run_kth_cv_svm_SD(path, actionNames, all_people, total_scenes,  dim);
       run_kth_cv_svm_SD.test(scale_factor, shift);
       
       cout << "Cross Validation for Grassmann using Projection Metric" << endl;
-      cout << "shift: " << shift << endl;
       kth_cv_svm_Grass_PM run_kth_cv_svm_PM(path, actionNames, all_people, total_scenes,  dim);
       run_kth_cv_svm_PM.test(p, scale_factor, shift);
       
       cout << "Cross Validation for Grassmann using Binet-Cauchy metric" << endl;
-      cout << "shift: " << shift << endl;
       kth_cv_svm_Grass_BC run_kth_cv_svm_BC(path, actionNames, all_people, total_scenes,  dim);
       run_kth_cv_svm_BC.test(scale_factor, shift);
       cout << "********************************************************************************"<< endl;
