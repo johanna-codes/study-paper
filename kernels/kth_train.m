@@ -17,7 +17,6 @@ n_peo =  size(all_people,1);
 sc = 1;
 
 display('Training svm + Kernel Log-Euclidean Distance');
-sc_ss = 
 
 n_test = (n_peo-1)*n_actions;
 
