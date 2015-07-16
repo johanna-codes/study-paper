@@ -1,4 +1,8 @@
-function kth_test(scale_factor, shift, sigma)
+%function kth_test(scale_factor, shift, sigma)
+clear all
+scale_factor =1;
+shift =0;
+sigma =1;
 
 
 RIEMANNIAN_KERNEL = @(X,Y,sigma) exp( -( dist_LogEuclidean(X,Y) )^2/(2*sigma^2) );
