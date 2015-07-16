@@ -34,6 +34,7 @@ j=1;
       load(load_svm_model); %loading model and X_train
 
       for act_ts = 1:n_actions
+          
           real_labels(j) = act_ts;
           name_load_cov = strcat( load_sub_path, '/LogMcov_', all_people(pe_ts), '_', actions(act_ts), '_dim', int2str(dim), '.h5');
           hinfo = hdf5info( char(name_load_cov) );
@@ -42,6 +43,7 @@ j=1;
           
           K_test = compute_kernel_svm(X_test,X_train, RIEMANNIAN_KERNEL,sigma);
           [predict_label, accuracy, dec_values] = svmpredict([act_ts],[[1:size(K_test,1)]' K_test], model);
+          [predict_label act_ts]
           est_labels(j) = predict_label;
           j=j+1;
           
