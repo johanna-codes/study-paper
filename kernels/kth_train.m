@@ -1,7 +1,8 @@
 clear all
 clc
 
-%/home/johanna/toolbox/libsvm-3.20/matlab --> Wanda
+%addpath('/media/johanna/HD1T/Toolbox/libsvm-3.20/matlab'); --> Home
+addpath('/home/johanna/toolbox/libsvm-3.20/matlab');% --> Wanda
 
 
 path  = '~/codes/codes-git/study-paper/trunk/';
