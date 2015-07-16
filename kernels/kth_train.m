@@ -1,5 +1,9 @@
 clear all
 clc
+
+%/home/johanna/toolbox/libsvm-3.20/matlab --> Wanda
+
+
 path  = 'home/johanna/codes/codes-git/study-paper/trunk/';
 dim = 14; 
 
