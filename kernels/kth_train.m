@@ -37,8 +37,9 @@ for pe_ts= 1: n_peo
                 hinfo = hdf5info( char(name_load_cov) );
                 one_video = hdf5read(hinfo.GroupHierarchy.Datasets(1));
                 X_train(:,:,k) = one_video;
-                k=k+1;
                 labels_train(k) = act;
+                k=k+1;
+                
             end
         end
     end
