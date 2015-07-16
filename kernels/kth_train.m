@@ -45,6 +45,10 @@ for pe_ts= 1: n_peo
     
     K_train = compute_kernel_svm(X_train,X_train, RIEMANNIAN_KERNEL, sigma);
     model = svmtrain(labels_train, [[1:size(K_train,1)]' K_train], '-t 4 -q ');
+    %Borrame
+    [predict_label, accuracy, dec_values] = svmpredict([act_ts],[[1:size(K_train,1)]' K_train], model);
+    accuracy
+    
     save_svm_model =strcat( './svm_models/logEucl_svm_run_', int2str(pe_ts), '_Sigma', int2str(sigma));
     save(save_svm_model, 'model', 'X_train');
     
