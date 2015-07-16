@@ -1,4 +1,5 @@
-
+clear all
+clc
 %addpath('/media/johanna/HD1T/Toolbox/libsvm-3.20/matlab'); --> Home
 addpath('/home/johanna/toolbox/libsvm-3.20/matlab');% --> Wanda
 
