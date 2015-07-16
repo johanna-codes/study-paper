@@ -41,7 +41,7 @@ j=1;
           est_labels(j) = predict_label;
           j=j+1;
           
-          if response == act_ts
+          if predict_label == act_ts
               acc = acc+1;
           end
 
