@@ -27,7 +27,7 @@ j=1;
   for pe_ts= 1: n_peo
       
       load_svm_model =strcat( './svm_models/logEucl_svm_run_', int2str(pe_ts), '_Sigma', int2str(sigma), '.mat');
-      load load_svm_model; %loading model and X_train
+      load(load_svm_model); %loading model and X_train
 
       for act_ts = 1:act_ts
           real_labels(j) = act_ts;
