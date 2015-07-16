@@ -29,7 +29,7 @@ j=1;
       load_svm_model =strcat( './svm_models/logEucl_svm_run_', int2str(pe_ts), '_Sigma', int2str(sigma), '.mat');
       load(load_svm_model); %loading model and X_train
 
-      for act_ts = 1:act_ts
+      for act_ts = 1:n_actions
           real_labels(j) = act_ts;
           name_load_cov = strcat( load_sub_path, '/LogMcov_', all_people(pe_ts), '_', actions(act_ts), '_dim', int2str(dim), '.h5');
           hinfo = hdf5info( char(name_load_cov) );
