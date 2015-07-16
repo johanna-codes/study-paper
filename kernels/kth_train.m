@@ -44,8 +44,7 @@ load_sub_path =strcat(path, 'cov_matrices/kth-one-cov-mat-dim', int2str(dim), '/
       model = svmtrain(gt_train', [[1:size(K_train,1)]' K_train], '-t 4 -q ');
       save_svm_model =strcat( './svm_models/logEucl_svm_run_', int2str(pe_ts), '_Sigma', int2str(sigma));
       SVM.save( save_svm_model.str().c_str() );
-      save(savefile, 'p'
-      
+     
   
   end
    
