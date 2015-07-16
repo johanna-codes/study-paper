@@ -10,7 +10,7 @@ ACC = [];
 
 for i=1:length(sigma)
     sigma(i)
-   acc = kth_train_dist_LogEuclidean(sigma(i))
+   acc = kth_train_LogEuclidean(sigma(i))
    ACC = [ACC; acc];
     
 end
