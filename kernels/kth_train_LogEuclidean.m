@@ -1,4 +1,4 @@
-function [acc] = kth_train_dist_LogEuclidean(sigma)
+function acc = kth_train_dist_LogEuclidean(sigma)
 
 
 path  = '~/codes/codes-git/study-paper/trunk/';
