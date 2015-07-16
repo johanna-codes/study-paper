@@ -5,7 +5,7 @@ addpath('/home/johanna/toolbox/libsvm-3.20/matlab');% --> Wanda
 
 sigma = 0.2:0.2:1;
 
-display('Training svm + Kernel Log-Euclidean Distance', sigma(1));
+display('Training svm + Kernel Log-Euclidean Distance');
 ACC = [];
 
 for i=1:length(sigma)
