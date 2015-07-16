@@ -1,7 +1,4 @@
-clear all
-clc
-
-
+function [acc] = kth_train_dist_LogEuclidean(sigma)
 
 
 path  = '~/codes/codes-git/study-paper/trunk/';
@@ -16,7 +13,7 @@ n_actions = size(actions,1);
 n_peo =  size(all_people,1);
 sc = 1;
 
-
+acc = [];
 
 n_test = (n_peo-1)*n_actions;
 
@@ -47,6 +44,7 @@ for pe_ts= 1: n_peo
     [predict_label, accuracy, dec_values] = svmpredict(labels_train,[[1:size(K_train,1)]' K_train], model);
     display(accuracy');
     
+    acc = [acc accuracy(1)];
     save_svm_model =strcat( './svm_models/logEucl_svm_run_', int2str(pe_ts), '_Sigma', int2str(sigma));
     save(save_svm_model, 'model', 'X_train');
     
