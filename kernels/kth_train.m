@@ -38,8 +38,14 @@ load_sub_path =strcat(path, 'cov_matrices/kth-one-cov-mat-dim', int2str(dim), '/
       end
       
       %Entrenar aca y guardar para cada peo_test
-    
-    %load_cov << load_sub_path.str() << "/LogMcov_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
+      sigma = 1;
+      RIEMANNIAN_KERNEL = @(X,Y,sigma) exp( -( dist_LogEuclidean(X,Y) )^2/(2*sigma^2) );
+      K_train = compute_kernel_svm(X_train,X_train, RIEMANNIAN_KERNEL, sigma);
+      model = svmtrain(gt_train', [[1:size(K_train,1)]' K_train], '-t 4 -q ');
+      save_svm_model =strcat( './svm_models/logEucl_svm_run_', int2str(pe_ts), '_Sigma', int2str(sigma));
+      SVM.save( save_svm_model.str().c_str() );
+      save(savefile, 'p'
+      
   
   end
    
