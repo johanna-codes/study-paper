@@ -1,4 +1,4 @@
-function acc = kth_test(scale_factor, shift, sigma)
+%function acc = kth_test(scale_factor, shift, sigma)
 % clear all
 % scale_factor =1;
 % shift =0;
