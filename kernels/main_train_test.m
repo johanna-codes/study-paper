@@ -5,7 +5,7 @@ addpath('/home/johanna/toolbox/libsvm-3.20/matlab');% --> Wanda
 
 
 path  = '~/codes/codes-git/study-paper/trunk/';
-sigma = 0.6:0.1:1;
+sigma = 0.1:0.1:1;
 
 display('Training svm + Kernel Log-Euclidean Distance');
 ACC = zeros(length(sigma),25);
