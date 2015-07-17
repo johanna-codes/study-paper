@@ -42,7 +42,7 @@ for pe_ts= 1: n_peo
     model = svmtrain(labels_train, [[1:size(K_train,1)]' K_train], '-t 4 -q ');
     %Borrame Funciona Bien
     [predict_label, accuracy, dec_values] = svmpredict(labels_train,[[1:size(K_train,1)]' K_train], model);
-    display(accuracy');
+    %display(accuracy');
     
     acc = [acc accuracy(1)];
     save_svm_model =strcat( './svm_models/logEucl_svm_run_', int2str(pe_ts), '_Sigma', int2str(sigma));
