@@ -17,9 +17,11 @@ sigma = 0.1:0.1:1;
 
 display('Testing svm + Kernel Log-Euclidean Distance');
 ACC =[];
+scale =1;
+shift=0;
 for i=1:length(sigma)
    sigma(i)
-   acc = kth_train_LogEuclidean(sigma(i));
+   acc = kth_test(scale, shift,sigma(i));
    mean(acc)
    ACC = [ACC; acc];
     
