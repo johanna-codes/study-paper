@@ -42,7 +42,6 @@ j=1;
           
           K_test = compute_kernel_svm(X_test,X_train, RIEMANNIAN_KERNEL,sigma);
           [predict_label, accuracy, dec_values] = svmpredict([act_ts],[[1:size(K_test,1)]' K_test], model);
-          [predict_label act_ts]
           est_labels(j) = predict_label;
           j=j+1;
           
