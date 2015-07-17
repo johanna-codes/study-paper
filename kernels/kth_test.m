@@ -17,7 +17,7 @@ n_actions = size(actions,1);
 n_peo =  size(all_people,1);
 sc = 1;
 
-display('Testing svm + Kernel Log-Euclidean Distance');
+%display('Testing svm + Kernel Log-Euclidean Distance');
 
 acc = 0;
 real_labels = zeros(n_peo*n_actions);
