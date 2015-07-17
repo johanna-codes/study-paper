@@ -56,6 +56,6 @@ j=1;
      save(save_labels, 'est_labels', 'real_labels', 'sigma');
   
   end
-  
+  [acc n_peo n_actions]
   acc*100/(n_peo*n_actions);
    
