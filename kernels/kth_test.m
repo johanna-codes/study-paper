@@ -1,13 +1,12 @@
-%function kth_test(scale_factor, shift, sigma)
-clear all
-scale_factor =1;
-shift =0;
-sigma =1;
+function acc = kth_test(scale_factor, shift, sigma)
+% clear all
+% scale_factor =1;
+% shift =0;
+% sigma =1;
 
 
 RIEMANNIAN_KERNEL = @(X,Y,sigma) exp( -( dist_LogEuclidean(X,Y) )^2/(2*sigma^2) );
 
-path  = '~/codes/codes-git/study-paper/trunk/';
 dim = 14; 
 
 actions = importdata('actionNames.txt');
@@ -51,16 +50,12 @@ j=1;
               acc = acc+1;
           end
 
-          
-          
-          
-          
       end
       
-     save_labels = strcat('./svm_results/LogEucl_scale', int2str(scale_factor), '-shift', shift);     
-     save(save_labels, 'est_labels', 'real_labels');
+     save_labels = strcat('./svm_results/LogEucl_scale', int2str(scale_factor), '-shift', int2str(shift),'-sigma',int2str(sigma) );     
+     save(save_labels, 'est_labels', 'real_labels', 'sigma');
   
   end
   
-  acc*100/(n_peo*n_actions)
+  acc*100/(n_peo*n_actions);
    
