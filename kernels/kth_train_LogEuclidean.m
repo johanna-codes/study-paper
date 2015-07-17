@@ -44,7 +44,7 @@ for pe_ts= 1: n_peo
     %display(accuracy');
     
     acc = [acc accuracy(1)];
-    save_svm_model =strcat( './svm_models/logEucl_svm_run_', int2str(pe_ts), '_Sigma', num2str(sigma));
+    save_svm_model =strcat( './svm_models/logEucl_svm_run_', int2str(pe_ts), '_Sigma', num2str(sigma),'.mat');
     save(save_svm_model, 'model', 'X_train');
     
     
