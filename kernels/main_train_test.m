@@ -8,18 +8,18 @@ path  = '~/codes/codes-git/study-paper/trunk/';
 sigma = 0.6:0.1:1;
 
 display('Training svm + Kernel Log-Euclidean Distance');
-ACC = [];
+ACC = zeros(length(sigma),25);
+
 parfor i=1:length(sigma)
-   sigma(i)
+   sigma(i);
    acc = kth_train_LogEuclidean(path, sigma(i));
-   mean(acc)
-   ACC = [ACC; acc];
+   ACC(i,:) = acc;
     
 end
 
-display('Testing svm + Kernel Log-Euclidean Distance');
-ACC =[];
-sigma = 0.1:0.1:1;
+% display('Testing svm + Kernel Log-Euclidean Distance');
+% ACC =[];
+% sigma = 0.1:0.1:1;
 
 
 % parfor i=1:length(sigma)
