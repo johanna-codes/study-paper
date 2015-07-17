@@ -29,7 +29,7 @@ load_sub_path =strcat(path, 'cov_matrices/kth-one-cov-mat-dim', int2str(dim), '/
 j=1;
   for pe_ts= 1: n_peo
       
-      load_svm_model =strcat( './svm_models/logEucl_svm_run_', int2str(pe_ts), '_Sigma', int2str(sigma), '.mat');
+      load_svm_model =strcat( './svm_models/logEucl_svm_run_', int2str(pe_ts), '_Sigma', num2str(sigma), '.mat');
       load(load_svm_model); %loading model and X_train
 
       for act_ts = 1:n_actions
@@ -52,7 +52,7 @@ j=1;
 
       end
       
-     save_labels = strcat('./svm_results/LogEucl_scale', int2str(scale_factor), '-shift', int2str(shift),'-sigma',int2str(sigma) );     
+     save_labels = strcat('./svm_results/LogEucl_scale', int2str(scale_factor), '-shift', int2str(shift),'-sigma',num2str(sigma) );     
      save(save_labels, 'est_labels', 'real_labels', 'sigma');
   
   end
