@@ -1,7 +1,6 @@
-function acc = kth_train_LogEuclidean(sigma)
+function acc = kth_train_LogEuclidean(path,sigma)
 
 
-path  = '~/codes/codes-git/study-paper/trunk/';
 dim = 14;
 
 actions = importdata('actionNames.txt');

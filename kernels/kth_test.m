@@ -1,4 +1,4 @@
-%function acc = kth_test(scale_factor, shift, sigma)
+function acc = kth_test(path,scale_factor, shift, sigma)
 % clear all
 % scale_factor =1;
 % shift =0;
@@ -36,7 +36,7 @@ j=1;
           
           real_labels(j) = act_ts;
           name_load_cov = strcat( load_sub_path, '/LogMcov_', all_people(pe_ts), '_', actions(act_ts), '_dim', int2str(dim), '.h5');
-          char(name_load_cov)         
+          %char(name_load_cov)         
           hinfo = hdf5info( char(name_load_cov) );
           one_video = hdf5read(hinfo.GroupHierarchy.Datasets(1));
           X_test(:,:,1) = one_video;
