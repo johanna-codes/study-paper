@@ -20,9 +20,11 @@ sigma = 0.1:0.1:1;
  display('Testing svm + Kernel Log-Euclidean Distance');
  
  test_acc = zeros(length(sigma));
+ scale = 1;
+ shift = 0;
  
  parfor i=1:length(sigma)
     %sigma(i);
-    acc = kth_test(path,scale, shift,sigma(i));
+    acc = kth_test(path,scale, shift, sigma(i));
     test_acc(i) = acc;     
  end
