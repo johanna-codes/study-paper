@@ -52,7 +52,7 @@ j=1;
 
       end
       
-     save_labels = strcat('./svm_results/LogEucl_scale', int2str(scale_factor), '-shift', int2str(shift),'-sigma',num2str(sigma) );     
+     save_labels = strcat('./svm_results/LogEucl_scale', int2str(scale_factor), '-shift', int2str(shift),'-sigma',num2str(sigma),'.mat' );     
      save(save_labels, 'est_labels', 'real_labels', 'sigma');
   
   end
