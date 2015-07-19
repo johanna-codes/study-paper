@@ -1,4 +1,4 @@
-function [K] = compute_kernel_svm(X_1,X_2, fhandle, gamma)
+function [K] = compute_proj_kernel_svm(X_1,X_2, fhandle, gamma)
 
 K = zeros(size(X_1,3),size(X_2,3));
 
