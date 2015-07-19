@@ -20,7 +20,7 @@ PROJECTION_RBF_KERNEL = @(X,Y,gamma) exp( -gamma*( norm(X*X'-Y*Y','fro') )^2 );
 
 load_sub_path =strcat(path, 'grass_points/kth-grass-point-one-dim', int2str(dim), '/sc', int2str(sc), '/scale', int2str(scale_factor), '-shift', int2str(shift) );
 for pe_ts= 1: n_peo
-    X_train = zeros(p,p,n_test);
+    X_train = zeros(dim,p,n_test);
     labels_train = zeros(n_test,1);
     k =1;
     for pe_tr=1: n_peo
