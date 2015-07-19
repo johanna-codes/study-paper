@@ -1,4 +1,4 @@
-function acc = kth_train_ProjectionRBF(path,sigma, delta, n)
+function acc = kth_train_ProjectionRBF(path,delta, n)
 
 
 gamma = 2^delta/n;
