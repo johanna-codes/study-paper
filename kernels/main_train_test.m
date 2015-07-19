@@ -34,11 +34,12 @@ path  = '~/codes/codes-git/study-paper/trunk/';
 %% Projection kernel
  display('Training svm + Projection RBF Kernel ');
  delta = -14:1:21;
- n = 14;
+ dim = 14;
+ p = 12;
  ACC_train = zeros(length(delta),25);
  
  parfor i=1:length(delta)
-    acc = kth_train_ProjectionRBF(path, delta(i), n);
+    acc = kth_train_ProjectionRBF(path, delta(i), dim, p);
     ACC_train(i,:) = acc;
  end
 
