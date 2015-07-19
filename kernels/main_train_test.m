@@ -37,8 +37,7 @@ path  = '~/codes/codes-git/study-paper/trunk/';
  n = 14;
  ACC_train = zeros(length(delta),25);
  
- for i=1:length(delta)
-    sigma(i);
+ parfor i=1:length(delta)
     acc = kth_train_ProjectionRBF(path, delta(i), n);
     ACC_train(i,:) = acc;
  end
