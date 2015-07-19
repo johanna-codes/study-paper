@@ -36,12 +36,12 @@ path  = '~/codes/codes-git/study-paper/trunk/';
  delta = -14:1:21;
  dim = 14;
  p = 12;
-%  ACC_train = zeros(length(delta),25);
+ ACC_train = zeros(length(delta),25);
  
-%  parfor i=1:length(delta)
-%     acc = kth_train_ProjectionRBF(path, delta(i), dim, p);
-%     ACC_train(i,:) = acc;
-%  end
+ parfor i=1:length(delta)
+    acc = kth_train_ProjectionRBF(path, delta(i), dim, p);
+    ACC_train(i,:) = acc;
+ end
 
 
  
