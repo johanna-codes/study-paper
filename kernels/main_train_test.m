@@ -36,24 +36,24 @@ path  = '~/codes/codes-git/study-paper/trunk/';
  delta = -14:1:21;
  dim = 14;
  p = 12;
- ACC_train = zeros(length(delta),25);
+%  ACC_train = zeros(length(delta),25);
  
- parfor i=1:length(delta)
-    acc = kth_train_ProjectionRBF(path, delta(i), dim, p);
-    ACC_train(i,:) = acc;
- end
-
-
- 
-%  display('Testing svm + Projection RBF Kernel');
-%  
-%  test_acc = zeros(length(gamma),1);
-%  scale = 1;
-%  shift = 0;
-%  
-%  parfor i=1:length(sigma)
-%     acc = kth_train_ProjectionRBF(path,scale, shift, gamma(i));
-%     test_acc(i) = acc;     
+%  parfor i=1:length(delta)
+%     acc = kth_train_ProjectionRBF(path, delta(i), dim, p);
+%     ACC_train(i,:) = acc;
 %  end
+
+
+ 
+display('Testing svm + Projection RBF Kernel');
+  
+test_acc = zeros(length(delta ),1);
+scale = 1;
+shift = 0;
+
+parfor i=1:length(delta )
+   acc = kth_test_ProjectionRBF(path,scale, shift, delta (i), dim, p);
+   test_acc(i) = acc;     
+end
 
 
