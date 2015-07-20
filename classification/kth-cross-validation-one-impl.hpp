@@ -312,10 +312,11 @@ kth_cv_omp::SteinDiv_one_video(int pe_test, std::string load_sub_path, std::stri
 
 ///Projection Metric
 inline
-void
-kth_cv_omp::proj_grass(int p)
+float
+kth_cv_omp::proj_grass(int in_p)
 {
   
+  p = in_p;
   int n_actions = actions.n_rows;
   int n_peo =  all_people.n_rows;
   
@@ -370,7 +371,7 @@ kth_cv_omp::proj_grass(int p)
     //cout<< "Processor " << tid <<" doing "<<  all_people (pe) << "_" << actions(act) << endl;
     
     std::stringstream load_Gnp;
-    load_Gnp << load_sub_path.str() << "/grass_pt_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
+    load_Gnp << load_sub_path.str() << "/grass_pt_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << "_p" << p<< ".h5";
 
     
     //#pragma omp critical
@@ -390,11 +391,13 @@ kth_cv_omp::proj_grass(int p)
     
   }
   
-  real_labels.save("./results_onesegment/grass_PM_real_labels.dat", raw_ascii);
-  est_labels.save("./results_onesegment/grass_PM_est_labels.dat", raw_ascii);
-  test_video_list.save("./results_onesegment/grass_PM_test_video_list.dat", raw_ascii);
+//   real_labels.save("./results_onesegment/grass_PM_real_labels.dat", raw_ascii);
+//   est_labels.save("./results_onesegment/grass_PM_est_labels.dat", raw_ascii);
+//   test_video_list.save("./results_onesegment/grass_PM_test_video_list.dat", raw_ascii);
   cout << "Performance for Projection Metric: " << acc*100/n_test << " %" << endl;
   
+  acc =   acc*100/n_test;
+  return acc;
 }
 
 
@@ -432,7 +435,7 @@ kth_cv_omp::ProjectionMetric_one_video(int pe_test, std::string load_sub_path, s
 	{
 	  
 	   std::stringstream load_Gnp_tr;
-	   load_Gnp_tr << load_sub_path << "/grass_pt_" <<  all_people (pe_tr) << "_" << actions(act) << "_dim" << dim  << ".h5";
+	   load_Gnp_tr << load_sub_path << "/grass_pt_" <<  all_people (pe_tr) << "_" << actions(act) << "_dim" << dim << "_p" << p << ".h5";
 	   
 
 	   mat grass_point_train;
@@ -458,10 +461,10 @@ kth_cv_omp::ProjectionMetric_one_video(int pe_test, std::string load_sub_path, s
 
 ///Binet-Cauchy Metric
 inline
-void
-kth_cv_omp::BC_grass()
+float
+kth_cv_omp::BC_grass(int in_p)
 {
-  
+  p = in_p;
   int n_actions = actions.n_rows;
   int n_peo =  all_people.n_rows;
   
@@ -516,7 +519,7 @@ kth_cv_omp::BC_grass()
     //cout<< "Processor " << tid <<" doing "<<  all_people (pe) << "_" << actions(act) << endl;
     
     std::stringstream load_Gnp;
-    load_Gnp << load_sub_path.str() << "/grass_pt_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
+    load_Gnp << load_sub_path.str() << "/grass_pt_" << all_people (pe) << "_" << actions(act) << "_dim" << dim << "_p" << p  << ".h5";
 
     
     //#pragma omp critical
@@ -537,10 +540,12 @@ kth_cv_omp::BC_grass()
     
   }
   
-  real_labels.save("./results_onesegment/grass_BC_real_labels.dat", raw_ascii);
-  est_labels.save("./results_onesegment/grass_BC_est_labels.dat", raw_ascii);
-  test_video_list.save("./results_onesegment/grass_BC_test_video_list.dat", raw_ascii);
-  cout << "Performance for Binet-Cauchy: " << acc*100/n_test << " %" << endl;
+//   real_labels.save("./results_onesegment/grass_BC_real_labels.dat", raw_ascii);
+//   est_labels.save("./results_onesegment/grass_BC_est_labels.dat", raw_ascii);
+//   test_video_list.save("./results_onesegment/grass_BC_test_video_list.dat", raw_ascii);
+    cout << "Performance for Binet-Cauchy: " << acc*100/n_test << " %" << endl;  
+    acc =   acc*100/n_test;
+    return acc;
   
 }
 
@@ -579,7 +584,7 @@ kth_cv_omp::BinetCauchyMetric_one_video(int pe_test, std::string load_sub_path, 
 	{
 	  
 	   std::stringstream load_Gnp_tr;
-	   load_Gnp_tr << load_sub_path << "/grass_pt_" <<  all_people (pe_tr) << "_" << actions(act) << "_dim" << dim  << ".h5";
+	   load_Gnp_tr << load_sub_path << "/grass_pt_" <<  all_people (pe_tr) << "_" << actions(act) << "_dim" << dim << "_p" << p << ".h5";
 	   
 
 	   mat grass_point_train;

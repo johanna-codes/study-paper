@@ -13,8 +13,8 @@ class kth_cv_omp //KTH Cross validation
  		);
     inline void logEucl();
     inline void SteinDiv();
-    inline void proj_grass(int p);
-    inline void BC_grass();
+    inline float proj_grass(int p);
+    inline float BC_grass(int p);
 
     
     
@@ -26,6 +26,7 @@ class kth_cv_omp //KTH Cross validation
     const int shift;
     const int total_scenes;
     const int dim;
+    int p;
 
     
     field<std::string> actions;
