@@ -66,7 +66,7 @@ kth_cv_svm_Grass_PM::svm_train()
     }
     
     //Training the model with OpenCV
-    cout << "Using SVM to train " << all_people (pe_ts) << endl;
+    //cout << "Using SVM to train " << all_people (pe_ts) << endl;
     //cout << "Preparing data to train the data" << endl;
     cv::Mat cvMatTraining(n_test, n_dim, CV_32FC1);
     float fl_labels[n_test] ;
@@ -158,7 +158,7 @@ kth_cv_svm_Grass_PM::test(int in_p, int ts_scale, int ts_shift)
 	
 	
 	std::stringstream load_Gnp;
-	load_Gnp << load_sub_path.str() << "/grass_pt_" << all_people (pe_ts) << "_" << actions(act_ts) << "_dim" << dim  << ".h5";
+	load_Gnp << load_sub_path.str() << "/grass_pt_" << all_people (pe_ts) << "_" << actions(act_ts) << "_dim" << dim << "_p" << p  << ".h5";
 	
 	vec test_dist;
 	test_dist = dist_one_video( pe_ts, load_sub_path.str(), load_Gnp.str());
