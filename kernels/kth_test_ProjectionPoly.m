@@ -46,7 +46,7 @@ j=1;
       end
       
      save_labels = strcat('./svm_results/projPoly_scale', int2str(scale_factor), '-shift', int2str(shift),'-degree',num2str(d),'.mat' );     
-     save(save_labels, 'est_labels', 'real_labels', 'delta');
+     save(save_labels, 'est_labels', 'real_labels');
   
   end
   %[acc n_peo n_actions]
