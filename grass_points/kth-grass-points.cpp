@@ -56,13 +56,15 @@ main(int argc, char** argv)
   
   int total_scenes = 1; //Try only with scenario 1
   int segment_length = 20;
-  int p   = 12; //To obtain the optimise sub-space of order p
+  //int p   = 12; //To obtain the optimise sub-space of order p
   int dim = 14; 
   
-  for (int i=0; i< vec_shift.n_elem; ++i)
+  //for (int i=0; i< vec_shift.n_elem; ++i)
+  for (int p=1; p<= dim; ++p)
   {
     
-    int shift = vec_shift(i);
+    //int shift = vec_shift(i);
+    int shift = 0;
     cout << "Gp for " << shift << endl;
     
     
