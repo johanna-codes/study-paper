@@ -185,7 +185,8 @@ set(gcf,'PaperPosition', myfiguresize);
 
 % Save the file as PNG
 %Home
-%print('/home/johanna/Desktop/study-paper-report/images/one_segment_bar_all_metrics','-dpng','-r300');
+print('/media/johanna/HD1T/latex-svn/study-paper-report/v3/images/one_segment_bar_all_metrics_p14','-dpng','-r300');
+
 %Nicta
 %print('/home/johanna/latex-svn/latex_rioux/reports/study-paper/images/one_segment_bar_all_metrics','-dpng','-r300');
 

@@ -10,8 +10,8 @@ class kth_cv_svm_Grass_BC //KTH Cross validation
 		const int in_dim 
  		);   
     
-    inline void train(int tr_scale, int tr_shift);
-    inline void test(int ts_scale, int ts_shift);
+    inline void  train(int p, int tr_scale, int tr_shift);
+    inline float test(int p, int ts_scale, int ts_shift);
 
     
     //inline void SteinDiv();
@@ -26,6 +26,7 @@ class kth_cv_svm_Grass_BC //KTH Cross validation
     
     const int total_scenes;
     const int dim;
+    int p;
     
     
     field<std::string> actions;

@@ -11,7 +11,7 @@ class kth_cv_svm_Grass_PM //KTH Cross validation
  		);   
     
     inline void train(int p, int ts_scale, int ts_shift);
-    inline void test(int p, int ts_scale, int ts_shift);
+    inline float test(int p, int ts_scale, int ts_shift);
 
     
     const std::string path;

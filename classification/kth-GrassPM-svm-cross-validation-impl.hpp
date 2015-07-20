@@ -102,7 +102,7 @@ kth_cv_svm_Grass_PM::svm_train()
       SVM.train( cvMatTraining , cvMatLabels, cv::Mat(), cv::Mat(), params);
       
       std::stringstream save_svm_model;
-      save_svm_model << "./svm_models/GrassPM_svm_run_" << pe_ts+1;
+      save_svm_model << "./svm_models/GrassPM_svm_p" << p << "run_" << pe_ts+1;
       SVM.save( save_svm_model.str().c_str() );
 
   }
@@ -111,7 +111,7 @@ kth_cv_svm_Grass_PM::svm_train()
 
 
 inline
-void
+float
 kth_cv_svm_Grass_PM::test(int in_p, int ts_scale, int ts_shift)
 {
   
@@ -146,7 +146,7 @@ kth_cv_svm_Grass_PM::test(int in_p, int ts_scale, int ts_shift)
   {
     
     std::stringstream load_svm_model;
-    load_svm_model << "./svm_models/GrassPM_svm_run_" << pe_ts+1;
+    load_svm_model << "./svm_models/GrassPM_svm_p" << p << "run_" << pe_ts+1;
       
     
     CvSVM SVM;
@@ -210,6 +210,10 @@ kth_cv_svm_Grass_PM::test(int in_p, int ts_scale, int ts_shift)
     
   }
   cout << "Performance Grassmann Projection Metric: " << acc*100/(n_peo*n_actions) << " %" << endl;
+  
+  acc = acc*100/(n_peo*n_actions);
+  
+  return acc;
 }
   
   
@@ -268,7 +272,7 @@ kth_cv_svm_Grass_PM::distances(int scale_factor, int shift)
     //cout<< "Processor " << tid <<" doing "<<  all_people (pe) << "_" << actions(act) << endl;
     
     std::stringstream load_Gnp;
-    load_Gnp << load_sub_path.str() << "/grass_pt_" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
+    load_Gnp << load_sub_path.str() << "/grass_pt_" << all_people (pe) << "_" << actions(act) << "_dim" << dim << "_p" << p << ".h5";
     
     
     dist_video_i = dist_one_video( pe, load_sub_path.str(), load_Gnp.str());
@@ -325,7 +329,7 @@ kth_cv_svm_Grass_PM::dist_one_video(int pe_test, std::string load_sub_path, std:
       {
 	
 	std::stringstream load_Gnp_tr;
-	load_Gnp_tr << load_sub_path << "/grass_pt_" <<  all_people (pe_tr) << "_" << actions(act) << "_dim" << dim  << ".h5";
+	load_Gnp_tr << load_sub_path << "/grass_pt_" <<  all_people (pe_tr) << "_" << actions(act) << "_dim" << dim << "_p" << p  << ".h5";
 	mat grass_point_train;
 	grass_point_train.load( load_Gnp_tr.str() );
 
