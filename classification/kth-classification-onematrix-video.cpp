@@ -79,6 +79,7 @@ main(int argc, char** argv)
   vec vec_pm = zeros(dim);
   for (int p=1; p<= dim; ++p)
   {
+    cout << "p= " << p << endl;
     kth_cv_omp kth_CV_omp_onesegment(path, actionNames, all_people, scale_factor, shift, total_scenes,  dim);
     vec_pm(p-1) = kth_CV_omp_onesegment.proj_grass(p);
     vec_bc(p-1) = kth_CV_omp_onesegment.BC_grass(p);
