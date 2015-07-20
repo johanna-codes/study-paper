@@ -65,7 +65,7 @@ path  = '~/codes/codes-git/study-paper/trunk/';
   p = 12;
   ACC_train = zeros(length(degree),25);
   
-  parfor i=1:length(delta)
+  parfor i=1:length(degree)
      acc = kth_train_ProjectionPoly(path,  dim, p, degree(i));
      ACC_train(i,:) = acc;
   end
@@ -78,7 +78,7 @@ path  = '~/codes/codes-git/study-paper/trunk/';
  scale = 1;
  shift = 0;
  
- parfor i=1:length(delta )
+ parfor i=1:length(degree )
     acc = kth_test_ProjectionPoly(path,scale, shift, dim, p, degree(i));
     test_acc(i) = acc;     
  end
