@@ -95,12 +95,15 @@ main(int argc, char** argv)
     run_kth_cv_svm_PM.train(p, scale_factor, shift);
     vec_pm(p-1) = run_kth_cv_svm_PM.test(p, scale_factor, shift);
     
-//     //Cross Validation Grassmann Binet-Cauchy Metric
-//     cout << "Training Grassmann with Binet-Cauchy metric" << endl;
-//     kth_cv_svm_Grass_BC run_kth_cv_svm_BC(path, actionNames, all_people, total_scenes,  dim);
-//     run_kth_cv_svm_BC.train(p, scale_factor, shift); 
-//     vec_bc(p-1) = run_kth_cv_svm_BC.test(p, scale_factor, shift);
+     //Cross Validation Grassmann Binet-Cauchy Metric
+     cout << "Training Grassmann with Binet-Cauchy metric" << endl;
+     kth_cv_svm_Grass_BC run_kth_cv_svm_BC(path, actionNames, all_people, total_scenes,  dim);
+     run_kth_cv_svm_BC.train(p, scale_factor, shift); 
+     vec_bc(p-1) = run_kth_cv_svm_BC.test(p, scale_factor, shift);
   }
+  
+  vec_pm.t().print("Projection Metric");
+  vec_bc.t().print("Binet-Cauchy");
   
   //********************************************************************************
   // ******************************Testing****************************************** 
