@@ -60,7 +60,7 @@ path  = '~/codes/codes-git/study-paper/trunk/';
 
 %% Projection Kernel: Poly
   display('Training svm + Projection Poly Kernel ');
-  degree = 1:10;
+  degree = 1:50;
   dim = 14;
   p = 12;
   ACC_train = zeros(length(degree),25);
