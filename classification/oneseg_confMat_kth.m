@@ -80,7 +80,7 @@ set(gcf,'PaperPosition', myfiguresize);
 
 
 %% Grassmann Manifolds
-
+%% PM and BC. p=12
 PM_est  =load('./results_onesegment/grass_PM_est_labels.dat');
 PM_real =load('./results_onesegment/grass_PM_real_labels.dat');
 confMat = confMatGet(PM_real + 1, PM_est + 1); %My labels start at 0.
@@ -187,7 +187,7 @@ set(gcf,'PaperPosition', myfiguresize);
 %Home
 %print('/home/johanna/Desktop/study-paper-report/images/one_segment_bar_all_metrics','-dpng','-r300');
 %Nicta
-print('/home/johanna/latex-svn/latex_rioux/reports/study-paper/images/one_segment_bar_all_metrics','-dpng','-r300');
+%print('/home/johanna/latex-svn/latex_rioux/reports/study-paper/images/one_segment_bar_all_metrics','-dpng','-r300');
 
 ACC
 
