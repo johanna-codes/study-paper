@@ -71,7 +71,7 @@ path  = '~/codes/codes-git/study-paper/trunk/';
   end
   
  display('Testing svm + Projection Poly Kernel');
- degree = 1:10;
+ degree = 1:50;
  dim = 14;
  p = 12; 
  test_acc = zeros(length(degree ),1);
