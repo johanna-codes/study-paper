@@ -77,16 +77,17 @@ main(int argc, char** argv)
     
   vec vec_bc = zeros(dim);
   vec vec_pm = zeros(dim);
-  for (int p=1; p<= dim; ++p)
-  {
+  //for (int p=1; p<= dim; ++p)
+  //{
+    int p = 7;
     cout << "p= " << p << endl;
     kth_cv_omp kth_CV_omp_onesegment(path, actionNames, all_people, scale_factor, shift, total_scenes,  dim);
     vec_pm(p-1) = kth_CV_omp_onesegment.proj_grass(p);
     vec_bc(p-1) = kth_CV_omp_onesegment.BC_grass(p);
-  }
+  //}
   
-  vec_pm.t().print("Projection Metric");
-  vec_bc.t().print("Binet-Cauchy");
+  //vec_pm.t().print("Projection Metric");
+  //vec_bc.t().print("Binet-Cauchy");
   
   
   
