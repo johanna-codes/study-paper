@@ -1,7 +1,7 @@
-function acc = kth_train_ProjectionRBF(path,delta, dim, p)
+function acc = kth_train_ProjectionPoly(path,dim, p,d)
 
 
-gamma = 2^delta/dim;
+gamma = 1/dim;
 
 actions = importdata('actionNames.txt');
 all_people = importdata('people_list.txt');
@@ -16,7 +16,7 @@ acc = [];
 
 n_test = (n_peo-1)*n_actions;
 
-PROJECTION_RBF_KERNEL = @(X,Y,gamma) exp( -gamma*( norm(X*X'-Y*Y','fro') )^2 );
+PROJECTION_POLY_KERNEL = @(X,Y,gamma,d) ( gamma*( norm(X'*Y,'fro') )^2 )^d;
 
 load_sub_path =strcat(path, 'grass_points/kth-grass-point-one-dim', int2str(dim), '/sc', int2str(sc), '/scale', int2str(scale_factor), '-shift', int2str(shift) );
 for pe_ts= 1: n_peo
@@ -37,14 +37,14 @@ for pe_ts= 1: n_peo
     end
     
     
-    K_train = compute_projRGB_kernel_svm(X_train,X_train, PROJECTION_RBF_KERNEL, gamma);
+    K_train = compute_projPoly_kernel_svm(X_train,X_train, PROJECTION_POLY_KERNEL, gamma, d);
     model = svmtrain(labels_train, [[1:size(K_train,1)]' K_train], '-t 4 -q ');
     %Borrame Funciona Bien
     [predict_label, accuracy, dec_values] = svmpredict(labels_train,[[1:size(K_train,1)]' K_train], model);
     %display(accuracy');
     
     acc = [acc accuracy(1)];
-    save_svm_model =strcat( './svm_models/projRGB_svm_run_', int2str(pe_ts), '_delta', num2str(delta),'.mat');
+    save_svm_model =strcat( './svm_models/projPoly_svm_run_', int2str(pe_ts), '_degree', num2str(d),'.mat');
     save(save_svm_model, 'model', 'X_train');
     
     
