@@ -65,7 +65,7 @@ main(int argc, char** argv)
     
     //int shift = vec_shift(i);
     int shift = 0;
-    cout << "Gp for " << shift << endl;
+    cout << "Gp for p= " << p << endl;
     
     
     field<string> all_people;
