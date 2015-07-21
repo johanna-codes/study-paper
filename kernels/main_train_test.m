@@ -32,55 +32,56 @@ path  = '~/codes/codes-git/study-paper/trunk/';
 
 
 %% Projection kernel: RBF
- display('Training svm + Projection RBF Kernel ');
- delta = -14:1:21;
- dim = 14;
- p = 1:14; 
- %p = 12;
- ACC_train = zeros(length(delta),25);
- all_p = cell(length(p),1);
- 
- for j=1:length(p)
-     in_p = p(j);
-     X = sprintf('p = %d ', in_p);
-     disp(X);
-     
- parfor i=1:length(delta)
-    acc = kth_train_ProjectionRBF(path, delta(i), dim, in_p);
-    ACC_train(i,:) = acc;
- end
- 
- all_p{j} = ACC_train;
- end
+%  display('Training svm + Projection RBF Kernel ');
+%  delta = -14:1:21;
+%  dim = 14;
+%  p = 1:14; 
+%  %p = 12;
+%  ACC_train = zeros(length(delta),25);
+%  all_p = cell(length(p),1);
+%  
+%  for j=1:length(p)
+%      in_p = p(j);
+%      X = sprintf('p = %d ', in_p);
+%      disp(X);
+%      
+%  parfor i=1:length(delta)
+%     acc = kth_train_ProjectionRBF(path, delta(i), dim, in_p);
+%     ACC_train(i,:) = acc;
+%  end
+%  
+%  all_p{j} = ACC_train;
+%  end
 
 
  
-% display('Testing svm + Projection RBF Kernel');
-% delta = -14:1:21;
-% dim = 14;
-% p = 1:14; 
-% test_acc = zeros( length(delta) );
-% all_p = cell(length(p),1);
-% scale = 1;
-% shift = 0;
-% for j=1:length(p)
-%     in_p = p(j)
-% parfor i=1:length(delta )
-%    acc = kth_test_ProjectionRBF(path,scale, shift, delta (i), dim, in_p);
-%    test_acc(i) = acc;     
-% end
-% all_p{j} = test_acc;
-% end
+display('Testing svm + Projection RBF Kernel');
+delta = -14:1:21;
+dim = 14;
+p = 1:14; 
+test_acc = zeros( length(delta) );
+all_p = cell(length(p),1);
+scale = 1;
+shift = 0;
+
+for j=1:length(p)
+    in_p = p(j)
+parfor i=1:length(delta )
+   acc = kth_test_ProjectionRBF(path,scale, shift, delta (i), dim, in_p);
+   test_acc(i) = acc;     
+end
+all_p{j} = test_acc;
+end
 
 %% Projection Kernel: Poly
 %   display('Training svm + Projection Poly Kernel ');
-%   degree = 1:14;
+%   %degree = 1:14;
 %   dim = 14;
-%   p = 12;
-%   ACC_train = zeros(length(degree),25);
+%   p = 1:14;
+%   ACC_train = zeros(length(p),25);
 %   
-%   parfor i=1:length(degree)
-%      acc = kth_train_ProjectionPoly(path,  dim, p, degree(i));
+%   parfor i=1:length(p)
+%      acc = kth_train_ProjectionPoly(path,  dim, p(i));
 %      ACC_train(i,:) = acc;
 %   end
 %   
@@ -92,8 +93,8 @@ path  = '~/codes/codes-git/study-paper/trunk/';
 %  scale = 1;
 %  shift = 0;
 %  
-%  parfor i=1:length(degree )
-%     acc = kth_test_ProjectionPoly(path,scale, shift, dim, p, degree(i));
+%  parfor i=1:length( p )
+%     acc = kth_test_ProjectionPoly(path,scale, shift, dim, p(i) );
 %     test_acc(i) = acc;     
 %  end
 

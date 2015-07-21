@@ -1,9 +1,9 @@
-function acc = kth_test_ProjectionRBF(path,scale_factor, shift, dim, p, d)
+function acc = kth_test_ProjectionRBF(path,scale_factor, shift, dim, p)
 
 
 gamma = 1/dim;
 
-PROJECTION_POLY_KERNEL = @(X,Y,gamma,d) ( gamma*( norm(X'*Y,'fro') )^2 )^d;
+PROJECTION_POLY_KERNEL = @(X,Y,gamma,p) ( gamma*( norm(X'*Y,'fro') )^2 )^p;
 
 actions = importdata('actionNames.txt');
 all_people = importdata('people_list.txt');
@@ -29,7 +29,7 @@ j=1;
       for act_ts = 1:n_actions
           
           real_labels(j) = act_ts;
-          name_load_gp = strcat( load_sub_path, '/grass_pt_', all_people(pe_ts), '_', actions(act_ts), '_dim', int2str(dim), '.h5');     
+          name_load_gp = strcat( load_sub_path, '/grass_pt_', all_people(pe_ts), '_', actions(act_ts), '_dim', int2str(dim), '_p', p,  '.h5');     
           hinfo = hdf5info( char(name_load_gp) );
           one_video = hdf5read(hinfo.GroupHierarchy.Datasets(1));
           X_test(:,:,1) = one_video;
@@ -45,7 +45,7 @@ j=1;
 
       end
       
-     save_labels = strcat('./svm_results/projPoly_scale', int2str(scale_factor), '-shift', int2str(shift),'-degree',num2str(d),'.mat' );     
+     save_labels = strcat('./svm_results/projPoly_scale', int2str(scale_factor), '-shift', int2str(shift),'-degree',num2str(p),'.mat' );     
      save(save_labels, 'est_labels', 'real_labels');
   
   end
