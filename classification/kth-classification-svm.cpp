@@ -67,8 +67,8 @@ main(int argc, char** argv)
   //********************************************************************************
   // ******************************Training****************************************** 
   //********************************************************************************  
-  int scale_factor = 1;
-  int shift = 0; 
+  //int scale_factor = 1;
+  //int shift = 0; 
   //Cross Validation LogEuclidean
   //         cout << "Training Log-Euclidean Distance" << endl;
   //         kth_cv_svm_LogEucl run_kth_cv_svm_LogEucl(path, actionNames, all_people, total_scenes,  dim);
