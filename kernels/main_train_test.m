@@ -43,7 +43,7 @@ path  = '~/codes/codes-git/study-paper/trunk/';
  for j=1:length(p)
      
  parfor i=1:length(delta)
-    acc = kth_train_ProjectionRBF(path, delta(i), dim, p);
+    acc = kth_train_ProjectionRBF(path, delta(i), dim, p(j));
     ACC_train(i,:) = acc;
  end
  
