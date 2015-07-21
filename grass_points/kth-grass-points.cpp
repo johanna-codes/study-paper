@@ -59,21 +59,22 @@ main(int argc, char** argv)
   //int p   = 12; //To obtain the optimise sub-space of order p
   int dim = 14; 
   
-  //for (int i=0; i< vec_shift.n_elem; ++i)
-  for (int p=1; p<= dim; ++p)
+  for (int i=0; i< vec_shift.n_elem; ++i)
   {
-    
-    //int shift = vec_shift(i);
-    int shift = 0;
-    cout << "Gp for p= " << p << endl;
-    
-    
-    field<string> all_people;
-    all_people.load(peopleList);
-    
-    grass_points get_gp(path, actionNames, scale_factor, shift, total_scenes, segment_length, p);
-    //get_gp.calculate( all_people, dim );
-    get_gp.calculate_onepervideo( all_people, dim );
+    for (int p=1; p<= dim; ++p)
+    {
+      
+      int shift = vec_shift(i);
+      cout << "Gp for shift " << shift << " &  p= " << p << endl;
+      
+      
+      field<string> all_people;
+      all_people.load(peopleList);
+      
+      grass_points get_gp(path, actionNames, scale_factor, shift, total_scenes, segment_length, p);
+      //get_gp.calculate( all_people, dim );
+      get_gp.calculate_onepervideo( all_people, dim );
+    }
   }
   
   return 0;
