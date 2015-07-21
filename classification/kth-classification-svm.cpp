@@ -80,8 +80,8 @@ main(int argc, char** argv)
   //         run_kth_cv_svm_SD.train(scale_factor, shift);
   
   
-  vec vec_bc = zeros(dim);
-  vec vec_pm = zeros(dim);
+  //vec vec_bc = zeros(dim);
+  //vec vec_pm = zeros(dim);
   
   //OJO: los dist_vec no se guardan de acuerdo a p!!!!!!!!!!!!!!!!!!!!!!
   
