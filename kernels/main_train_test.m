@@ -41,9 +41,12 @@ path  = '~/codes/codes-git/study-paper/trunk/';
  all_p = cell(length(p),1);
  
  for j=1:length(p)
+     in_p = p(j);
+     X = sprintf('p = %d ', in_p);
+     disp(X)
      
  parfor i=1:length(delta)
-    acc = kth_train_ProjectionRBF(path, delta(i), dim, p(j));
+    acc = kth_train_ProjectionRBF(path, delta(i), dim, in_p);
     ACC_train(i,:) = acc;
  end
  
@@ -60,12 +63,10 @@ path  = '~/codes/codes-git/study-paper/trunk/';
 % all_p = cell(length(p),1);
 % scale = 1;
 % shift = 0;
-
-
 % for j=1:length(p)
-%     
+%     in_p = p(j)
 % parfor i=1:length(delta )
-%    acc = kth_test_ProjectionRBF(path,scale, shift, delta (i), dim, p(j));
+%    acc = kth_test_ProjectionRBF(path,scale, shift, delta (i), dim, in_p);
 %    test_acc(i) = acc;     
 % end
 % all_p{j} = test_acc;
