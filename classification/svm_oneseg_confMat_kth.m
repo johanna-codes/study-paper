@@ -7,8 +7,8 @@ clc
 ACC = [];
 %% Riemannian Manifolds
 
-logEucl_est  =load('./svm_results/svm_LogEucl_est_labels.dat');
-logEucl_real =load('./svm_results/svm_LogEucl_real_labels.dat');
+logEucl_est  =load('./svm_results_2/LogEucl_scale1-shift0_est_labels.dat');
+logEucl_real =load('./svm_results_2/LogEucl_scale1-shift0_real_labels.dat');
 confMat = confMatGet(logEucl_real + 1, logEucl_est + 1); %My labels start at 0.
 opt=confMatPlot('defaultOpt');
 opt.className={'box', 'hclap', 'hwave', 'jog', 'run','walk'};
@@ -45,8 +45,8 @@ set(gcf,'PaperPosition', myfiguresize);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Steindiv_est  =load('./svm_results/svm_SteinDiv_est_labels.dat');
-Steindiv_real =load('./svm_results/svm_SteinDiv_real_labels.dat');
+Steindiv_est  =load('./svm_results_2/SteinDiv_scale1-shift0_est_labels.dat');
+Steindiv_real =load('./svm_results_2/SteinDiv_scale1-shift0_real_labels.dat');
 confMat = confMatGet(Steindiv_real + 1, Steindiv_est + 1); %My labels start at 0.
 opt=confMatPlot('defaultOpt');
 opt.className={'box', 'hclap', 'hwave', 'jog', 'run','walk'};
@@ -81,8 +81,8 @@ set(gcf,'PaperPosition', myfiguresize);
 
 %% Grassmann Manifolds
 
-PM_est  =load('./svm_results/svm_Grass_PM_est_labels.dat');
-PM_real =load('./svm_results/svm_Grass_PM_real_labels.dat');
+PM_est  =load('./svm_results_2/Grass_PM_scale1-shift0_est_labels.dat');
+PM_real =load('./svm_results_2/Grass_PM_scale1-shift0_real_labels.dat');
 confMat = confMatGet(PM_real + 1, PM_est + 1); %My labels start at 0.
 opt=confMatPlot('defaultOpt');
 opt.className={'box', 'hclap', 'hwave', 'jog', 'run','walk'};
@@ -116,8 +116,8 @@ set(gcf,'PaperPosition', myfiguresize);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-BC_est  =load('./svm_results/svm_Grass_BC_est_labels.dat');
-BC_real =load('./svm_results/svm_Grass_BC_real_labels.dat');
+BC_est  =load('./svm_results_2/Grass_BC_scale1-shift0_est_labels.dat');
+BC_real =load('./svm_results_2/Grass_BC_scale1-shift0_real_labels.dat');
 confMat = confMatGet(BC_real + 1, BC_est + 1); %My labels start at 0.
 opt=confMatPlot('defaultOpt');
 opt.className={'box', 'hclap', 'hwave', 'jog', 'run','walk'};
