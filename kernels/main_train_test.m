@@ -35,31 +35,41 @@ path  = '~/codes/codes-git/study-paper/trunk/';
  display('Training svm + Projection RBF Kernel ');
  delta = -14:1:21;
  dim = 14;
- p = 12;
+ p = 1:14; 
+ %p = 12;
  ACC_train = zeros(length(delta),25);
+ all_p = cell(length(p),1);
  
+ for j=1:length(p)
+     
  parfor i=1:length(delta)
     acc = kth_train_ProjectionRBF(path, delta(i), dim, p);
     ACC_train(i,:) = acc;
  end
+ 
+ all_p{j} = ACC_train;
+ end
 
 
  
-display('Testing svm + Projection RBF Kernel');
-delta = -14:1:21;
-dim = 14;
-p = 1:14; 
-test_acc = zeros(length(delta ),length(p));
-scale = 1;
-shift = 0;
+% display('Testing svm + Projection RBF Kernel');
+% delta = -14:1:21;
+% dim = 14;
+% p = 1:14; 
+% test_acc = zeros( length(delta) );
+% all_p = cell(length(p),1);
+% scale = 1;
+% shift = 0;
 
 
-for j=1:length(p)
-parfor i=1:length(delta )
-   acc = kth_test_ProjectionRBF(path,scale, shift, delta (i), dim, p(j));
-   test_acc(i,j) = acc;     
-end
-end
+% for j=1:length(p)
+%     
+% parfor i=1:length(delta )
+%    acc = kth_test_ProjectionRBF(path,scale, shift, delta (i), dim, p(j));
+%    test_acc(i) = acc;     
+% end
+% all_p{j} = test_acc;
+% end
 
 %% Projection Kernel: Poly
 %   display('Training svm + Projection Poly Kernel ');
