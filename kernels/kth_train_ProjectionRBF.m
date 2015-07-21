@@ -26,7 +26,7 @@ for pe_ts= 1: n_peo
     for pe_tr=1: n_peo
         if pe_tr~=pe_ts
             for act=1: n_actions
-                name_load_gp = strcat( load_sub_path, '/grass_pt_', all_people(pe_tr), '_', actions(act), '_dim', int2str(dim), '.h5');
+                name_load_gp = strcat( load_sub_path, '/grass_pt_', all_people(pe_tr), '_', actions(act), '_dim', int2str(dim), '_p', num2str(p), '.h5');
                 hinfo = hdf5info( char(name_load_gp) );
                 one_video = hdf5read(hinfo.GroupHierarchy.Datasets(1));
                 X_train(:,:,k) = one_video;
@@ -44,7 +44,7 @@ for pe_ts= 1: n_peo
     %display(accuracy');
     
     acc = [acc accuracy(1)];
-    save_svm_model =strcat( './svm_models/projRGB_svm_run_', int2str(pe_ts), '_delta', num2str(delta),'.mat');
+    save_svm_model =strcat( './svm_models/projRGB_svm_run_', int2str(pe_ts), '_delta', num2str(delta), '_p', num2str(p), '.mat');
     save(save_svm_model, 'model', 'X_train');
     
     

@@ -31,56 +31,59 @@ path  = '~/codes/codes-git/study-paper/trunk/';
 %  end
 
 
-%% Projection kernel: RGB
-%  display('Training svm + Projection RBF Kernel ');
-%  delta = -14:1:21;
-%  dim = 14;
-%  p = 12;
-%  ACC_train = zeros(length(delta),25);
-%  
-%  parfor i=1:length(delta)
-%     acc = kth_train_ProjectionRBF(path, delta(i), dim, p);
-%     ACC_train(i,:) = acc;
-%  end
+%% Projection kernel: RBF
+ display('Training svm + Projection RBF Kernel ');
+ delta = -14:1:21;
+ dim = 14;
+ p = 12;
+ ACC_train = zeros(length(delta),25);
+ 
+ parfor i=1:length(delta)
+    acc = kth_train_ProjectionRBF(path, delta(i), dim, p);
+    ACC_train(i,:) = acc;
+ end
 
 
  
-% display('Testing svm + Projection RBF Kernel');
-% delta = -14:1:21;
-% dim = 14;
-% p = 12; 
-% test_acc = zeros(length(delta ),1);
-% scale = 1;
-% shift = 0;
-% 
-% parfor i=1:length(delta )
-%    acc = kth_test_ProjectionRBF(path,scale, shift, delta (i), dim, p);
-%    test_acc(i) = acc;     
-% end
+display('Testing svm + Projection RBF Kernel');
+delta = -14:1:21;
+dim = 14;
+p = 1:14; 
+test_acc = zeros(length(delta ),length(p));
+scale = 1;
+shift = 0;
+
+
+for j=1:length(p)
+parfor i=1:length(delta )
+   acc = kth_test_ProjectionRBF(path,scale, shift, delta (i), dim, p(j));
+   test_acc(i,j) = acc;     
+end
+end
 
 %% Projection Kernel: Poly
-  display('Training svm + Projection Poly Kernel ');
-  degree = 1:50;
-  dim = 14;
-  p = 12;
-  ACC_train = zeros(length(degree),25);
-  
-  parfor i=1:length(degree)
-     acc = kth_train_ProjectionPoly(path,  dim, p, degree(i));
-     ACC_train(i,:) = acc;
-  end
-  
- display('Testing svm + Projection Poly Kernel');
- degree = 1:50;
- dim = 14;
- p = 12; 
- test_acc = zeros(length(degree ),1);
- scale = 1;
- shift = 0;
- 
- parfor i=1:length(degree )
-    acc = kth_test_ProjectionPoly(path,scale, shift, dim, p, degree(i));
-    test_acc(i) = acc;     
- end
+%   display('Training svm + Projection Poly Kernel ');
+%   degree = 1:14;
+%   dim = 14;
+%   p = 12;
+%   ACC_train = zeros(length(degree),25);
+%   
+%   parfor i=1:length(degree)
+%      acc = kth_train_ProjectionPoly(path,  dim, p, degree(i));
+%      ACC_train(i,:) = acc;
+%   end
+%   
+%  display('Testing svm + Projection Poly Kernel');
+%  degree = 1:50;
+%  dim = 14;
+%  p = 12; 
+%  test_acc = zeros(length(degree ),1);
+%  scale = 1;
+%  shift = 0;
+%  
+%  parfor i=1:length(degree )
+%     acc = kth_test_ProjectionPoly(path,scale, shift, dim, p, degree(i));
+%     test_acc(i) = acc;     
+%  end
 
 
