@@ -85,25 +85,27 @@ main(int argc, char** argv)
   
   //OJO: los dist_vec no se guardan de acuerdo a p!!!!!!!!!!!!!!!!!!!!!!
   
-  for (int p=1; p<=dim; ++p )
+  //for (int p=1; p<=dim; ++p )
   {
     
-    cout << "p= " << p << endl;
+    
     //Cross Validation Grassmann Projection Metric
-    cout << "Training for Grassmann: PM" << endl;
+    int p = 8;
+    cout << "Training for Grassmann PM, p=  " << p << endl;
     kth_cv_svm_Grass_PM run_kth_cv_svm_PM(path, actionNames, all_people, total_scenes,  dim);
     run_kth_cv_svm_PM.train(p, scale_factor, shift);
     vec_pm(p-1) = run_kth_cv_svm_PM.test(p, scale_factor, shift);
     
      //Cross Validation Grassmann Binet-Cauchy Metric
-     cout << "Training Grassmann with Binet-Cauchy metric" << endl;
-     kth_cv_svm_Grass_BC run_kth_cv_svm_BC(path, actionNames, all_people, total_scenes,  dim);
-     run_kth_cv_svm_BC.train(p, scale_factor, shift); 
-     vec_bc(p-1) = run_kth_cv_svm_BC.test(p, scale_factor, shift);
+    p = 9;
+    cout << "Training Grassmann with Binet-Cauchy metric, p= " << 9 << endl;
+    kth_cv_svm_Grass_BC run_kth_cv_svm_BC(path, actionNames, all_people, total_scenes,  dim);
+    run_kth_cv_svm_BC.train(p, scale_factor, shift); 
+    vec_bc(p-1) = run_kth_cv_svm_BC.test(p, scale_factor, shift);
   }
   
-  vec_pm.t().print("Projection Metric");
-  vec_bc.t().print("Binet-Cauchy");
+  //vec_pm.t().print("Projection Metric");
+  //vec_bc.t().print("Binet-Cauchy");
   
   //********************************************************************************
   // ******************************Testing****************************************** 

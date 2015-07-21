@@ -188,6 +188,6 @@ set(gcf,'PaperPosition', myfiguresize);
 %print('/home/johanna/Desktop/study-paper-report/images/svm_one_segment_bar_all_metrics','-dpng','-r300');
 
 %Nicta
-print('/home/johanna/latex-svn/latex_rioux/reports/study-paper/images/svm_one_segment_bar_all_metrics','-dpng','-r300');
+%print('/home/johanna/latex-svn/latex_rioux/reports/study-paper/images/svm_one_segment_bar_all_metrics','-dpng','-r300');
 
 ACC

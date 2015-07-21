@@ -38,4 +38,4 @@ set(gcf,'PaperPosition', myfiguresize);
 
 
 %Nicta
-print('/home/johanna/latex-svn/latex_rioux/reports/study-paper/images/summary_shift0','-dpng','-r300');
+%print('/home/johanna/latex-svn/latex_rioux/reports/study-paper/images/summary_shift0','-dpng','-r300');

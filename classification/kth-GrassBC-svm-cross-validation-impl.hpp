@@ -267,12 +267,10 @@ kth_cv_svm_Grass_BC::distances(int scale_factor, int shift)
     std::stringstream load_Gnp;
     load_Gnp << load_sub_path.str() << "/grass_pt_" << all_people (pe) << "_" << actions(act) << "_dim" << dim << "_p" << p  << ".h5";
     
-    //#pragma omp critical
-    //cout << load_cov_seg.str() << endl;
+
     
     dist_video_i = dist_one_video( pe, load_sub_path.str(), load_Gnp.str());
     //dist_video_i = dist_video_i/norm(dist_video_i,2);
-    //save dist_video_i person, action  
     std::stringstream save_vec_dist;
     save_vec_dist << "./kth-svm/Grass_BC/dist_vector_" << all_people (pe) << "_" << actions(act) << ".h5" ;
     
