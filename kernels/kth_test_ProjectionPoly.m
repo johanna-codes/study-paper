@@ -34,7 +34,7 @@ j=1;
           one_video = hdf5read(hinfo.GroupHierarchy.Datasets(1));
           X_test(:,:,1) = one_video;
           
-          K_test = compute_projPoly_kernel_svm(X_test,X_train, PROJECTION_POLY_KERNEL,gamma,d);
+          K_test = compute_projPoly_kernel_svm(X_test,X_train, PROJECTION_POLY_KERNEL,gamma,p);
           [predict_label, accuracy, dec_values] = svmpredict([act_ts],[[1:size(K_test,1)]' K_test], model);
           est_labels(j) = predict_label;
           j=j+1;
