@@ -6,35 +6,88 @@ addpath('/home/johanna/toolbox/libsvm-3.20/matlab');% --> Wanda
 
 
 path  = '~/codes/codes-git/study-paper/trunk/';
+dim =14;
 
+ %%%%%%%%%%%%%%%%%%%%   Riemannian Kernels %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% LogEuclidean
 %It was taken from another paper
 
-display('Training svm + Kernel Log-Euclidean Distance');
-sigma = 1:0.1:2;
-ACC_train = zeros(length(sigma),25);
-parfor i=1:length(sigma)
-   acc = kth_train_LogEuclidean(path, sigma(i));
+% display('Training svm + Kernel Log-Euclidean Distance');
+% sigma = 1:0.1:2;
+% ACC_train = zeros(length(sigma),25);
+% parfor i=1:length(sigma)
+%    acc = kth_train_LogEuclidean(path, sigma(i), dim);
+%    ACC_train(i,:) = acc;
+%     
+% end
+% 
+%  display('Testing svm + Kernel Log-Euclidean Distance');
+%  sigma = 0.1:0.1:2;
+%  test_acc = zeros(length(sigma),1);
+%  scale = 1;
+%  shift = 0;
+%  
+%  parfor i=1:length(sigma)
+%     acc = kth_test_LogEuclidean(path,scale, shift, sigma(i), dim);
+%     test_acc(i) = acc;     
+%  end
+%  
+%  save_results =strcat( 'LogEucl_all_sigma_performance.mat');
+%  save(save_results, 'test_acc', 'sigma', 'dim', 'scale', 'shift');
+
+%% Kernel LED-RBF
+
+display('Training svm + Kernel LED-RBF');
+delta = -10:1:9;
+ACC_train = zeros(length(delta),25);
+parfor i=1:length(delta)
+   acc = kth_train_LED_RBF(path, dim, delta(i));
    ACC_train(i,:) = acc;
     
 end
 
- display('Testing svm + Kernel Log-Euclidean Distance');
- sigma = 0.1:0.1:2;
- test_acc = zeros(length(sigma),1);
+ display('Testing svm + Kernel LED-RBF');
+ delta = -10:1:9;
+ test_acc = zeros(length(delta),1);
  scale = 1;
  shift = 0;
  
- parfor i=1:length(sigma)
-    acc = kth_test_LogEuclidean(path,scale, shift, sigma(i));
+ parfor i=1:length(delta)
+    acc = kth_train_LED_RBF(path,scale, shift, dim, delta(i));
     test_acc(i) = acc;     
  end
  
- save_results =strcat( 'LogEucl_all_sigma_performance.mat');
- save(save_results, 'test_acc', 'sigma', 'dim', 'scale', 'shift');
+ save_results =strcat( 'LED_RBF_all_delta_performance.mat');
+ save(save_results, 'test_acc', 'delta', 'dim', 'scale', 'shift');
+ 
+ %% Kernel LED-Poly
 
+display('Training svm + Kernel LED-POLY');
+n=1:dim;
+ACC_train = zeros(length(n),25);
 
+parfor i=1:length(n)
+   acc = kth_train_LED_POLY(path, dim, n(i));
+   ACC_train(i,:) = acc;
+end
+
+ display('Testing svm + Kernel LED-POLY');
+ n=1:dim;
+ test_acc = zeros(length(n),1);
+ scale = 1;
+ shift = 0;
+ 
+ parfor i=1:length(n)
+    acc = kth_test_LED_POLY(path,scale, shift, dim, n(i));
+    test_acc(i) = acc;     
+ end
+ 
+ save_results =strcat( 'LED_POLY_all_n_performance.mat');
+ save(save_results, 'test_acc', 'n', 'dim', 'scale', 'shift');
+
+ 
+ %%%%%%%%%%%%%%%%%%%%   Grassmann Kernels %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Projection kernel: RBF
 %  display('Training svm + Projection RBF Kernel ');
 %  delta = -14:1:21;
