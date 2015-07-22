@@ -73,6 +73,11 @@ end
 all_p{j} = test_acc;
 end
 
+save_svm_model =strcat( 'projRGB_all_p_delta_performance.mat');
+save(save_svm_model, 'all_p', 'delta', 'p', 'dim', 'scale', 'shift');
+    
+    
+
 %% Projection Kernel: Poly
 %   display('Training svm + Projection Poly Kernel ');
 %   %degree = 1:14;
