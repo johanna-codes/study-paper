@@ -21,7 +21,7 @@ parfor i=1:length(sigma)
 end
 
  display('Testing svm + Kernel Log-Euclidean Distance');
- sigma = 1:0.1:2;
+ sigma = 0.1:0.1:2;
  test_acc = zeros(length(sigma),1);
  scale = 1;
  shift = 0;
