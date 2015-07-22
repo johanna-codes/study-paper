@@ -71,37 +71,37 @@ path  = '~/codes/codes-git/study-paper/trunk/';
 % all_p{j} = test_acc;
 % end
 % 
-% save_results =strcat( 'projRGB_all_p_delta_performance.mat');
+% save_results =strcat( 'projRBF_all_p_delta_performance.mat');
 % save(save_results, 'all_p', 'delta', 'p', 'dim', 'scale', 'shift');
     
     
 
 %% Projection Kernel: Poly
- display('Training svm + Projection Poly Kernel ');
- dim = 14;
- p = 1:14;
- ACC_train = zeros(length(p),25);
- 
-  
-  parfor i=1:length(p)
-     acc = kth_train_ProjectionPoly(path,  dim, p(i));
-     ACC_train(i,:) = acc;
-  end
- 
-  
-  
-%  display('Testing svm + Projection Poly Kernel');
+%  display('Training svm + Projection Poly Kernel ');
 %  dim = 14;
 %  p = 1:14;
-%  test_acc = zeros(length(p),1);
-%  scale = 1;
-%  shift = 0;
+%  ACC_train = zeros(length(p),25);
 %  
-%  parfor i=1:length( p )
-%     acc = kth_test_ProjectionPoly(path,scale, shift, dim, p(i) );
-%     test_acc(i) = acc;     
-%  end
-% 
-% save_results =strcat( 'projPoly_all_p_performance.mat');
-% save(save_results, 'all_p', 'p', 'dim', 'scale', 'shift');
+%   
+%   parfor i=1:length(p)
+%      acc = kth_train_ProjectionPoly(path,  dim, p(i));
+%      ACC_train(i,:) = acc;
+%   end
+%  
+  
+  
+ display('Testing svm + Projection Poly Kernel');
+ dim = 14;
+ p = 1:14;
+ test_acc = zeros(length(p),1);
+ scale = 1;
+ shift = 0;
+ 
+ parfor i=1:length( p )
+    acc = kth_test_ProjectionPoly(path,scale, shift, dim, p(i) );
+    test_acc(i) = acc;     
+ end
+
+save_results =strcat( 'projPoly_all_p_performance.mat');
+save(save_results, 'all_p', 'p', 'dim', 'scale', 'shift');
 
