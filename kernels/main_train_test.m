@@ -1,3 +1,4 @@
+%Kernel Learning for Extrinsic Classification of Manifold Features"
 clear all
 clc
 %addpath('/media/johanna/HD1T/Toolbox/libsvm-3.20/matlab'); --> Home
@@ -8,27 +9,30 @@ path  = '~/codes/codes-git/study-paper/trunk/';
 
 
 %% LogEuclidean
-% display('Training svm + Kernel Log-Euclidean Distance');
-% sigma = 0.1:0.1:1;
-% ACC_train = zeros(length(sigma),25);
-% parfor i=1:length(sigma)
-%    sigma(i);
-%    acc = kth_train_LogEuclidean(path, sigma(i));
-%    ACC_train(i,:) = acc;
-%     
-% end
-% 
-%  display('Testing svm + Kernel Log-Euclidean Distance');
-%  
-%  test_acc = zeros(length(sigma),1);
-%  scale = 1;
-%  shift = 0;
-%  
-%  parfor i=1:length(sigma)
-%     %sigma(i);
-%     acc = kth_test_LogEuclidean(path,scale, shift, sigma(i));
-%     test_acc(i) = acc;     
-%  end
+%It was taken from another paper
+
+display('Training svm + Kernel Log-Euclidean Distance');
+sigma = 0.1:0.1:1;
+ACC_train = zeros(length(sigma),25);
+parfor i=1:length(sigma)
+   acc = kth_train_LogEuclidean(path, sigma(i));
+   ACC_train(i,:) = acc;
+    
+end
+
+ display('Testing svm + Kernel Log-Euclidean Distance');
+ 
+ test_acc = zeros(length(sigma),1);
+ scale = 1;
+ shift = 0;
+ 
+ parfor i=1:length(sigma)
+    acc = kth_test_LogEuclidean(path,scale, shift, sigma(i));
+    test_acc(i) = acc;     
+ end
+ 
+ save_results =strcat( 'LogEucl_all_sigma_performance.mat');
+ save(save_results, 'test_acc', 'sigma', 'dim', 'scale', 'shift');
 
 
 %% Projection kernel: RBF
@@ -90,18 +94,18 @@ path  = '~/codes/codes-git/study-paper/trunk/';
 %  
   
   
- display('Testing svm + Projection Poly Kernel');
- dim = 14;
- p = 1:14;
- test_acc = zeros(length(p),1);
- scale = 1;
- shift = 0;
- 
- parfor i=1:length( p )
-    acc = kth_test_ProjectionPoly(path,scale, shift, dim, p(i) );
-    test_acc(i) = acc;     
- end
-
-save_results =strcat( 'projPoly_all_p_performance.mat');
-save(save_results, 'test_acc', 'p', 'dim', 'scale', 'shift');
+%  display('Testing svm + Projection Poly Kernel');
+%  dim = 14;
+%  p = 1:14;
+%  test_acc = zeros(length(p),1);
+%  scale = 1;
+%  shift = 0;
+%  
+%  parfor i=1:length( p )
+%     acc = kth_test_ProjectionPoly(path,scale, shift, dim, p(i) );
+%     test_acc(i) = acc;     
+%  end
+% 
+% save_results =strcat( 'projPoly_all_p_performance.mat');
+% save(save_results, 'test_acc', 'p', 'dim', 'scale', 'shift');
 
