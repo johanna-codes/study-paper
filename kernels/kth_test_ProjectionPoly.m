@@ -29,7 +29,7 @@ j=1;
       for act_ts = 1:n_actions
           
           real_labels(j) = act_ts;
-          name_load_gp = strcat( load_sub_path, '/grass_pt_', all_people(pe_ts), '_', actions(act_ts), '_dim', int2str(dim), '_p', p,  '.h5');     
+          name_load_gp = strcat( load_sub_path, '/grass_pt_', all_people(pe_ts), '_', actions(act_ts), '_dim', int2str(dim), '_p', num2str(p),  '.h5');     
           hinfo = hdf5info( char(name_load_gp) );
           one_video = hdf5read(hinfo.GroupHierarchy.Datasets(1));
           X_test(:,:,1) = one_video;
