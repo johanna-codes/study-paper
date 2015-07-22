@@ -103,5 +103,5 @@ path  = '~/codes/codes-git/study-paper/trunk/';
  end
 
 save_results =strcat( 'projPoly_all_p_performance.mat');
-save(save_results, 'all_p', 'p', 'dim', 'scale', 'shift');
+save(save_results, 'test_acc', 'p', 'dim', 'scale', 'shift');
 
