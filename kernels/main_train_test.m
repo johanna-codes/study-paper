@@ -38,14 +38,14 @@ dim =14;
 
 %% Kernel LED-RBF
 
-display('Training svm + Kernel LED-RBF');
-delta = -10:1:9;
-ACC_train = zeros(length(delta),25);
-parfor i=1:length(delta)
-   acc = kth_train_LED_RBF(path, dim, delta(i));
-   ACC_train(i,:) = acc;
-    
-end
+% display('Training svm + Kernel LED-RBF');
+% delta = -10:1:9;
+% ACC_train = zeros(length(delta),25);
+% parfor i=1:length(delta)
+%    acc = kth_train_LED_RBF(path, dim, delta(i));
+%    ACC_train(i,:) = acc;
+%     
+% end
 
  display('Testing svm + Kernel LED-RBF');
  delta = -10:1:9;
@@ -54,7 +54,7 @@ end
  shift = 0;
  
  parfor i=1:length(delta)
-    acc = kth_train_LED_RBF(path,scale, shift, dim, delta(i));
+    acc = kth_test_LED_RBF(path,scale, shift, dim, delta(i));
     test_acc(i) = acc;     
  end
  
