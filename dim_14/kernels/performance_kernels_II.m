@@ -51,3 +51,16 @@ set(gca,'FontSize',20);
 
 %Home
 %print('/media/johanna/HD1T/latex-svn/study-paper-report/v3/images/LogEucl_ker_sigma', '-dpng','-r300');
+
+%% LED-RBF Kernel
+figure
+load('LED_RBF_all_delta_performance.mat')
+
+plot(delta,test_acc, '-md','LineWidth',3,'MarkerSize',3)
+%title('LogEuclidean Kernel Kernel','FontSize',30)
+ylabel('(%)','FontSize',20)
+xlabel('\delta','FontSize',20)
+set(gca,'FontSize',20);
+
+%Home
+%print('/media/johanna/HD1T/latex-svn/study-paper-report/v3/images/LogEucl_ker_sigma', '-dpng','-r300');

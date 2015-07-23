@@ -47,19 +47,19 @@ dim =14;
 %     
 % end
 
- display('Testing svm + Kernel LED-RBF');
- delta = -10:1:9;
- test_acc = zeros(length(delta),1);
- scale = 1;
- shift = 0;
- 
- parfor i=1:length(delta)
-    acc = kth_test_LED_RBF(path,scale, shift, dim, delta(i));
-    test_acc(i) = acc;     
- end
- 
- save_results =strcat( 'LED_RBF_all_delta_performance.mat');
- save(save_results, 'test_acc', 'delta', 'dim', 'scale', 'shift');
+%  display('Testing svm + Kernel LED-RBF');
+%  delta = -10:1:9;
+%  test_acc = zeros(length(delta),1);
+%  scale = 1;
+%  shift = 0;
+%  
+%  parfor i=1:length(delta)
+%     acc = kth_test_LED_RBF(path,scale, shift, dim, delta(i));
+%     test_acc(i) = acc;     
+%  end
+%  
+%  save_results =strcat( 'LED_RBF_all_delta_performance.mat');
+%  save(save_results, 'test_acc', 'delta', 'dim', 'scale', 'shift');
  
  %% Kernel LED-Poly
 
