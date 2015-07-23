@@ -5,7 +5,7 @@ clc
 addpath('/home/johanna/toolbox/libsvm-3.20/matlab');% --> Wanda
 
 
-path  = '~/codes/codes-git/study-paper/trunk/';
+path  = '~/codes/codes-git/study-paper/trunk/dim_14/';
 dim =14;
 
  %%%%%%%%%%%%%%%%%%%%   Riemannian Kernels %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
