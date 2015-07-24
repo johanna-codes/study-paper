@@ -41,7 +41,7 @@ grass_points::calculate_onepervideo( field<string> in_all_people, int  in_dim  )
       
       
       //load_folder << path <<"kth-features_dim" << dim <<  "/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
-      load_folder << path <<"kth-features_dim" << dim <<  "_openMP/sc" << sc << "/scale" << scale_factor << "-shift"<< shift ;
+      load_folder << path <<"kth-features_dim" << dim <<  sc << "/scale" << scale_factor << "-shift"<< shift ;
 
       load_feat_video_i << load_folder.str() << "/" << all_people (pe) << "_" << actions(act) << "_dim" << dim  << ".h5";
       
@@ -132,7 +132,7 @@ grass_points::one_video_one_point( std::string load_feat_video_i, int sc, int pe
 
 
 
-// Several Grasmann Poits per Video
+// Several Grasmann Points per Video
 inline
 void
 grass_points::calculate( field<string> in_all_people, int  in_dim  )

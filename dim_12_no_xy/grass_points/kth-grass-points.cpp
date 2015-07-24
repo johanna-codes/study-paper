@@ -55,7 +55,7 @@ main(int argc, char** argv)
   int scale_factor =1;
   
   int total_scenes = 1; //Try only with scenario 1
-  int segment_length = 20;
+  int segment_length = 20; // Not Used
   //int p   = 12; //To obtain the optimise sub-space of order p
   int dim = 14; 
   
