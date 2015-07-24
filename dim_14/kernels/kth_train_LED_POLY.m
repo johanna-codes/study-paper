@@ -46,6 +46,7 @@ for pe_ts= 1: n_peo
     [predict_label, accuracy, dec_values] = svmpredict(labels_train,[[1:size(K_train,1)]' K_train], model);
     %display(accuracy');
     
+    disp(strcat('Doing for n= ', num2str(n)));
     acc = [acc accuracy(1)];
     save_svm_model =strcat( './svm_models/LED-POLY_svm_run_', int2str(pe_ts), '_n', num2str(n),'.mat');
     save(save_svm_model, 'model', 'X_train');
