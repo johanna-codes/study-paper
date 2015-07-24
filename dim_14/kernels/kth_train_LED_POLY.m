@@ -28,6 +28,8 @@ for pe_ts= 1: n_peo
         if pe_tr~=pe_ts
             for act=1: n_actions
                 name_load_cov = strcat( load_sub_path, '/cov_', all_people(pe_tr), '_', actions(act), '_dim', int2str(dim), '.h5');
+                name_display = strcat('cov_', all_people(pe_tr), '_', actions(act), '_dim', int2str(dim), '.h5');                
+                disp(name_display)
                 hinfo = hdf5info( char(name_load_cov) );
                 one_video = hdf5read(hinfo.GroupHierarchy.Datasets(1));
                 X_train(:,:,k) = one_video;
