@@ -31,7 +31,7 @@
 //const std::string path = "/media/johanna/HD1T/codes/datasets_codes/KTH/"; 
 
 //WANDA
-const std::string path  = "/home/johanna/codes/codes-git/study-paper/trunk/";
+const std::string path  = "/home/johanna/codes/codes-git/study-paper/trunk/dim_12_no_xy/";
 
 
 
@@ -60,8 +60,7 @@ main(int argc, char** argv)
   int scale_factor = atoi( argv[1] );
   int shift = atoi( argv[2] );
   int total_scenes = 1; //Only for Scenario 1.
-  int dim = 14; 
-  //int p = 12;//PQ NO SE> POR BOBA> FUE UN ERROR :(
+  int dim = 12; 
   
   field<string> all_people;
   all_people.load(peopleList);
@@ -77,6 +76,7 @@ main(int argc, char** argv)
     
   vec vec_bc = zeros(dim);
   vec vec_pm = zeros(dim);
+  
   for (int p=1; p<= dim; ++p)
   {
     cout << "p= " << p << endl;
