@@ -50,8 +50,8 @@ main(int argc, char** argv)
   //   int shift = atoi( argv[2] );
   
   
-  vec vec_shift;
-  vec_shift << -25 << -20 << -15 << -10 << -5 << 5 << 10 << 15 << 20 << 25 << endr;
+  //vec vec_shift;
+  //vec_shift << -25 << -20 << -15 << -10 << -5 << 5 << 10 << 15 << 20 << 25 << endr;
   int scale_factor =1;
   
   int total_scenes = 1; //Try only with scenario 1
@@ -59,12 +59,13 @@ main(int argc, char** argv)
   //int p   = 12; //To obtain the optimise sub-space of order p
   int dim = 14; 
   
-  for (int i=0; i< vec_shift.n_elem; ++i)
+  //for (int i=0; i< vec_shift.n_elem; ++i)
   {
+    int shift = 0;
     for (int p=1; p<= dim; ++p)
     {
       
-      int shift = vec_shift(i);
+      
       cout << "Gp for shift " << shift << " &  p= " << p << endl;
       
       
