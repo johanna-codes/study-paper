@@ -90,8 +90,8 @@ main(int argc, char** argv)
        //int best_p_PM  = 8;????
        cout << "Training for Grassmann PM, p=  " << p << endl;
        kth_cv_svm_Grass_PM run_kth_cv_svm_PM(path, actionNames, all_people, total_scenes,  dim);
-       run_kth_cv_svm_PM.train(best_p_PM, scale_factor, shift);
-       vec_pm(p-1) = run_kth_cv_svm_PM.test(best_p_PM, scale_factor, shift);
+       run_kth_cv_svm_PM.train(p, scale_factor, shift);
+       vec_pm(p-1) = run_kth_cv_svm_PM.test(p, scale_factor, shift);
        
         //Cross Validation Grassmann Binet-Cauchy Metric
        //best_p_BC = 9;????
