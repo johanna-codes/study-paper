@@ -95,7 +95,7 @@ main(int argc, char** argv)
        
         //Cross Validation Grassmann Binet-Cauchy Metric
        //best_p_BC = 9;????
-       cout << "Training Grassmann with Binet-Cauchy metric, p= " << 9 << endl;
+       cout << "Training Grassmann with Binet-Cauchy metric, p= " << p << endl;
        kth_cv_svm_Grass_BC run_kth_cv_svm_BC(path, actionNames, all_people, total_scenes,  dim);
        run_kth_cv_svm_BC.train(p, scale_factor, shift); 
        vec_bc(p-1) = run_kth_cv_svm_BC.test(p, scale_factor, shift);
