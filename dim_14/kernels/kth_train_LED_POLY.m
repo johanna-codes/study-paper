@@ -43,11 +43,11 @@ for pe_ts= 1: n_peo
     K_train = compute_kernel_svm(X_train,X_train, RIEMANNIAN_KERNEL, gamma);
     model = svmtrain(labels_train, [[1:size(K_train,1)]' K_train], '-t 4 -q ');
     %Borrame Funciona Bien
-    [predict_label, accuracy, dec_values] = svmpredict(labels_train,[[1:size(K_train,1)]' K_train], model);
+    %[predict_label, accuracy, dec_values] = svmpredict(labels_train,[[1:size(K_train,1)]' K_train], model);
     %display(accuracy');
     
     
-    acc = [acc accuracy(1)];
+    %acc = [acc accuracy(1)];
     save_svm_model =strcat( './svm_models/LED-POLY_svm_run_', int2str(pe_ts), '_n', num2str(n),'.mat');
     save(save_svm_model, 'model', 'X_train');
     
