@@ -64,7 +64,6 @@ print('/media/johanna/HD1T/latex-svn/study-paper-report/v3/images/ledRBF_ker_del
 %% LED-POLY Kernel
 figure
 load('LED_POLY_all_n_performance.mat')
-test_acc(2) = nan; %No corrio para n=2.
 plot(p,test_acc, '-bd','LineWidth',3,'MarkerSize',3)
 ylabel('(%)','FontSize',20)
 xlabel('D','FontSize',20)

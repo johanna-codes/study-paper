@@ -67,13 +67,14 @@ display('Training svm + Kernel LED-POLY');
 n=1:dim;
 ACC_train = zeros(length(n),25);
 
-for i=1:length(n)
+for i=15:l20
     acc = kth_train_LED_POLY(path, dim, n(i));
    ACC_train(i,:) = acc;
 end
 
  display('Testing svm + Kernel LED-POLY');
- n=1:dim;
+ %n=1:dim;
+ n=1:20;
  test_acc = zeros(length(n),1);
  scale = 1;
  shift = 0;
