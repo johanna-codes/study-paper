@@ -35,6 +35,7 @@ end
 
 all = [LogEucl; SteinDiv; GrassPM; GrassBC];
 plot(vec_shift,all', '-d', 'LineWidth',3,'MarkerSize',10);
+
 ylim([0 100])
 xlim([-25 25])
 legend('LogEucl','SteinDiv', 'Projection Metric', 'Binet-Cauchy', 'FontSize',30,'FontWeight','bold', 'Location','northeast');
@@ -44,7 +45,7 @@ xlabel('Shift (%)')
 
 % Save the file as PNG
 %Home
-print('/media/johanna/HD1T/latex-svn/study-paper-report/v3/images/all_shifts_II','-dpng','-r300');
+%print('/media/johanna/HD1T/latex-svn/study-paper-report/v3/images/all_shifts_II','-dpng','-r300');
 
 %Nicta
 
