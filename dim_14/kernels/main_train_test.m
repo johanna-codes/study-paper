@@ -80,7 +80,7 @@ end
  scale = 1;
  shift = 0;
  
- parfor i=1:length(n)
+ for i=1:length(n)
      %if (i~=2)
     acc = kth_test_LED_POLY(path,scale, shift, dim, n(i));
     test_acc(i) = acc;  
