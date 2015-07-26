@@ -68,7 +68,7 @@ display('Training svm + Kernel LED-POLY');
 n=1:20;
 ACC_train = zeros(length(n),25);
 
-for i=15:length(n)
+parfor i=15:length(n)
     acc = kth_train_LED_POLY(path, dim, n(i));
     ACC_train(i,:) = acc;
 end
