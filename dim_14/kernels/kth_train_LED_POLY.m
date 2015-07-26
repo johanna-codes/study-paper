@@ -1,7 +1,7 @@
 function acc = kth_train_LED_POLY(path,dim, n)
 
 gamma = 1/n;
-RIEMANNIAN_KERNEL = @(X,Y,gamma) ( gamma*( trace(logm(X)'*logm(Y)) ) )^dim;
+RIEMANNIAN_KERNEL = @(X,Y,gamma) ( gamma*( trace(logm(X)'*logm(Y)) ) )^n;
 
 
 actions = importdata('actionNames.txt');

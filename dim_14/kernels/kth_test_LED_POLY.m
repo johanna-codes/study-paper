@@ -1,7 +1,7 @@
 function acc = kth_test_LED_POLY(path,scale_factor, shift, dim, n)
 
 gamma = 1/n;
-RIEMANNIAN_KERNEL = @(X,Y,gamma) ( gamma*( trace(logm(X)'*logm(Y)) ) )^dim;
+RIEMANNIAN_KERNEL = @(X,Y,gamma) ( gamma*( trace(logm(X)'*logm(Y)) ) )^n;
 
 actions = importdata('actionNames.txt');
 all_people = importdata('people_list.txt');

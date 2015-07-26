@@ -1,7 +1,6 @@
 clear all
 close all
 clc
-close all
 
 
 
@@ -15,7 +14,6 @@ end
 
 
 plot(delta,all_p_mat, '-d','LineWidth',3,'MarkerSize',3)
-%title('Projection RBF Kernel','FontSize',30)
 %min_max = [min(delta), max(delta)+1];
 xlim([min(delta), max(delta)]);
 ylabel('(%)','FontSize',20)
@@ -31,7 +29,6 @@ figure
 load('projPoly_all_p_performance.mat');
 
 plot(p,test_acc, '-d','LineWidth',3,'MarkerSize',3)
-% title('Projection RGB Kernel','FontSize',30)
 ylabel('(%)','FontSize',20)
 xlabel('# of subspaces','FontSize',20)
 set(gca,'FontSize',20);
@@ -44,7 +41,6 @@ figure
 load('LogEucl_all_sigma_performance.mat');
 
 plot(sigma,test_acc, '-gd','LineWidth',3,'MarkerSize',3)
-%title('LogEuclidean Kernel Kernel','FontSize',30)
 ylabel('(%)','FontSize',20)
 xlabel('\sigma','FontSize',20)
 set(gca,'FontSize',20);
@@ -57,10 +53,22 @@ figure
 load('LED_RBF_all_delta_performance.mat')
 
 plot(delta,test_acc, '-md','LineWidth',3,'MarkerSize',3)
-%title('LogEuclidean Kernel Kernel','FontSize',30)
 ylabel('(%)','FontSize',20)
 xlabel('\delta','FontSize',20)
 set(gca,'FontSize',20);
 
 %Home
-%print('/media/johanna/HD1T/latex-svn/study-paper-report/v3/images/LogEucl_ker_sigma', '-dpng','-r300');
+print('/media/johanna/HD1T/latex-svn/study-paper-report/v3/images/ledRBF_ker_delta', '-dpng','-r300');
+
+
+%% LED-POLY Kernel
+figure
+load('LED_POLY_all_n_performance.mat')
+test_acc(2) = nan; %No corrio para n=2.
+plot(p,test_acc, '-bd','LineWidth',3,'MarkerSize',3)
+ylabel('(%)','FontSize',20)
+xlabel('D','FontSize',20)
+set(gca,'FontSize',20);
+
+%Home
+print('/media/johanna/HD1T/latex-svn/study-paper-report/v3/images/ledPoly_ker_delta', '-dpng','-r300');
