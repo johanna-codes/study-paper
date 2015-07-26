@@ -5,7 +5,7 @@ clc
 addpath('/home/johanna/toolbox/libsvm-3.20/matlab');% --> Wanda
 
 
-path  = '~/codes/codes-git/study-paper/trunk/dim_12/';
+path  = '~/codes/codes-git/study-paper/trunk/dim_12_no_xy/';
 dim =12;
 
  
