@@ -63,29 +63,32 @@ dim =14;
  
  %% Kernel LED-Poly
 
-display('Training svm + Kernel LED-POLY');
-n=1:dim;
-ACC_train = zeros(length(n),25);
+% display('Training svm + Kernel LED-POLY');
+% n=1:dim;
+% ACC_train = zeros(length(n),25);
+% 
+% for i=1:length(n)
+%     acc = kth_train_LED_POLY(path, dim, n(i));
+%    ACC_train(i,:) = acc;
+% end
 
-
-for i=2:2
-   acc = kth_train_LED_POLY(path, dim, n(i));
-   ACC_train(i,:) = acc;
-end
-
-%  display('Testing svm + Kernel LED-POLY');
-%  n=1:dim;
-%  test_acc = zeros(length(n),1);
-%  scale = 1;
-%  shift = 0;
-%  
-%  parfor i=1:length(n)
-%     acc = kth_test_LED_POLY(path,scale, shift, dim, n(i));
-%     test_acc(i) = acc;     
-%  end
-%  
-%  save_results =strcat( 'LED_POLY_all_n_performance.mat');
-%  save(save_results, 'test_acc', 'n', 'dim', 'scale', 'shift');
+ display('Testing svm + Kernel LED-POLY');
+ n=1:dim;
+ test_acc = zeros(length(n),1);
+ scale = 1;
+ shift = 0;
+ 
+ parfor i=1:length(n)
+     if (i~=2)
+    acc = kth_test_LED_POLY(path,scale, shift, dim, n(i));
+    test_acc(i) = acc;  
+     end
+     
+     
+ end
+ 
+ save_results =strcat( 'LED_POLY_all_n_performance.mat');
+ save(save_results, 'test_acc', 'n', 'dim', 'scale', 'shift');
 
  
  %%%%%%%%%%%%%%%%%%%%   Grassmann Kernels %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
