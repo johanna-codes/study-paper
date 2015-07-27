@@ -11,32 +11,31 @@ dim =12;
  
  %%%%%%%%%%%%%%%%%%%%   Grassmann Kernels %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Projection kernel: RBF
- display('Training svm + Projection RBF Kernel ');
- delta = -14:1:21;
- p = 1:dim; 
-
- ACC_train = zeros(length(delta),25);
- all_p = cell(length(p),1);
- 
- 
- for j=1:length(p)
-     in_p = p(j);
-     X = sprintf('p = %d ', in_p);
-     disp(X);
-     
- parfor i=1:length(delta)
-    acc = kth_train_ProjectionRBF(path, delta(i), dim, in_p);
-    ACC_train(i,:) = acc;
- end
- 
- all_p{j} = ACC_train;
- end
+%  display('Training svm + Projection RBF Kernel ');
+%  delta = -14:1:21;
+%  p = 1:dim; 
+% 
+%  ACC_train = zeros(length(delta),25);
+%  all_p = cell(length(p),1);
+%  
+%  
+%  for j=1:length(p)
+%      in_p = p(j);
+%      X = sprintf('p = %d ', in_p);
+%      disp(X);
+%      
+%  parfor i=1:length(delta)
+%     acc = kth_train_ProjectionRBF(path, delta(i), dim, in_p);
+%     ACC_train(i,:) = acc;
+%  end
+%  
+%  all_p{j} = ACC_train;
+%  end
 
  
 display('Testing svm + Projection RBF Kernel');
 delta = -14:1:21;
-dim = 14;
-p = 1:14; 
+p = 1:dim; 
 test_acc = zeros( length(delta),1 );
 all_p = cell(length(p),1);
 scale = 1;

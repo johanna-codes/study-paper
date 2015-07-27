@@ -58,22 +58,25 @@ xlabel('\delta','FontSize',20)
 set(gca,'FontSize',20);
 
 %Home
-print('/media/johanna/HD1T/latex-svn/study-paper-report/v3/images/ledRBF_ker_delta', '-dpng','-r300');
+%print('/media/johanna/HD1T/latex-svn/study-paper-report/v3/images/ledRBF_ker_delta', '-dpng','-r300');
 
 
 %% LED-POLY Kernel
 figure
 load('LED_POLY_all_n_performance.mat')
 max_ledPOLY= max(test_acc);
-plot(p,test_acc, '-bd','LineWidth',3,'MarkerSize',3)
+plot(test_acc, '-bd','LineWidth',3,'MarkerSize',3)
 ylabel('(%)','FontSize',20)
 xlabel('D','FontSize',20)
 set(gca,'FontSize',20);
 
 %Home
-print('/media/johanna/HD1T/latex-svn/study-paper-report/v3/images/ledPoly_ker_delta', '-dpng','-r300');
+%print('/media/johanna/HD1T/latex-svn/study-paper-report/v3/images/ledPoly_ker_delta', '-dpng','-r300');
 
-%%ALL Best Perfomances
+%Nicta
+print('/home/johanna/latex-svn/study-paper-reports/v5/images/ledPoly_ker_delta', '-dpng','-r300');
+
+%% ALL Best Perfomances
 close all
 all = [max_projRBF max_projPoly max_LogEucl max_ledRBF max_ledPOLY];
 
@@ -97,7 +100,12 @@ end
 ylim([0 109])
 set(gca,'XTickLabel',Xlabel,'FontSize',15);
 
-print('/media/johanna/HD1T/latex-svn/study-paper-report/v3/images/summary_ker','-dpng','-r300');
+%Home
+%print('/media/johanna/HD1T/latex-svn/study-paper-report/v3/images/summary_ker','-dpng','-r300');
+
+%Nicta
+print('/home/johanna/latex-svn/study-paper-reports/v5/images/summary_ker', '-dpng','-r300');
+
 
 % l{1}='ProjMet'; l{2}='BinCau';
 % legend(h,l);
