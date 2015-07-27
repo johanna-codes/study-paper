@@ -153,7 +153,7 @@ close all
 
 %%BAR with all performance 
 figure
-labels = {'Log_Eucl';'Stein_Div';'Projection';'Binet-Cauchy'};
+labels = {'Log_Eucl';'Stein_Div';'Proj-Metric';'Binet-Cauchy'};
 xname = strtrim(cellstr(num2str(ACC'))') 
 bar(ACC, 'm')
 text(1:numel(ACC),ACC,xname,'horizontalalignment','center','verticalalignment','bottom') 
@@ -183,5 +183,5 @@ myfiguresize = [left, bottom, width, height];
 set(gcf,'PaperPosition', myfiguresize);
 
 % Save the file as PNG
-print('/home/johanna/latex-svn/latex_rioux/reports/study-paper/images/overlapping_bar_all_metrics','-dpng','-r300');
+print('/home/johanna/latex-svn/study-paper-reports/v5/images/overlapping_bar_all_metrics','-dpng','-r300');
 

@@ -2,14 +2,13 @@
 clear all
 close all
 clc
-%optimal p for Grassmann Manifolds & Removing nor_svm
+%optimal p for Grassmann Manifolds & Removing nor_svm and Overlapping
 
-all = [ 80.6667   69.3333   76.0000   76.0000;
-    76.0000   68.0000   67.3333   67.3333;
+all = [ 76.0000   68.0000   67.3333   67.3333;
     79.3333   52.6667   50.6667   56.6667    ];
 
 
-Xlabel = {'Overlapping';'One Segment + NN';'One Segment + Dist. Vectors'};
+Xlabel = {'One Segment + NN';'One Segment + Dist. Vectors'};
 
 h =  bar(all);
 ybuff=2;
@@ -53,4 +52,4 @@ set(gcf,'PaperPosition', myfiguresize);
 %print('/media/johanna/HD1T/latex-svn/study-paper-report/v3/images/summary_shift0_II','-dpng','-r300');
 
 %Nicta
-%print('/home/johanna/latex-svn/study-paper-reports/v5/images/summary_shift0_II','-dpng','-r300');
+print('/home/johanna/latex-svn/study-paper-reports/v5/images/summary_shift0_III','-dpng','-r300');

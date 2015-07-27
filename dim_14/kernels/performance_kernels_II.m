@@ -74,7 +74,7 @@ set(gca,'FontSize',20);
 %print('/media/johanna/HD1T/latex-svn/study-paper-report/v3/images/ledPoly_ker_delta', '-dpng','-r300');
 
 %Nicta
-print('/home/johanna/latex-svn/study-paper-reports/v5/images/ledPoly_ker_delta', '-dpng','-r300');
+%print('/home/johanna/latex-svn/study-paper-reports/v5/images/ledPoly_ker_delta', '-dpng','-r300');
 
 %% ALL Best Perfomances
 close all
@@ -104,7 +104,7 @@ set(gca,'XTickLabel',Xlabel,'FontSize',15);
 %print('/media/johanna/HD1T/latex-svn/study-paper-report/v3/images/summary_ker','-dpng','-r300');
 
 %Nicta
-print('/home/johanna/latex-svn/study-paper-reports/v5/images/summary_ker', '-dpng','-r300');
+%print('/home/johanna/latex-svn/study-paper-reports/v5/images/summary_ker', '-dpng','-r300');
 
 
 % l{1}='ProjMet'; l{2}='BinCau';

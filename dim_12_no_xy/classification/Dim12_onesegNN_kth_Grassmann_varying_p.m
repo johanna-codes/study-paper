@@ -22,7 +22,7 @@ xlabel('subspace order','FontSize',20)
 set(gca,'FontSize',20); 
 
 %Home
-print('/media/johanna/HD1T/latex-svn/study-paper-report/v3/images/Grass_varying_p_NN_dim12_no_xy', '-dpng','-r300');
+%print('/media/johanna/HD1T/latex-svn/study-paper-report/v3/images/Grass_varying_p_NN_dim12_no_xy', '-dpng','-r300');
 
 %% One Grassmann Point per video. SVM (using distances)
  figure
@@ -40,15 +40,19 @@ m_bc = max(BC_svm);
  ylabel('(%)','FontSize',20)
  xlabel('subspace order','FontSize',20)
  set(gca,'FontSize',20); 
-% %Home
- print('/media/johanna/HD1T/latex-svn/study-paper-report/v3/images/Grass_varying_p_SVM_dim12_no_xy', '-dpng','-r300');
-% 
+
+%Home
+%print('/media/johanna/HD1T/latex-svn/study-paper-report/v3/images/Grass_varying_p_SVM_dim12_no_xy', '-dpng','-r300');
+
+%Nicta
+%print('/home/johanna/latex-svn/study-paper-reports/v5/images/Grass_varying_p_SVM_dim12_no_xy', '-dpng','-r300');
+ 
 
 %% Best performances
 close all
 all = [max(PM) max(BC); m_pm m_bc]; 
 
-Xlabel = {'One Segment + NN';'One Segment + SVM (dist)'};
+Xlabel = {'NN';'Dist. vectors'};
 
 h =  bar(all);
 colormap('summer');
@@ -73,5 +77,9 @@ legend(h,l);
 
 
 %Home
-print('/media/johanna/HD1T/latex-svn/study-paper-report/v3/images/Grass_best_p_both_dim12_no_xy','-dpng','-r300');
+%print('/media/johanna/HD1T/latex-svn/study-paper-report/v3/images/Grass_best_p_both_dim12_no_xy','-dpng','-r300');
+
+%Nicta
+print('/home/johanna/latex-svn/study-paper-reports/v5/images/Grass_best_p_both_dim12_no_xy', '-dpng','-r300');
+% 
 
