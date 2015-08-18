@@ -395,7 +395,7 @@ kth_cv_omp::proj_grass(int in_p)
 //    est_labels.save("./results_onesegment/grass_PM_est_labels.dat", raw_ascii);
 //    test_video_list.save("./results_onesegment/grass_PM_test_video_list.dat", raw_ascii);
 //    cout << "Performance for Projection Metric: " << acc*100/n_test << " %" << endl;
-//    acc =   acc*100/n_test;
+   acc =   acc*100/n_test;
    return acc;
 }
 
@@ -543,7 +543,7 @@ kth_cv_omp::BC_grass(int in_p)
 //    est_labels.save("./results_onesegment/grass_BC_est_labels.dat", raw_ascii);
 //    test_video_list.save("./results_onesegment/grass_BC_test_video_list.dat", raw_ascii);
 //    cout << "Performance for Binet-Cauchy: " << acc*100/n_test << " %" << endl;  
-//    acc =   acc*100/n_test;
+   acc =   acc*100/n_test;
    return acc;
   
 }
